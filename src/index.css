@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-black: #050505;
+  --color-dragon-red: #8B0000;
+  --color-dragon-light: #FF1A1A;
+  
+  --font-sans: "Inter", "Poppins", sans-serif;
+}
+
+@layer base {
+  :root {
+    --bg-color: #050505;
+    --text-color: #ffffff;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-[#070707] border border-white/10 rounded-2xl shadow-xl transition-all duration-300;
+  }
+  
+  .glass-card:hover {
+    @apply border-red-500/50 shadow-[0_0_20px_rgba(255,26,26,0.2)] transform -translate-y-1;
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#8B0000] to-[#FF1A1A];
+  }
+  
+  .glow-button {
+    @apply relative overflow-hidden rounded-lg px-6 py-3 font-semibold text-white transition-all hover:scale-105 active:scale-95;
+    background: linear-gradient(to right, #8B0000, #FF1A1A);
+    box-shadow: 0 0 15px rgba(255, 26, 26, 0.4);
+  }
+  
+  .glow-button:hover {
+    box-shadow: 0 0 25px rgba(255, 26, 26, 0.8);
+  }
+}
+
+/* Cinematic text reveal animations */
+@keyframes cinematicReveal {
+  0% { transform: translateY(100%); opacity: 0; filter: blur(5px); }
+  100% { transform: translateY(0); opacity: 1; filter: blur(0); }
+}
+
+@keyframes slowPan {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.reveal-text {
+  animation: cinematicReveal 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+.animate-bg {
+  animation: slowPan 20s infinite ease-in-out;
+}
