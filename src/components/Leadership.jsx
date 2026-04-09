@@ -3,38 +3,39 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Trophy, Medal, Award, X, ExternalLink, CalendarDays } from 'lucide-react';
 
 const leadershipItems = [
-  { title: "Technical Lead – Project Development", image: "", link: "#", detail: "Spearheaded technical architecture and mentored junior members throughout the project lifecycle." },
-  { title: "Hackathon Team Lead", image: "", link: "#", detail: "Led multidisciplinary teams in multiple national hackathons, driving the vision and assigning core technical deliverables." },
-  { title: "Project Presentation Event Lead – ECSTASY", image: "", link: "#", detail: "Organized and managed the flagship project presentation event, coordinating judging panels and student participants." },
-  { title: "Research Publication (AQUA-SENSE)", image: "", link: "#", detail: "Published comprehensive research detailing the intersection of IoT arrays and predictive algorithms in water quality monitoring." },
-  { title: "IEEE Conference Presentation", image: "", link: "#", detail: "Presented IoT hardware findings at an IEEE tech conference to an audience of industry professionals." },
-  { title: "Student Trainer - 3D Printing & Designing", image: "", link: "#", detail: "Conducted hands-on training sessions for peers focusing on CAD modeling and 3D printing rapid prototyping." }
+  { title: "Technical Lead – Project Development", image: "/images/CGS Internship on site.jpeg", link: "#", detail: "Spearheaded technical architecture and mentored junior members throughout the project lifecycle." },
+  { title: "Hackathon Team Lead", image: "/images/Fastest line following robot Gyan mitra team pic.jpeg", link: "#", detail: "Led multidisciplinary teams in multiple national hackathons, driving the vision and assigning core technical deliverables." },
+  { title: "Project Presentation Event Lead – ECSTASY", image: "/images/ECSTASY 2026 event coordinator.jpeg", link: "#", detail: "Organized and managed the flagship project presentation event, coordinating judging panels and student participants." },
+  { title: "Research Publication (AQUA-SENSE)", image: "/images/Journal Publication.jpeg", link: "#", detail: "Published comprehensive research detailing the intersection of IoT arrays and predictive algorithms in water quality monitoring." },
+  { title: "IEEE Conference Presentation", image: "/images/Conference invitation pic.jpeg", link: "#", detail: "Presented IoT hardware findings at an IEEE tech conference to an audience of industry professionals." },
+  { title: "Student Trainer - 3D Printing", image: "/images/3D Printing & Designing Teaching.jpeg", link: "#", detail: "Conducted hands-on training sessions for peers focusing on CAD modeling and 3D printing rapid prototyping." }
 ];
 
 const podiumFinishes = [
-  { title: "Winner – Tirunelveli Innovation Conclave", image: "", link: "#" },
-  { title: "2nd Prize – Hack Odyssey 2k25", image: "", link: "#" },
-  { title: "2nd Prize – Gyan Mitra’25", image: "", link: "#" },
-  { title: "Technoxian World Robotics Championship – Semi-Finalist", image: "", link: "#" }
+  { title: "Winner – Tirunelveli Innovation Conclave", image: "/images/TN Conclave.jpeg", link: "#" },
+  { title: "2nd Prize – Hack Odyssey 2k25", image: "/images/Smart Urban Sustainability System (SUSS) price.jpeg", link: "#" },
+  { title: "2nd Prize – Gyan Mitra’25", image: "/images/Fastest line following robot Gyan mitra price.jpeg", link: "#" },
+  { title: "Technoxian World Robotics Championship", image: "/images/TechnoXian World Cup 2024 certificate.jpeg", link: "#" }
 ];
 
 const participatedEvents = [
-  { title: "National Level Tech Symposium", image: "", link: "#" },
-  { title: "State Level Hackathon", image: "", link: "#" },
-  { title: "Robotics Workshop", image: "", link: "#" },
-  { title: "AI & IoT Expo", image: "", link: "#" }
+  { title: "Aura Hackathon", image: "/images/Aura hackathon.jpeg", link: "#" },
+  { title: "Techathon'24", image: "/images/Techathon'24.jpg", link: "#" },
+  { title: "Theervu'athon '24", image: "/images/Theervu'athon '24.jpg", link: "#" },
+  { title: "Hack O' Holics 5.0", image: "/images/hack o' holics 5.0.jpg", link: "#" }
 ];
 
 const certs = [
-  { title: "Data Analytics (NoviTech)", image: "", link: "#" },
-  { title: "NPTEL IoT (Elite)", image: "", link: "#" },
-  { title: "Machine Learning", image: "", link: "#" },
-  { title: "Data Science", image: "", link: "#" },
-  { title: "Power BI", image: "", link: "#" },
-  { title: "Java OOP", image: "", link: "#" },
-  { title: "Backend Development in Java", image: "", link: "#" },
-  { title: "Digital Marketing", image: "", link: "#" },
-  { title: "PCB Designing", image: "", link: "#" }
+  { title: "Backend Development in Java", image: "/images/backend developmet in java.jpeg", link: "#" },
+  { title: "PCB Designing", image: "/images/PCB designing.jpg", link: "#" },
+  { title: "3D Printing Skill Training", image: "/images/3D printing skill training certificate.jpeg", link: "#" },
+  { title: "Antenna Skill", image: "/images/Antenna skill certificate.jpeg", link: "#" },
+  { title: "Hack Odyssey 2k25", image: "/images/hack odyssey 2k25 certificate.jpeg", link: "#" },
+  { title: "Hack Odyssey 3.0", image: "/images/hack odyssey 3.0 certificate.jpeg", link: "#" },
+  { title: "Codecraft'25", image: "/images/Codecraft'25 certificate.jpeg", link: "#" },
+  { title: "Gyan Mitra'25", image: "/images/Gyan mitra certificate.jpeg", link: "#" },
+  { title: "TN Innovation Conclave", image: "/images/TN conclave certificate.jpeg", link: "#" },
+  { title: "TechnoXian World Cup 2024", image: "/images/TechnoXian World Cup 2024 certificate.jpeg", link: "#" }
 ];
 
 export default function Leadership() {
