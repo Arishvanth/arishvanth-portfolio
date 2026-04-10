@@ -1,28 +1,16 @@
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { useState } from 'react';
 
 export default function Contact() {
   const [formStatus, setFormStatus] = useState('idle');
 
+  // FormSubmit handles submission natively, so we simply manage button states.
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const name = e.target.name.value;
-    const email = e.target.email.value;
-    const message = e.target.message.value;
-    
+    // FormSubmit intercept: We let the native HTML form submit to the endpoint.
+    // To prevent the page looking frozen while redirecting, we just give feedback:
     setFormStatus('submitting');
-    
-    // Fallback mailto trigger for zero-configuration delivery
-    const mailtoLink = `mailto:arishvanth.10@gmail.com?subject=Portfolio%20Contact%20from%20${encodeURIComponent(name)}&body=${encodeURIComponent("Name: " + name + "\nEmail: " + email + "\n\nMessage:\n" + message)}`;
-    
-    setTimeout(() => {
-      window.location.href = mailtoLink;
-      setFormStatus('success');
-      e.target.reset();
-      setTimeout(() => setFormStatus('idle'), 3000);
-    }, 800);
   };
 
   return (
@@ -95,6 +83,10 @@ export default function Contact() {
                   <FaGithub className="w-5 h-5 text-gray-400 group-hover:text-white" />
                   <span className="text-sm font-mono text-gray-400 group-hover:text-white w-hidden md:inline">GitHub</span>
                 </a>
+                <a href="https://www.instagram.com/__the_gt_chad__" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-lg hover:bg-pink-600/20 hover:border-pink-500/50 border border-transparent transition-all group flex items-center gap-3">
+                  <FaInstagram className="w-5 h-5 text-gray-400 group-hover:text-pink-500" />
+                  <span className="text-sm font-mono text-gray-400 group-hover:text-pink-400 w-hidden md:inline">Instagram</span>
+                </a>
               </div>
             </div>
           </div>
@@ -107,12 +99,23 @@ export default function Contact() {
           viewport={{ once: true }}
           className="h-full"
         >
-          <form onSubmit={handleSubmit} className="glass-card p-8 flex flex-col h-full gap-5">
+          <form 
+            action="https://formsubmit.co/arishvanth.10@gmail.com" 
+            method="POST" 
+            onSubmit={handleSubmit} 
+            className="glass-card p-8 flex flex-col h-full gap-5"
+          >
+            {/* FormSubmit Configuration */}
+            <input type="hidden" name="_subject" value="New Portfolio Transmission!" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+            
             <div>
               <label htmlFor="name" className="block text-xs font-mono text-gray-400 mb-2 uppercase">Identity</label>
               <input 
                 type="text" 
                 id="name" 
+                name="name"
                 required
                 className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red-500 transition-colors font-light"
                 placeholder="Name"
@@ -124,6 +127,7 @@ export default function Contact() {
               <input 
                 type="email" 
                 id="email"
+                name="email"
                 required 
                 className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red-500 transition-colors font-light"
                 placeholder="Email Address"
@@ -134,6 +138,7 @@ export default function Contact() {
               <label htmlFor="message" className="block text-xs font-mono text-gray-400 mb-2 uppercase">Transmissions</label>
               <textarea 
                 id="message" 
+                name="message"
                 required
                 className="w-full h-full min-h-[120px] bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red-500 transition-colors font-light resize-none"
                 placeholder="Your message..."

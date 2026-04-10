@@ -1,5 +1,5 @@
 import { Mail, PhoneCall } from 'lucide-react';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -21,6 +21,9 @@ export default function Footer() {
           </a>
           <a href="https://www.linkedin.com/in/arishvanth" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-[rgb(10,102,194)] hover:scale-110 transition-all p-2 bg-white/5 rounded-full hover:bg-white/10">
             <FaLinkedin className="w-5 h-5" />
+          </a>
+          <a href="https://www.instagram.com/__the_gt_chad__" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-pink-500 hover:scale-110 transition-all p-2 bg-white/5 rounded-full hover:bg-white/10">
+            <FaInstagram className="w-5 h-5" />
           </a>
           <a href="mailto:arishvanth.10@gmail.com" className="text-gray-400 hover:text-red-500 hover:scale-110 transition-all p-2 bg-white/5 rounded-full hover:bg-white/10 hover:shadow-[0_0_10px_rgba(255,26,26,0.3)]">
             <Mail className="w-5 h-5" />

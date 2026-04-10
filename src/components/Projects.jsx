@@ -160,7 +160,7 @@ export default function Projects() {
           viewport={{ once: true }}
           className="text-4xl md:text-5xl font-bold flex items-center gap-4"
         >
-          Patents <span className="text-gradient">& Publications</span>
+          Patent <span className="text-gradient">and Journal Publications</span>
           <div className="h-1 flex-grow bg-gradient-to-r from-red-900/50 to-transparent max-w-sm rounded"></div>
         </motion.h2>
       </div>
@@ -218,18 +218,18 @@ export default function Projects() {
             longDesc: "A rigorously vetted academic contribution that formalizes my experimental findings in the scalable IoT analytics sector, pushing the boundary of documented knowledge in my university cohort."
           })}
         >
-          <div className="absolute -inset-1 bg-gradient-to-r from-blue-900 via-blue-500 to-blue-900 rounded-2xl blur opacity-30 animate-pulse"></div>
-          <div className="relative glass-card p-8 flex flex-col items-center text-center gap-6 border-blue-500/50 group h-full justify-center">
-            <div className="w-24 h-24 overflow-hidden rounded-full border-4 border-blue-900 flex items-center justify-center bg-black/50 shadow-[0_0_20px_rgba(26,102,255,0.5)] group-hover:scale-110 transition-transform">
+          <div className="absolute -inset-1 bg-gradient-to-r from-red-900 via-red-500 to-red-900 rounded-2xl blur opacity-30 animate-pulse"></div>
+          <div className="relative glass-card p-8 flex flex-col items-center text-center gap-6 border-red-500/50 group h-full justify-center">
+            <div className="w-24 h-24 overflow-hidden rounded-full border-4 border-red-900 flex items-center justify-center bg-black/50 shadow-[0_0_20px_rgba(255,26,26,0.5)] group-hover:scale-110 transition-transform">
               <img src="/images/Journal Publication.jpeg" alt="Journal Image" className="w-full h-full object-cover" />
             </div>
             <div>
-              <div className="flex items-center justify-center gap-3 text-blue-500 mb-2">
+              <div className="flex items-center justify-center gap-3 text-red-500 mb-2">
                 <Award className="w-6 h-6" />
                 <span className="font-semibold tracking-widest uppercase text-sm">Journal Publication</span>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-blue-100 transition-colors">AQUA-SENSE Water Quality Monitoring</h3>
-              <p className="text-blue-400 font-mono text-sm mb-4">Academic Research Analysis</p>
+              <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-red-100 transition-colors">AQUA-SENSE Water Quality Monitoring</h3>
+              <p className="text-red-400 font-mono text-sm mb-4">Academic Research Analysis</p>
               <p className="text-gray-300 font-light text-sm">
                 Published comprehensive research detailing the intersection of IoT arrays and predictive algorithms in water quality monitoring.
               </p>

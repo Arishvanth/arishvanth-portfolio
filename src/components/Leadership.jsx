@@ -53,11 +53,11 @@ export default function Leadership() {
     document.body.style.overflow = 'auto';
   }
 
-  const openModal = (title, description, icon) => {
-    setActiveModalItem({ title, description, icon });
+  const openModal = (itemProps, iconComponent) => {
+    setActiveModalItem({ ...itemProps, icon: iconComponent });
   };
 
-  const renderCard = (item, idx, IconComponent, colorClass, placeholderText, modalDescFallback) => (
+  const renderCard = (item, idx, IconComponent, colorClass, placeholderText, modalDescFallback, statusLabel, showLinkProp) => (
     <motion.div 
       key={idx}
       initial={{ opacity: 0, scale: 0.9 }}
@@ -68,7 +68,7 @@ export default function Leadership() {
     >
       <div 
         className="w-full h-40 bg-[#030303] rounded-lg mb-4 overflow-hidden relative border border-white/5 cursor-pointer flex-shrink-0" 
-        onClick={() => openModal(item.title, item.detail || modalDescFallback, <IconComponent className={`w-8 h-8 ${colorClass}`} />)}
+        onClick={() => openModal({ ...item, detail: item.detail || modalDescFallback, status: statusLabel, showLink: showLinkProp }, <IconComponent className={`w-8 h-8 ${colorClass}`} />)}
       >
         {item.image ? (
           <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
@@ -82,19 +82,21 @@ export default function Leadership() {
       <div className="mt-auto flex items-center justify-between gap-2">
         <p 
           className="font-bold text-gray-200 text-sm group-hover:text-white transition-colors line-clamp-3 cursor-pointer"
-          onClick={() => openModal(item.title, item.detail || modalDescFallback, <IconComponent className={`w-8 h-8 ${colorClass}`} />)}
+          onClick={() => openModal({ ...item, detail: item.detail || modalDescFallback, status: statusLabel, showLink: showLinkProp }, <IconComponent className={`w-8 h-8 ${colorClass}`} />)}
         >
           {item.title}
         </p>
-        <a 
-          href={item.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="p-2 bg-white/5 rounded hover:bg-red-600 hover:text-white text-gray-400 transition-colors shrink-0"
-          title="Open Link"
-        >
-          <ExternalLink className="w-4 h-4" />
-        </a>
+        {showLinkProp && (
+          <a 
+            href={item.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 bg-white/5 rounded hover:bg-red-600 hover:text-white text-gray-400 transition-colors shrink-0"
+            title="Open Link"
+          >
+            <ExternalLink className="w-4 h-4" />
+          </a>
+        )}
       </div>
     </motion.div>
   );
@@ -115,7 +117,7 @@ export default function Leadership() {
         </motion.h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {leadershipItems.map((item, idx) => renderCard(item, idx, BookOpen, "text-red-500", "Add Image", item.detail))}
+          {leadershipItems.map((item, idx) => renderCard(item, idx, BookOpen, "text-red-500", "Add Image", item.detail, null, false))}
         </div>
       </div>
 
@@ -134,13 +136,13 @@ export default function Leadership() {
         {/* Podium Finishes */}
         <h3 className="text-2xl font-bold text-gray-300 mb-6 border-l-4 border-yellow-500 pl-3">Podium Finishes</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
-          {podiumFinishes.map((item, idx) => renderCard(item, idx, Trophy, "text-yellow-500", "Add Image", "Achieved an exemplary podium finish representing elite competitive success."))}
+          {podiumFinishes.map((item, idx) => renderCard(item, idx, Trophy, "text-yellow-500", "Add Image", "Achieved an exemplary podium finish representing elite competitive success.", "Winner / Podium", true))}
         </div>
 
         {/* Participated Events */}
         <h3 className="text-2xl font-bold text-gray-300 mb-6 border-l-4 border-blue-500 pl-3">Hackathons & Engagements</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {participatedEvents.map((item, idx) => renderCard(item, idx, CalendarDays, "text-blue-400", "Add Image", "Actively engaged, contributed technical insights, and collaborated with peers during this event."))}
+          {participatedEvents.map((item, idx) => renderCard(item, idx, CalendarDays, "text-blue-400", "Add Image", "Actively engaged, contributed technical insights, and collaborated with peers during this event.", "Participant", true))}
         </div>
       </div>
 
@@ -157,7 +159,7 @@ export default function Leadership() {
         </motion.h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {certs.map((item, idx) => renderCard(item, idx, Award, "text-green-400", "Add Certificate Image", `Verified proficiency and extensive knowledge in ${item.title}.`))}
+          {certs.map((item, idx) => renderCard(item, idx, Award, "text-green-400", "Add Certificate Image", `Verified proficiency and extensive knowledge in ${item.title}.`, "Certified", true))}
         </div>
       </div>
 
@@ -181,22 +183,65 @@ export default function Leadership() {
               animate={{ y: 0, scale: 1, opacity: 1 }}
               exit={{ y: 20, scale: 0.95, opacity: 0 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="relative w-full max-w-lg bg-zinc-950 border border-white/10 rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(139,0,0,0.5)] p-8 text-center"
+              className="relative w-full max-w-4xl bg-zinc-950 border border-white/10 rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(139,0,0,0.5)] flex flex-col md:flex-row"
             >
               <button 
                 onClick={() => setActiveModalItem(null)}
-                className="absolute top-4 right-4 p-2 bg-white/5 hover:bg-red-600 rounded-full transition-colors"
+                className="absolute top-4 right-4 p-2 bg-black/50 hover:bg-red-600 rounded-full transition-colors z-50 backdrop-blur-md border border-white/10"
               >
                 <X className="w-5 h-5 text-white" />
               </button>
               
-              <div className="w-16 h-16 rounded-full bg-red-900/20 border border-red-500/50 flex items-center justify-center mx-auto mb-6 shadow-[0_0_15px_rgba(255,26,26,0.3)]">
-                {activeModalItem.icon}
+              <div className="w-full md:w-1/2 bg-[#030303] relative border-b md:border-b-0 md:border-r border-white/10 min-h-[250px] md:min-h-[400px]">
+                {activeModalItem.image ? (
+                  <img src={activeModalItem.image} alt={activeModalItem.title} className="absolute inset-0 w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center text-gray-500 absolute inset-0">
+                    <div className="w-20 h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4">
+                      {activeModalItem.icon}
+                    </div>
+                    <span className="font-mono text-sm uppercase tracking-widest">Image Unavailable</span>
+                  </div>
+                )}
               </div>
-              
-              <h3 className="text-2xl font-bold text-white mb-4">{activeModalItem.title}</h3>
-              <p className="text-gray-300 font-light leading-relaxed">{activeModalItem.description}</p>
-              
+
+              <div className="w-full md:w-1/2 p-8 md:p-10 flex flex-col justify-center bg-[#070707]">
+                <div className="flex flex-wrap items-center gap-3 mb-6">
+                  <div className="p-2 bg-red-900/20 text-red-500 rounded-lg border border-red-500/30">
+                    {activeModalItem.icon}
+                  </div>
+                  {activeModalItem.status && (
+                    <span className="text-xs font-mono font-bold tracking-widest uppercase text-yellow-500 bg-yellow-900/10 px-3 py-1.5 rounded-full border border-yellow-500/20">
+                      {activeModalItem.status}
+                    </span>
+                  )}
+                  {activeModalItem.title.includes("Second Prize") || activeModalItem.title.toLowerCase().includes("winner") ? (
+                    <span className="text-xs font-mono font-bold tracking-widest uppercase text-green-400 bg-green-900/20 px-3 py-1.5 rounded-full border border-green-500/30">
+                      Prize Secured
+                    </span>
+                  ) : null}
+                </div>
+
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 leading-tight">{activeModalItem.title}</h3>
+                
+                <div className="space-y-4 mb-8 flex-grow">
+                  <div>
+                    <span className="text-gray-500 text-xs font-semibold uppercase tracking-widest block mb-2">Event / Certification Details</span>
+                    <p className="text-gray-300 font-light leading-relaxed">{activeModalItem.detail}</p>
+                  </div>
+                </div>
+                
+                {activeModalItem.showLink && (
+                  <a 
+                    href={activeModalItem.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex max-w-max items-center gap-2 glow-button !py-3 !px-6 disabled:opacity-50"
+                  >
+                    View Official Credential <ExternalLink className="w-4 h-4" />
+                  </a>
+                )}
+              </div>
             </motion.div>
           </motion.div>
         )}
