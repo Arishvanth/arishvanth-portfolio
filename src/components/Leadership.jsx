@@ -12,13 +12,13 @@ const leadershipItems = [
 ];
 
 const podiumFinishes = [
-  { title: "Tirunelveli Innovation Conclave – Pitch Fest", image: "/images/TN Conclave.jpeg", link: "#" },
   { title: "24 hr Hackathon – Hack Odyssey 2k25 – Second Prize", image: "/images/Smart Urban Sustainability System (SUSS) price.jpeg", link: "#" },
   { title: "Project Expo – Gyan Mitra’25 – Second Prize", image: "/images/Fastest line following robot Gyan mitra price.jpeg", link: "#" },
   { title: "Technoxian World Cup 2024 – World Robotics Championship – Semi Finals", image: "/images/TechnoXian World Cup 2024 certificate.jpeg", link: "#" }
 ];
 
 const participatedEvents = [
+  { title: "Tirunelveli Innovation Conclave – Pitch Fest", image: "/images/TN Conclave.jpeg", link: "#" },
   { title: "24 hr Hackathon – Codecraft’25", image: "/images/Codecraft'25 certificate.jpeg", link: "#" },
   { title: "24 hr Hackathon – HACK O’ HOLICS 5.0", image: "/images/hack o' holics 5.0.jpg", link: "#" },
   { title: "12 hr Hackathon – Aura 2025", image: "/images/Aura hackathon.jpeg", link: "#" },
