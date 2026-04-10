@@ -152,7 +152,7 @@ export default function Projects() {
       
 
 
-      {/* Patent Highlight */}
+      {/* Patent & Publications Highlight */}
       <div className="mb-8 mt-10">
         <motion.h2 
           initial={{ opacity: 0, x: -20 }}
@@ -160,46 +160,83 @@ export default function Projects() {
           viewport={{ once: true }}
           className="text-4xl md:text-5xl font-bold flex items-center gap-4"
         >
-          Patent <span className="text-gradient">& Innovation</span>
+          Patents <span className="text-gradient">& Publications</span>
           <div className="h-1 flex-grow bg-gradient-to-r from-red-900/50 to-transparent max-w-sm rounded"></div>
         </motion.h2>
       </div>
       
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        className="mb-24 relative hover:scale-[1.02] transition-transform cursor-pointer"
-        onClick={() => setSelectedProject({
-          title: "RFID-Based Access Control System",
-          category: "Patent & Innovation",
-          problem: "Traditional access control systems lack robust and scalable hardware integration.",
-          solution: "A robust embedded security solution utilizing RFID-based authentication for secure, real-world access control applications.",
-          tech: ["RFID", "Embedded Systems", "Security"],
-          images: ["/images/Patent.jpeg"],
-          longDesc: "This patent (No: 202541021013 A) outlines an innovative approach to embedded security. By tying raw RFID authentication into a highly scalable microcontroller framework, it presents a robust method for real-world access control applications and facilities management."
-        })}
-      >
-        <div className="absolute -inset-1 bg-gradient-to-r from-red-900 via-red-500 to-red-900 rounded-2xl blur opacity-30 animate-pulse"></div>
-        <div className="relative glass-card p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 border-red-500/50 group">
-          <div>
-            <div className="flex items-center gap-3 text-red-500 mb-2">
-              <Award className="w-6 h-6" />
-              <span className="font-semibold tracking-widest uppercase text-sm">Official Patent</span>
-            </div>
-            <h3 className="text-3xl font-bold text-white mb-2 group-hover:text-red-100 transition-colors">RFID-Based Access Control System</h3>
-            <p className="text-red-400 font-mono text-sm mb-4">Patent No: 202541021013 A</p>
-            <p className="text-gray-300 font-light max-w-2xl">
-              A robust embedded security solution utilizing RFID-based authentication for secure, real-world access control applications.
-            </p>
-          </div>
-          <div className="flex-shrink-0">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24">
+        {/* Patent Card */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="relative hover:scale-[1.02] transition-transform cursor-pointer h-full"
+          onClick={() => setSelectedProject({
+            title: "RFID-Based Access Control System",
+            category: "Patent & Innovation",
+            problem: "Traditional access control systems lack robust and scalable hardware integration.",
+            solution: "A robust embedded security solution utilizing RFID-based authentication for secure, real-world access control applications.",
+            tech: ["RFID", "Embedded Systems", "Security"],
+            images: ["/images/Patent.jpeg"],
+            longDesc: "This patent (No: 202541021013 A) outlines an innovative approach to embedded security. By tying raw RFID authentication into a highly scalable microcontroller framework, it presents a robust method for real-world access control applications and facilities management."
+          })}
+        >
+          <div className="absolute -inset-1 bg-gradient-to-r from-red-900 via-red-500 to-red-900 rounded-2xl blur opacity-30 animate-pulse"></div>
+          <div className="relative glass-card p-8 flex flex-col items-center text-center gap-6 border-red-500/50 group h-full justify-center">
             <div className="w-24 h-24 overflow-hidden rounded-full border-4 border-red-900 flex items-center justify-center bg-black/50 shadow-[0_0_20px_rgba(255,26,26,0.5)] group-hover:scale-110 transition-transform">
               <img src="/images/Patent.jpeg" alt="Patent Image" className="w-full h-full object-cover" />
             </div>
+            <div>
+              <div className="flex items-center justify-center gap-3 text-red-500 mb-2">
+                <Award className="w-6 h-6" />
+                <span className="font-semibold tracking-widest uppercase text-sm">Official Patent</span>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-red-100 transition-colors">RFID-Based Access Control System</h3>
+              <p className="text-red-400 font-mono text-sm mb-4">Patent No: 202541021013 A</p>
+              <p className="text-gray-300 font-light text-sm">
+                A robust embedded security solution utilizing RFID-based authentication for secure, real-world access control applications.
+              </p>
+            </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+
+        {/* Journal Publication Card */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="relative hover:scale-[1.02] transition-transform cursor-pointer h-full"
+          onClick={() => setSelectedProject({
+            title: "AQUA-SENSE Water Quality Monitoring",
+            category: "Academic Journal",
+            problem: "Contributions to the academic community often lack practical hardware validation.",
+            solution: "Published comprehensive research detailing the intersection of IoT arrays and predictive algorithms.",
+            tech: ["Documentation", "Data Synthesis", "Research"],
+            images: ["/images/Journal Publication.jpeg"],
+            longDesc: "A rigorously vetted academic contribution that formalizes my experimental findings in the scalable IoT analytics sector, pushing the boundary of documented knowledge in my university cohort."
+          })}
+        >
+          <div className="absolute -inset-1 bg-gradient-to-r from-blue-900 via-blue-500 to-blue-900 rounded-2xl blur opacity-30 animate-pulse"></div>
+          <div className="relative glass-card p-8 flex flex-col items-center text-center gap-6 border-blue-500/50 group h-full justify-center">
+            <div className="w-24 h-24 overflow-hidden rounded-full border-4 border-blue-900 flex items-center justify-center bg-black/50 shadow-[0_0_20px_rgba(26,102,255,0.5)] group-hover:scale-110 transition-transform">
+              <img src="/images/Journal Publication.jpeg" alt="Journal Image" className="w-full h-full object-cover" />
+            </div>
+            <div>
+              <div className="flex items-center justify-center gap-3 text-blue-500 mb-2">
+                <Award className="w-6 h-6" />
+                <span className="font-semibold tracking-widest uppercase text-sm">Journal Publication</span>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-blue-100 transition-colors">AQUA-SENSE Water Quality Monitoring</h3>
+              <p className="text-blue-400 font-mono text-sm mb-4">Academic Research Analysis</p>
+              <p className="text-gray-300 font-light text-sm">
+                Published comprehensive research detailing the intersection of IoT arrays and predictive algorithms in water quality monitoring.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </div>
 
       {/* Featured Projects Header */}
       <div className="mb-16">
