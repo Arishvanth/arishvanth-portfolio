@@ -18,7 +18,7 @@ const podiumFinishes = [
 ];
 
 const participatedEvents = [
-  { title: "Tirunelveli Innovation Conclave – Pitch Fest", image: "/images/TN Conclave.jpeg", link: "#" },
+  { title: "Tirunelveli Innovation Conclave – Pitch Fest", image: "/images/TN conclave certificate.jpeg", link: "#" },
   { title: "24 hr Hackathon – Codecraft’25", image: "/images/Codecraft'25 certificate.jpeg", link: "#" },
   { title: "24 hr Hackathon – HACK O’ HOLICS 5.0", image: "/images/hack o' holics 5.0.jpg", link: "#" },
   { title: "12 hr Hackathon – Aura 2025", image: "/images/Aura hackathon.jpeg", link: "#" },
@@ -31,17 +31,17 @@ const participatedEvents = [
 ];
 
 const certs = [
-  { title: "Backend Development in Java", image: "/images/backend developmet in java.jpeg", link: "#" },
-  { title: "PCB Designing", image: "/images/PCB designing.jpg", link: "#" },
-  { title: "3D Printing Skill Training", image: "/images/3D printing skill training certificate.jpeg", link: "#" },
-  { title: "Antenna Skill", image: "/images/Antenna skill certificate.jpeg", link: "#" },
-  { title: "Data Analytics (NoviTech)", image: "/images/Data Analytics certificate.jpg", link: "#" },
   { title: "NPTEL IoT (Elite)", image: "/images/Introduction to Industry 4.0 and Industrial Internet of Things certificate.jpg", link: "#" },
-  { title: "Machine Learning", image: "/images/Basics of Machine Learning certificate.jpg", link: "#" },
   { title: "Data Science", image: "/images/DATA SCIENCE FOUNDATIONS.jpg", link: "#" },
+  { title: "Machine Learning", image: "/images/Basics of Machine Learning certificate.jpg", link: "#" },
+  { title: "Data Analytics (NoviTech)", image: "/images/Data Analytics certificate.jpg", link: "#" },
+  { title: "Backend Development in Java", image: "/images/backend developmet in java.jpeg", link: "#" },
   { title: "Power BI", image: "/images/Power BI workshop certificate.jpg", link: "#" },
   { title: "Java OOP", image: "/images/OOPs in JAVA certificate.jpg", link: "#" },
-  { title: "Digital Marketing", image: "/images/Introduction to Digital Marketing certificate.jpg", link: "#" }
+  { title: "Digital Marketing", image: "/images/Introduction to Digital Marketing certificate.jpg", link: "#" },
+  { title: "PCB Designing", image: "/images/PCB designing.jpg", link: "#" },
+  { title: "3D Printing Skill Training", image: "/images/3D printing skill training certificate.jpeg", link: "#" },
+  { title: "Antenna Skill", image: "/images/Antenna skill certificate.jpeg", link: "#" }
 ];
 
 export default function Leadership() {
@@ -130,7 +130,7 @@ export default function Leadership() {
           className="text-3xl md:text-4xl font-bold mb-10 flex items-center gap-3"
         >
           <Trophy className="text-red-500 w-8 h-8" /> 
-          <span className="text-gradient">Accolades & Engagements</span>
+          <span>Accolades <span className="text-gradient">& Engagements</span></span>
         </motion.h2>
         
         {/* Podium Finishes */}

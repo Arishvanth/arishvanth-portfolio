@@ -75,7 +75,7 @@ export default function Contact() {
             {/* Socials Section */}
             <div className="pt-8 mt-8 border-t border-white/10">
               <p className="text-xs text-gray-500 uppercase tracking-widest mb-4 font-semibold">Socials</p>
-              <div className="flex gap-4">
+              <div className="flex flex-wrap gap-4">
                 <a href="https://www.linkedin.com/in/arishvanth" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-lg hover:bg-blue-600/20 hover:border-blue-500/50 border border-transparent transition-all group flex items-center gap-3">
                   <FaLinkedin className="w-5 h-5 text-gray-400 group-hover:text-blue-500" />
                   <span className="text-sm font-mono text-gray-400 group-hover:text-blue-400 w-hidden md:inline">LinkedIn</span>
@@ -98,13 +98,13 @@ export default function Contact() {
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="h-full"
+          className="h-full w-full max-w-full overflow-hidden"
         >
           <form 
             action="https://formsubmit.co/arishvanth.10@gmail.com" 
             method="POST" 
             onSubmit={handleSubmit} 
-            className="glass-card p-8 flex flex-col h-full gap-5"
+            className="glass-card p-6 sm:p-8 flex flex-col h-full gap-5 w-full"
           >
             {/* FormSubmit Configuration */}
             <input type="hidden" name="_subject" value="New Portfolio Transmission!" />

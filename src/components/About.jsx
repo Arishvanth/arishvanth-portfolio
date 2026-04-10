@@ -6,28 +6,37 @@ const statLists = {
   projects: {
     title: "Projects",
     items: [
-      "Tidal Energy Powered Smart Fishnet System",
+      "Tidal Energy Powered Smart Fishnet",
       "Smart Urban Sustainability System (SUSS)",
-      "Smart Wheelchair Monitoring System",
       "CarePriority – Smart Patient Prioritization",
-      "AI-Powered Receipt & Expense Intelligence",
-      "AQUA-SENSE – Water Quality Monitoring",
-      "Smart Environment Monitoring",
-      "CSSR Operations (SIH Project)",
+      "AI-Powered Indian Bovine Breed Classifier",
+      "Enhancing Body Detection in CSSR Operations",
+      "IoT-Based Smart Environment Monitoring",
+      "Custom Fabric Supply Chain Architecture",
+      "AI-Powered Receipt Intelligence",
+      "AQUA-SENSE Water Quality Monitoring",
+      "Smart Wheelchair Monitoring System",
+      "Low-Voltage Line Breakage Detection",
+      "Crop Health Detection System",
       "Fastest Line Follower Robot"
     ]
   },
   competitions: {
     title: "Competitions & Hackathons",
     items: [
-      "Winner – Tirunelveli Innovation Conclave",
-      "2nd Prize – Hack Odyssey 2k25",
-      "2nd Prize – Gyan Mitra’25",
-      "Technoxian World Robotics Championship",
-      "National Level Tech Symposium",
-      "State Level Hackathon",
-      "Robotics Workshop",
-      "AI & IoT Expo"
+      "Hack Odyssey 2k25 (2nd Prize)",
+      "Gyan Mitra’25 Expo (2nd Prize)",
+      "Technoxian World Robotics (Semi Finals)",
+      "Tirunelveli Innovation Conclave",
+      "Codecraft’25 Hackathon",
+      "HACK O’ HOLICS 5.0 Hackathon",
+      "Aura 2025 Hackathon",
+      "Techathon’24 Project Expo",
+      "Hack Odyssey 3.0 Hackathon",
+      "Theervu’athon’24 Presentation",
+      "BIT V-PRAYUKTI’25 Expo",
+      "Kalam’24 Presentation",
+      "Euphoria’24 Hackathon"
     ]
   },
   patents: {
@@ -45,15 +54,17 @@ const statLists = {
   certifications: {
     title: "Certifications",
     items: [
-      "Data Analytics (NoviTech)",
       "NPTEL IoT (Elite)",
-      "Machine Learning",
-      "Data Science",
+      "Data Science Foundations",
+      "Basics of Machine Learning",
+      "Data Analytics (NoviTech)",
+      "Backend Development in Java",
       "Power BI",
       "Java OOP",
-      "Backend Development in Java",
       "Digital Marketing",
-      "PCB Designing"
+      "PCB Designing",
+      "3D Printing Skill",
+      "Antenna Skill"
     ]
   },
   courses: {
@@ -142,10 +153,10 @@ export default function About() {
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-bold mb-10 flex items-center gap-3 uppercase tracking-widest pl-4"
+          className="text-3xl md:text-4xl font-bold mb-10 flex items-center gap-3 tracking-widest pl-4"
         >
           <UserCircle className="text-red-500 w-8 h-8" />
-          <span className="text-gradient">About Me</span>
+          <span>About <span className="text-gradient">Me</span></span>
         </motion.h2>
 
         <motion.div 
@@ -167,11 +178,7 @@ export default function About() {
           </div>
 
           {/* Narrative Column */}
-          <div className="w-full md:w-2/3 flex flex-col">
-            <h3 className="text-3xl font-bold mb-6 text-white flex items-center gap-3">
-              <span className="w-8 h-1 bg-gradient-to-r from-red-600 to-transparent inline-block rounded"></span>
-              About Me
-            </h3>
+          <div className="w-full md:w-2/3 flex flex-col pt-4 md:pt-0">
             <div className="space-y-4 text-gray-300 text-lg leading-relaxed font-light mb-8">
               <p>
                 My passion lies at the intersection of hardware and intelligence. As an Embedded Systems & IoT Engineer, I thrive on designing systems that sense the physical world, process data accurately, and deliver actionable outcomes.

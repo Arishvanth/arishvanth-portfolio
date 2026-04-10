@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Code2, Cpu, Wifi, BrainCircuit, MonitorPlay, 
-  Globe, ShoppingCart, Wrench, Settings, Users, X 
+  Globe, ShoppingCart, Wrench, Settings, Users, X, TerminalSquare
 } from 'lucide-react';
 
 const skillCategories = [
@@ -97,7 +97,7 @@ export default function Skills() {
           viewport={{ once: true }}
           className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-4"
         >
-          <Cpu className="text-red-500 w-10 h-10" />
+          <TerminalSquare className="text-red-500 w-10 h-10" />
           <span>Technical <span className="text-gradient">Arsenal</span></span>
         </motion.h2>
         <motion.p 
