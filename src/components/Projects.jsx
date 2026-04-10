@@ -6,13 +6,13 @@ import ImageCarousel from './ImageCarousel';
 
 const featuredProjects = [
   {
-    title: "Enhancing Body Detection in CSSR Operations",
-    category: "AI + Embedded Security",
-    images: ["/images/Enhancing Body Detection in CSSR Operations using Advanced Technology (SIH Project) demo1.jpeg", "/images/Enhancing Body Detection in CSSR Operations using Advanced Technology (SIH Project) demo2.jpeg"],
-    problem: "Rescue teams struggle to detect survivors in disaster zones due to low visibility, debris, and time constraints.",
-    solution: "Use thermal drones + AI to detect human presence and prioritize rescue operations.",
-    tech: ["Computer Vision", "Thermal AI", "Hardware Setup"],
-    longDesc: "A smart disaster response system that integrates thermal imaging and AI to identify human heat signatures in real time. The system differentiates between live and non-live bodies, enabling faster and safer rescue operations."
+    title: "Tidal Energy Powered Smart Fishnet",
+    category: "Sustainable Energy",
+    images: ["/images/Fishnet project.jpeg"],
+    problem: "Overfishing & bycatch issues, High fuel cost for fishermen, Lack of sustainable energy.",
+    solution: "Smart fishnet with LED-based fish attraction and Tidal energy generation.",
+    tech: ["Embedded C", "IoT Architecture", "Sensors", "Energy Harvesting"],
+    longDesc: "A dual-purpose system combining sustainable fishing and renewable energy generation. The fishnet attracts target species while generating electricity from ocean tides, reducing environmental impact and operational cost."
   },
   {
     title: "Smart Urban Sustainability System (SUSS)",
@@ -38,18 +38,27 @@ const featuredProjects = [
     tech: ["Hardware Integration", "Sensors", "Data Analytics", "Dashboard"],
     longDesc: "CarePriority is a healthcare system that evaluates patient conditions using real-time data and assigns priority levels. It improves emergency response and ensures critical cases receive immediate attention."
   },
-  {
-    title: "Tidal Energy Powered Smart Fishnet",
-    category: "Sustainable Energy",
-    images: ["/images/Fishnet project.jpeg"],
-    problem: "Overfishing & bycatch issues, High fuel cost for fishermen, Lack of sustainable energy.",
-    solution: "Smart fishnet with LED-based fish attraction and Tidal energy generation.",
-    tech: ["Embedded C", "IoT Architecture", "Sensors", "Energy Harvesting"],
-    longDesc: "A dual-purpose system combining sustainable fishing and renewable energy generation. The fishnet attracts target species while generating electricity from ocean tides, reducing environmental impact and operational cost."
+  { 
+    title: "AI-Powered Indian Bovine Breed Classifier", 
+    category: "Computer Vision & ML",
+    images: [],
+    problem: "Manual cattle breed identification is time-consuming and error-prone.",
+    solution: "Use deep learning + computer vision for automatic classification.",
+    tech: ["Machine Learning", "Image Processing", "Classification"],
+    longDesc: "A machine learning-based system that classifies Indian cattle breeds using image inputs. It enhances accuracy and supports agricultural management through automated breed identification."
   }
 ];
 
 const otherProjects = [
+  {
+    title: "Enhancing Body Detection in CSSR Operations",
+    category: "AI + Embedded Security",
+    images: ["/images/Enhancing Body Detection in CSSR Operations using Advanced Technology (SIH Project) demo1.jpeg", "/images/Enhancing Body Detection in CSSR Operations using Advanced Technology (SIH Project) demo2.jpeg"],
+    problem: "Rescue teams struggle to detect survivors in disaster zones due to low visibility, debris, and time constraints.",
+    solution: "Use thermal drones + AI to detect human presence and prioritize rescue operations.",
+    tech: ["Computer Vision", "Thermal AI", "Hardware Setup"],
+    longDesc: "A smart disaster response system that integrates thermal imaging and AI to identify human heat signatures in real time. The system differentiates between live and non-live bodies, enabling faster and safer rescue operations."
+  },
   { 
     title: "Cheek Gesture-Controlled Wheelchair System", 
     category: "Healthcare + Assistive AI",
@@ -66,16 +75,7 @@ const otherProjects = [
     problem: "Wheelchairs lack health monitoring and emergency alert systems.",
     solution: "Combine gesture control + real-time health monitoring.",
     tech: ["Sensors", "IoT Data", "Alert Algorithms", "Microcontroller"],
-    longDesc: "An advanced wheelchair system integrating movement control with health sensors. It monitors vital parameters and triggers alerts during emergencies, improving safety for elderly and paralysed users."
-  },
-  { 
-    title: "AI-Powered Indian Bovine Breed Classifier", 
-    category: "Computer Vision & ML",
-    images: [],
-    problem: "Manual cattle breed identification is time-consuming and error-prone.",
-    solution: "Use deep learning + computer vision for automatic classification.",
-    tech: ["Machine Learning", "Image Processing", "Classification"],
-    longDesc: "A machine learning-based system that classifies Indian cattle breeds using image inputs. It enhances accuracy and supports agricultural management through automated breed identification."
+    longDesc: "An advanced wheelchair system integrating movement control with health sensors. It monitors vital parameters and triggers alerts emergencies, improving safety for elderly and paralysed users."
   },
   { 
     title: "Crop Health Detection System", 
