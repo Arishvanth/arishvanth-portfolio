@@ -25,9 +25,9 @@ const participatedEvents = [
   { title: "Project Expo – Techathon’24", image: "/images/Techathon'24.jpg", link: "#" },
   { title: "24 hr Hackathon – Hack Odyssey 3.0", image: "/images/hack odyssey 3.0 certificate.jpeg", link: "#" },
   { title: "Paper Presentation – Theervu’athon’24", image: "/images/Theervu'athon '24.jpg", link: "#" },
-  { title: "Project Expo (Line Follower) – BIT V-PRAYUKTI’25", image: "", link: "#" },
-  { title: "Paper Presentation – Kalam’24", image: "", link: "#" },
-  { title: "Elecsphere Odyssey 24 hr Hackathon – Euphoria’24", image: "", link: "#" }
+  { title: "Project Expo (Line Follower) – BIT V-PRAYUKTI’25", image: "/images/BIT V-PRAYUKTI' 25 certificate.jpg", link: "#" },
+  { title: "Paper Presentation – Kalam’24", image: "/images/Kalam certificate certificate.jpg", link: "#" },
+  { title: "Elecsphere Odyssey 24 hr Hackathon – Euphoria’24", image: "/images/kalasalingam Hackathon certification.jpg", link: "#" }
 ];
 
 const certs = [
@@ -35,13 +35,13 @@ const certs = [
   { title: "PCB Designing", image: "/images/PCB designing.jpg", link: "#" },
   { title: "3D Printing Skill Training", image: "/images/3D printing skill training certificate.jpeg", link: "#" },
   { title: "Antenna Skill", image: "/images/Antenna skill certificate.jpeg", link: "#" },
-  { title: "Data Analytics (NoviTech)", image: "", link: "#" },
-  { title: "NPTEL IoT (Elite)", image: "", link: "#" },
-  { title: "Machine Learning", image: "", link: "#" },
-  { title: "Data Science", image: "", link: "#" },
-  { title: "Power BI", image: "", link: "#" },
-  { title: "Java OOP", image: "", link: "#" },
-  { title: "Digital Marketing", image: "", link: "#" }
+  { title: "Data Analytics (NoviTech)", image: "/images/Data Analytics certificate.jpg", link: "#" },
+  { title: "NPTEL IoT (Elite)", image: "/images/Introduction to Industry 4.0 and Industrial Internet of Things certificate.jpg", link: "#" },
+  { title: "Machine Learning", image: "/images/Basics of Machine Learning certificate.jpg", link: "#" },
+  { title: "Data Science", image: "/images/DATA SCIENCE FOUNDATIONS.jpg", link: "#" },
+  { title: "Power BI", image: "/images/Power BI workshop certificate.jpg", link: "#" },
+  { title: "Java OOP", image: "/images/OOPs in JAVA certificate.jpg", link: "#" },
+  { title: "Digital Marketing", image: "/images/Introduction to Digital Marketing certificate.jpg", link: "#" }
 ];
 
 export default function Leadership() {
