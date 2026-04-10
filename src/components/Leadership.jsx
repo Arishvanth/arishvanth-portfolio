@@ -12,17 +12,22 @@ const leadershipItems = [
 ];
 
 const podiumFinishes = [
-  { title: "Winner – Tirunelveli Innovation Conclave", image: "/images/TN Conclave.jpeg", link: "#" },
-  { title: "2nd Prize – Hack Odyssey 2k25", image: "/images/Smart Urban Sustainability System (SUSS) price.jpeg", link: "#" },
-  { title: "2nd Prize – Gyan Mitra’25", image: "/images/Fastest line following robot Gyan mitra price.jpeg", link: "#" },
-  { title: "Technoxian World Robotics Championship", image: "/images/TechnoXian World Cup 2024 certificate.jpeg", link: "#" }
+  { title: "Tirunelveli Innovation Conclave – Pitch Fest", image: "/images/TN Conclave.jpeg", link: "#" },
+  { title: "24 hr Hackathon – Hack Odyssey 2k25 – Second Prize", image: "/images/Smart Urban Sustainability System (SUSS) price.jpeg", link: "#" },
+  { title: "Project Expo – Gyan Mitra’25 – Second Prize", image: "/images/Fastest line following robot Gyan mitra price.jpeg", link: "#" },
+  { title: "Technoxian World Cup 2024 – World Robotics Championship – Semi Finals", image: "/images/TechnoXian World Cup 2024 certificate.jpeg", link: "#" }
 ];
 
 const participatedEvents = [
-  { title: "Aura Hackathon", image: "/images/Aura hackathon.jpeg", link: "#" },
-  { title: "Techathon'24", image: "/images/Techathon'24.jpg", link: "#" },
-  { title: "Theervu'athon '24", image: "/images/Theervu'athon '24.jpg", link: "#" },
-  { title: "Hack O' Holics 5.0", image: "/images/hack o' holics 5.0.jpg", link: "#" }
+  { title: "24 hr Hackathon – Codecraft’25", image: "/images/Codecraft'25 certificate.jpeg", link: "#" },
+  { title: "24 hr Hackathon – HACK O’ HOLICS 5.0", image: "/images/hack o' holics 5.0.jpg", link: "#" },
+  { title: "12 hr Hackathon – Aura 2025", image: "/images/Aura hackathon.jpeg", link: "#" },
+  { title: "Project Expo – Techathon’24", image: "/images/Techathon'24.jpg", link: "#" },
+  { title: "24 hr Hackathon – Hack Odyssey 3.0", image: "/images/hack odyssey 3.0 certificate.jpeg", link: "#" },
+  { title: "Paper Presentation – Theervu’athon’24", image: "/images/Theervu'athon '24.jpg", link: "#" },
+  { title: "Project Expo (Line Follower) – BIT V-PRAYUKTI’25", image: "", link: "#" },
+  { title: "Paper Presentation – Kalam’24", image: "", link: "#" },
+  { title: "Elecsphere Odyssey 24 hr Hackathon – Euphoria’24", image: "", link: "#" }
 ];
 
 const certs = [
