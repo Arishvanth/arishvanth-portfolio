@@ -6,106 +6,134 @@ import ImageCarousel from './ImageCarousel';
 
 const featuredProjects = [
   {
-    title: "Tidal Energy Powered Smart Fishnet System",
-    category: "Sustainable Energy & Embedded Systems",
-    problem: "Lack of sustainable fishing data collection methods taking advantage of local ocean environments.",
-    solution: "Developed an IoT system powered by tidal energy to monitor and collect fishnet status and telemetry data.",
-    tech: ["Embedded C", "IoT Architecture", "Sensors", "Energy Harvesting"],
-    images: ["/images/Fishnet project.jpeg"],
-    longDesc: "This project addresses the critical need for sustainable data collection in oceanic environments. By harnessing tidal energy, the system continuously powers onboard telemetry units and sensors, resulting in zero external energy dependency while monitoring fishnet yields."
+    title: "Enhancing Body Detection in CSSR Operations",
+    category: "AI + Embedded Security",
+    images: ["/images/Enhancing Body Detection in CSSR Operations using Advanced Technology (SIH Project) demo1.jpeg", "/images/Enhancing Body Detection in CSSR Operations using Advanced Technology (SIH Project) demo2.jpeg"],
+    problem: "Rescue teams struggle to detect survivors in disaster zones due to low visibility, debris, and time constraints.",
+    solution: "Use thermal drones + AI to detect human presence and prioritize rescue operations.",
+    tech: ["Computer Vision", "Thermal AI", "Hardware Setup"],
+    longDesc: "A smart disaster response system that integrates thermal imaging and AI to identify human heat signatures in real time. The system differentiates between live and non-live bodies, enabling faster and safer rescue operations."
   },
   {
     title: "Smart Urban Sustainability System (SUSS)",
-    category: "IoT + AI Smart City Platform",
-    problem: "Urban infrastructure lacks real-time, data-driven insight for sustainable maintenance.",
-    solution: "Created an integrated dashboard and monitoring platform combining IoT sensors and AI predictive analysis. Won Hackathon Prize.",
-    tech: ["ESP32", "Python", "Data Processing", "Dashboard Design"],
+    category: "IoT + AI Smart City",
     images: ["/images/Smart Urban Sustainability System (SUSS).jpeg", "/images/Smart Urban Sustainability System (SUSS) price.jpeg"],
-    longDesc: "Winner of multiple hackathons, SUSS utilizes edge computing with ESP32s strategically deployed in urban environments to relay environmental quality and structural telemetry, visualized through a Python-based intelligent dashboard."
+    problem: "Urban areas face issues like traffic congestion, pollution, inefficient waste management, and energy wastage.",
+    solution: "An integrated IoT + AI smart city system managing waste, traffic, air quality, lighting, water, and parking.",
+    tech: ["ESP32", "Python", "Data Processing", "Dashboard Design"],
+    longDesc: "SUSS is a multi-module smart city platform that uses IoT sensors and AI algorithms to optimize urban systems. It improves efficiency, reduces environmental impact, and enhances the quality of life in cities."
   },
   {
-    title: "Smart Wheelchair Monitoring System",
-    category: "Healthcare + IoT",
-    problem: "Limited autonomous monitoring capabilities for wheelchair users in critical situations.",
-    solution: "Built a sensory-equipped wheelchair system with real-time alerts and fall-detection telemetry.",
-    tech: ["Arduino", "MPU6050", "Wireless Comm", "Real-time Data"],
-    images: ["/images/Cheek Gesture based wheelchair.jpeg"],
-    longDesc: "Designed with an empathetic approach to healthcare, this system employs IMUs (MPU6050) and wireless communications to instantly alert caretakers of potential falls or dangerous tilt angles, offering autonomy and safety to users."
-  },
-  {
-    title: "CarePriority – Smart Patient Prioritization",
+    title: "CarePriority – Smart Patient Prioritization System",
     category: "Healthcare + IoT + AI",
-    problem: "Hospitals struggle with triaging patients dynamically during high-influx situations.",
-    solution: "Developed an IoT and AI-driven prioritization system that monitors patient vitals in real-time and dynamically adjusts their priority queue.",
-    tech: ["Hardware Integration", "Sensors", "Data Analytics", "Dashboard"],
     images: [
       "/images/CarePriority.jpeg", 
       "/images/CarePriority old dashboard.jpeg", 
       "/images/CarePriority – Smart Patient Prioritization System working.jpeg", 
-      "/images/CarePriority – Smart Patient Prioritization System hardware.jpeg"
+      "/images/CarePriority – Smart Patient Prioritization System hardware.jpeg",
+      "/images/CarePriority – Smart Patient Prioritization System hardware1.jpeg"
     ],
-    longDesc: "CarePriority fundamentally optimizes the hospital triage queue. By streaming live biometric data directly to an analytics dashboard, it uses vital-sign thresholds and AI analytics to autonomously shift critical cases to the top of the queue."
+    problem: "Hospitals follow first-come-first-serve, risking delays for critical patients.",
+    solution: "A system that prioritizes patients based on vital signs and severity analysis.",
+    tech: ["Hardware Integration", "Sensors", "Data Analytics", "Dashboard"],
+    longDesc: "CarePriority is a healthcare system that evaluates patient conditions using real-time data and assigns priority levels. It improves emergency response and ensures critical cases receive immediate attention."
+  },
+  {
+    title: "Tidal Energy Powered Smart Fishnet",
+    category: "Sustainable Energy",
+    images: ["/images/Fishnet project.jpeg"],
+    problem: "Overfishing & bycatch issues, High fuel cost for fishermen, Lack of sustainable energy.",
+    solution: "Smart fishnet with LED-based fish attraction and Tidal energy generation.",
+    tech: ["Embedded C", "IoT Architecture", "Sensors", "Energy Harvesting"],
+    longDesc: "A dual-purpose system combining sustainable fishing and renewable energy generation. The fishnet attracts target species while generating electricity from ocean tides, reducing environmental impact and operational cost."
   }
 ];
 
 const otherProjects = [
   { 
-    title: "AI-Powered Receipt & Expense Intelligence", 
-    category: "FinTech + AI",
-    images: ["/images/Backend With Java working.jpeg", "/images/Backend With Java.jpeg"],
-    problem: "Manual expense tracking is error-prone and time-consuming.",
-    solution: "Designed an OCR-based system utilizing machine learning to auto-extract, categorize, and analyze expense data.",
-    tech: ["Computer Vision", "OCR", "Data Analytics Workflows"],
-    longDesc: "This software streamlines financial pipelines by automating the extraction of data from receipts via optical character recognition, converting unstructured visual data into a classified spending dashboard."
+    title: "Cheek Gesture-Controlled Wheelchair System", 
+    category: "Healthcare + Assistive AI",
+    images: ["/images/Cheek Gesture based wheelchair.jpeg"],
+    problem: "Paralysed individuals cannot use traditional wheelchair controls.",
+    solution: "Control wheelchair using cheek/facial gestures.",
+    tech: ["Gesture Recognition", "Hardware Integ", "Wireless Comm"],
+    longDesc: "This assistive system uses sensors to detect facial movements and convert them into navigation commands, enabling hands-free mobility for individuals with severe physical limitations."
   },
   { 
-    title: "AQUA-SENSE – Water Quality Monitoring", 
-    category: "IoT + Environment",
-    images: ["/images/IoT-Based Smart Environment Monitoring & Alert System hardware setup.jpeg", "/images/IoT-Based Smart Environment Monitoring & Alert System email alert.jpeg"],
-    problem: "Remote water reservoirs lack instantaneous contamination detection.",
-    solution: "Deployed remote monitoring units to stream real-time chemical balance and turbidity metrics.",
-    tech: ["ESP32", "Sensors", "Wireless Comm"],
-    longDesc: "A modular, scalable IoT installation capable of operating in remote geographies to provide uninterrupted water quality monitoring, reducing the response time to contamination events."
+    title: "Cheek Gesture-Based Health Monitoring Wheelchair", 
+    category: "Healthcare + Embedded IoT",
+    images: [],
+    problem: "Wheelchairs lack health monitoring and emergency alert systems.",
+    solution: "Combine gesture control + real-time health monitoring.",
+    tech: ["Sensors", "IoT Data", "Alert Algorithms", "Microcontroller"],
+    longDesc: "An advanced wheelchair system integrating movement control with health sensors. It monitors vital parameters and triggers alerts during emergencies, improving safety for elderly and paralysed users."
   },
   { 
-    title: "Smart Environment Monitoring", 
+    title: "AI-Powered Indian Bovine Breed Classifier", 
+    category: "Computer Vision & ML",
+    images: [],
+    problem: "Manual cattle breed identification is time-consuming and error-prone.",
+    solution: "Use deep learning + computer vision for automatic classification.",
+    tech: ["Machine Learning", "Image Processing", "Classification"],
+    longDesc: "A machine learning-based system that classifies Indian cattle breeds using image inputs. It enhances accuracy and supports agricultural management through automated breed identification."
+  },
+  { 
+    title: "Crop Health Detection System", 
+    category: "Smart Agriculture",
+    images: [],
+    problem: "Farmers struggle to detect diseases early, leading to crop loss.",
+    solution: "Use image processing and ML to detect plant diseases.",
+    tech: ["Image Processing", "ML", "Edge Compute", "Vision"],
+    longDesc: "A smart agriculture system that analyzes leaf images to identify diseases at early stages. It helps farmers take timely action and improve crop yield."
+  },
+  { 
+    title: "Smart Environment Monitoring System", 
     category: "IoT Systems",
     images: ["/images/Smart Enviromental monitoring system.jpeg", "/images/IoT-Based Smart Environment Monitoring & Alert System blynk setup.jpeg"],
-    problem: "Lack of integrated micro-climate data for localized agriculture.",
-    solution: "Created an array of ambient sensors logging temperature, humidity, and gas levels to a cloud dashboard.",
-    tech: ["Arduino", "Sensors", "Cloud Sync"],
-    longDesc: "Providing highly localized telemetry, this project bridges the gap between hardware sensors and cloud analytics to deliver real-time environmental alerts for proactive decision-making."
+    problem: "Environmental conditions are not monitored continuously, leading to pollution risks and unsafe conditions.",
+    solution: "Use IoT sensors to monitor and alert in real time.",
+    tech: ["Arduino", "Sensors", "Cloud Sync", "Data Logging"],
+    longDesc: "An IoT-based system that tracks environmental parameters like temperature, humidity, and air quality. It provides real-time alerts and supports data-driven environmental monitoring."
   },
   { 
-    title: "CSSR Operations (SIH Project)", 
-    category: "AI + Embedded Security",
-    images: ["/images/Enhancing Body Detection in CSSR Operations using Advanced Technology (SIH Project) demo1.jpeg", "/images/Enhancing Body Detection in CSSR Operations using Advanced Technology (SIH Project) demo2.jpeg"],
-    problem: "Inefficient casualty detection in critical search and rescue missions.",
-    solution: "Developed an advanced body detection system using combined visual and thermal intelligence.",
-    tech: ["Computer Vision", "Hardware Integration", "Algorithms"],
-    longDesc: "A high-stakes integration of visual intelligence aimed at saving lives. By feeding raw camera telemetry through a body-detection AI model, it accelerates the mapping of human presence in chaotic environments."
-  },
-  { 
-    title: "Fastest Line Follower Robot", 
-    category: "Robotics & Hardware",
+    title: "High-Speed Line Follower Robot", 
+    category: "Robotics",
     images: [
       "/images/Fastest line following robot Gyan mitra pic.jpeg", 
       "/images/Fastest line following robot Gyan mitra price.jpeg", 
       "/images/Fastest line following robot erode.jpeg"
     ],
-    problem: "Standard line followers lack deterministic optimization for high-speed routing.",
-    solution: "Engineered a highly optimized PID-controlled chassis achieving top-tier racing speeds.",
+    problem: "Traditional robots lack speed and efficiency in path tracking.",
+    solution: "Develop a high-speed, optimized line-following robot.",
     tech: ["PID Tuning", "Motor Calibration", "Embedded C"],
-    longDesc: "A testament to strict hardware-software optimization. By fine-tuning a custom PID controller loop running directly on bare-metal, this robot achieves incredibly fast track-completion times."
+    longDesc: "A fast autonomous robot that uses sensor feedback and control algorithms to follow paths accurately at high speeds, improving efficiency in robotic navigation tasks."
   },
   { 
-    title: "Research Publication", 
-    category: "Academic",
-    images: ["/images/Journal Publication.jpeg"],
-    problem: "Contributions to the academic community often lack practical hardware validation.",
-    solution: "Published comprehensive research detailing the intersection of IoT arrays and predictive algorithms.",
-    tech: ["Documentation", "Data Synthesis", "Research"],
-    longDesc: "A rigorously vetted academic contribution that formalizes my experimental findings in the scalable IoT analytics sector, pushing the boundary of documented knowledge in my university cohort."
+    title: "AQUA-SENSE: Water Quality & Disease Alert System", 
+    category: "IoT + Public Health",
+    images: ["/images/IoT-Based Smart Environment Monitoring & Alert System hardware setup.jpeg", "/images/IoT-Based Smart Environment Monitoring & Alert System email alert.jpeg"],
+    problem: "Unsafe water leads to waterborne diseases and health risks.",
+    solution: "Monitor water quality and provide early alerts using IoT.",
+    tech: ["ESP32", "Hardware Integration", "Algorithms"],
+    longDesc: "AQUA-SENSE is an IoT-driven system that monitors water parameters like pH and turbidity. It predicts potential health risks and alerts users, ensuring safe water consumption."
+  },
+  { 
+    title: "Low-Voltage Line Breakage Detection System", 
+    category: "Hardware Grid Security",
+    images: [],
+    problem: "Electrical faults go unnoticed, causing power loss and safety hazards.",
+    solution: "Detect voltage drops and trigger instant alerts.",
+    tech: ["Grid Sensors", "Signal Analysys", "Telemetry"],
+    longDesc: "A safety system that continuously monitors electrical lines and detects breakages or faults. It enhances reliability and prevents accidents in power systems."
+  },
+  { 
+    title: "AI-Powered Receipt Management Platform", 
+    category: "FinTech + AI",
+    images: ["/images/Backend With Java working.jpeg", "/images/Backend With Java.jpeg", "/images/Backend With Java1.jpeg"],
+    problem: "Manual expense tracking is time-consuming and inaccurate.",
+    solution: "Use AI to extract and analyze receipt data automatically.",
+    tech: ["Computer Vision", "OCR", "Data Analytics Workflows"],
+    longDesc: "A fintech platform that uses OCR and AI to extract data from receipts, categorize expenses, and provide financial insights. It simplifies expense tracking and improves financial awareness."
   }
 ];
 

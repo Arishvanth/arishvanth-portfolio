@@ -30,12 +30,13 @@ const certs = [
   { title: "PCB Designing", image: "/images/PCB designing.jpg", link: "#" },
   { title: "3D Printing Skill Training", image: "/images/3D printing skill training certificate.jpeg", link: "#" },
   { title: "Antenna Skill", image: "/images/Antenna skill certificate.jpeg", link: "#" },
-  { title: "Hack Odyssey 2k25", image: "/images/hack odyssey 2k25 certificate.jpeg", link: "#" },
-  { title: "Hack Odyssey 3.0", image: "/images/hack odyssey 3.0 certificate.jpeg", link: "#" },
-  { title: "Codecraft'25", image: "/images/Codecraft'25 certificate.jpeg", link: "#" },
-  { title: "Gyan Mitra'25", image: "/images/Gyan mitra certificate.jpeg", link: "#" },
-  { title: "TN Innovation Conclave", image: "/images/TN conclave certificate.jpeg", link: "#" },
-  { title: "TechnoXian World Cup 2024", image: "/images/TechnoXian World Cup 2024 certificate.jpeg", link: "#" }
+  { title: "Data Analytics (NoviTech)", image: "", link: "#" },
+  { title: "NPTEL IoT (Elite)", image: "", link: "#" },
+  { title: "Machine Learning", image: "", link: "#" },
+  { title: "Data Science", image: "", link: "#" },
+  { title: "Power BI", image: "", link: "#" },
+  { title: "Java OOP", image: "", link: "#" },
+  { title: "Digital Marketing", image: "", link: "#" }
 ];
 
 export default function Leadership() {
