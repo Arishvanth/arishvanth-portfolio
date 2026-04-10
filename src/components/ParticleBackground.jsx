@@ -28,10 +28,17 @@ export default function ParticleBackground() {
       mouse.y = null;
     };
 
+    let lastWidth = window.innerWidth;
+    
     const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      init();
+      // Throttle window resize to only Horizontal width changes to completely eliminate 
+      // the mobile 100vh jumping bug caused by the address bar hiding on scroll!
+      if (window.innerWidth !== lastWidth) {
+        lastWidth = window.innerWidth;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        init();
+      }
     };    
 
     window.addEventListener('mousemove', handleMouseMove);

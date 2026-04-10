@@ -102,7 +102,7 @@ export default function Leadership() {
   );
 
   return (
-    <section id="leadership" style={{ zIndex: activeModalItem ? 9999 : 10 }} className="py-20 px-4 sm:px-6 md:px-12 2xl:px-0 relative w-full max-w-[1600px] mx-auto space-y-32">
+    <section id="leadership" style={{ zIndex: activeModalItem ? 9999 : 10 }} className="py-20 px-6 lg:px-12 xl:px-20 relative w-full max-w-7xl mx-auto space-y-32">
       
       {/* Leadership & Research */}
       <div>

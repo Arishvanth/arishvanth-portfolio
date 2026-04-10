@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Award, X } from 'lucide-react';
+import { ExternalLink, Award, X, Lightbulb, Rocket, FolderOpen } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import ImageCarousel from './ImageCarousel';
 
@@ -148,7 +148,7 @@ export default function Projects() {
   }
 
   return (
-    <section id="projects" className={`py-20 px-4 sm:px-6 md:px-12 2xl:px-0 relative w-full max-w-[1600px] mx-auto ${selectedProject ? 'z-[100]' : 'z-10'}`}>
+    <section id="projects" className={`py-20 px-6 lg:px-12 xl:px-20 relative w-full max-w-7xl mx-auto ${selectedProject ? 'z-[100]' : 'z-10'}`}>
       
 
 
@@ -160,8 +160,9 @@ export default function Projects() {
           viewport={{ once: true }}
           className="text-4xl md:text-5xl font-bold flex items-center gap-4"
         >
-          Patent <span className="text-gradient">and Journal Publications</span>
-          <div className="h-1 flex-grow bg-gradient-to-r from-red-900/50 to-transparent max-w-sm rounded"></div>
+          <Lightbulb className="text-red-500 w-10 h-10" />
+          <span>Patent <span className="text-gradient">and Journal Publications</span></span>
+          <div className="h-1 flex-grow bg-gradient-to-r from-red-900/50 to-transparent max-w-sm rounded hidden md:block"></div>
         </motion.h2>
       </div>
       
@@ -246,8 +247,9 @@ export default function Projects() {
           viewport={{ once: true }}
           className="text-4xl md:text-5xl font-bold mb-4 flex items-center gap-4"
         >
-          Featured <span className="text-gradient">Case Studies</span>
-          <div className="h-1 flex-grow bg-gradient-to-r from-red-900/50 to-transparent max-w-sm rounded"></div>
+          <Rocket className="text-red-500 w-10 h-10" />
+          <span>Featured <span className="text-gradient">Case Studies</span></span>
+          <div className="h-1 flex-grow bg-gradient-to-r from-red-900/50 to-transparent max-w-sm rounded hidden md:block"></div>
         </motion.h2>
       </div>
 
@@ -312,8 +314,9 @@ export default function Projects() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="text-2xl font-bold text-white mb-8 border-l-4 border-red-500 pl-4"
+          className="text-2xl font-bold text-white mb-8 border-l-4 border-red-500 pl-4 flex items-center gap-3"
         >
+          <FolderOpen className="text-red-500 w-6 h-6" />
           Other Notable Work
         </motion.h3>
         {/* CHANGED TO 2 COLUMNS PRECISELY AS REQUESTED */}

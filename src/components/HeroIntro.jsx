@@ -4,9 +4,9 @@ export default function HeroIntro() {
   return (
     <motion.div
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
+      exit={{ opacity: 0, filter: "blur(10px)" }}
       transition={{ duration: 1.2, ease: "easeInOut" }}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black overflow-hidden"
+      className="fixed inset-0 w-screen h-screen z-50 flex items-center justify-center bg-black overflow-hidden"
     >
       {/* Background Glow */}
       <motion.div 

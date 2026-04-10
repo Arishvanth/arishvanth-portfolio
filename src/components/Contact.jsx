@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, MessageSquare } from 'lucide-react';
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { useState } from 'react';
 
@@ -14,16 +14,17 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 md:px-12 2xl:px-0 relative w-full max-w-[1400px] mx-auto border-t border-white/5 mt-20 z-10">
+    <section id="contact" className="py-20 px-6 lg:px-12 xl:px-20 relative w-full max-w-5xl mx-auto border-t border-white/5 mt-20 z-10">
       
       <div className="text-center mb-16">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-bold mb-4"
+          className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-4"
         >
-          Initialize <span className="text-gradient">Contact</span>
+          <MessageSquare className="text-red-500 w-10 h-10" />
+          <span>Initialize <span className="text-gradient">Contact</span></span>
         </motion.h2>
         <p className="text-gray-400 font-light">Open for opportunities, collaborations, and architectural discussions.</p>
       </div>

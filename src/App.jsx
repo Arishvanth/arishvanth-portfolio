@@ -23,7 +23,7 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-[#050505] min-h-screen text-white font-sans selection:bg-red-900 selection:text-white">
+    <div className="bg-[#050505] min-h-screen text-white font-sans selection:bg-red-900 selection:text-white overflow-x-hidden w-full relative">
       <AnimatePresence>
         {showIntro && <HeroIntro key="hero-intro" />}
       </AnimatePresence>

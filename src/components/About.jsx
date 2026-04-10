@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Download, X } from 'lucide-react';
+import { ChevronDown, Download, X, UserCircle } from 'lucide-react';
 
 const statLists = {
   projects: {
@@ -93,7 +93,7 @@ export default function About() {
   }
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center pt-32 px-6">
+    <div className="relative min-h-screen flex flex-col items-center pt-32 px-6 lg:px-12 xl:px-20">
       
       {/* Hero Section */}
       <motion.div 
@@ -137,7 +137,17 @@ export default function About() {
       </motion.div>
 
       {/* About Me Section */}
-      <div id="about" className="w-full max-w-[1600px] mx-auto mt-40 pb-20 z-10 px-4 sm:px-6 md:px-12 2xl:px-0">
+      <div id="about" className="w-full max-w-7xl mx-auto mt-40 pb-20 z-10">
+        <motion.h2 
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="text-3xl md:text-4xl font-bold mb-10 flex items-center gap-3 uppercase tracking-widest pl-4"
+        >
+          <UserCircle className="text-red-500 w-8 h-8" />
+          <span className="text-gradient">About Me</span>
+        </motion.h2>
+
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}

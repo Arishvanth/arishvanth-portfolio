@@ -41,7 +41,7 @@ export default function Navbar() {
       transition={{ duration: 1, ease: 'easeOut', delay: 3.5 }} // Shows after bootup sequence
       className={`fixed top-0 w-full z-[80] transition-all duration-300 ${isScrolled ? 'bg-black/80 backdrop-blur-md border-b border-white/10 shadow-[0_0_20px_rgba(139,0,0,0.2)] py-4' : 'bg-transparent py-6'}`}
     >
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-12 2xl:px-0 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         
         {/* Logo */}
         <a 

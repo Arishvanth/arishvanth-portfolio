@@ -88,16 +88,17 @@ export default function Skills() {
   }
 
   return (
-    <section id="skills" className={`py-20 px-4 sm:px-6 md:px-12 2xl:px-0 relative w-full max-w-[1600px] mx-auto ${selectedCategory ? 'z-[100]' : 'z-10'}`}>
+    <section id="skills" className={`py-20 px-6 lg:px-12 xl:px-20 relative w-full max-w-7xl mx-auto ${selectedCategory ? 'z-[100]' : 'z-10'}`}>
       
       <div className="text-center mb-16">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-bold mb-4"
+          className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-4"
         >
-          Technical <span className="text-gradient">Arsenal</span>
+          <Cpu className="text-red-500 w-10 h-10" />
+          <span>Technical <span className="text-gradient">Arsenal</span></span>
         </motion.h2>
         <motion.p 
           initial={{ opacity: 0 }}
