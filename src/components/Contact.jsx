@@ -8,11 +8,21 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const message = e.target.message.value;
+    
     setFormStatus('submitting');
+    
+    // Fallback mailto trigger for zero-configuration delivery
+    const mailtoLink = `mailto:arishvanth.10@gmail.com?subject=Portfolio%20Contact%20from%20${encodeURIComponent(name)}&body=${encodeURIComponent("Name: " + name + "\nEmail: " + email + "\n\nMessage:\n" + message)}`;
+    
     setTimeout(() => {
+      window.location.href = mailtoLink;
       setFormStatus('success');
+      e.target.reset();
       setTimeout(() => setFormStatus('idle'), 3000);
-    }, 1500);
+    }, 800);
   };
 
   return (
@@ -77,11 +87,11 @@ export default function Contact() {
             <div className="pt-8 mt-8 border-t border-white/10">
               <p className="text-xs text-gray-500 uppercase tracking-widest mb-4 font-semibold">Socials</p>
               <div className="flex gap-4">
-                <a href="#" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-lg hover:bg-blue-600/20 hover:border-blue-500/50 border border-transparent transition-all group flex items-center gap-3">
+                <a href="https://www.linkedin.com/in/arishvanth" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-lg hover:bg-blue-600/20 hover:border-blue-500/50 border border-transparent transition-all group flex items-center gap-3">
                   <FaLinkedin className="w-5 h-5 text-gray-400 group-hover:text-blue-500" />
                   <span className="text-sm font-mono text-gray-400 group-hover:text-blue-400 w-hidden md:inline">LinkedIn</span>
                 </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-lg hover:bg-gray-600/20 hover:border-gray-500/50 border border-transparent transition-all group flex items-center gap-3">
+                <a href="https://github.com/Arishvanth" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-lg hover:bg-gray-600/20 hover:border-gray-500/50 border border-transparent transition-all group flex items-center gap-3">
                   <FaGithub className="w-5 h-5 text-gray-400 group-hover:text-white" />
                   <span className="text-sm font-mono text-gray-400 group-hover:text-white w-hidden md:inline">GitHub</span>
                 </a>
