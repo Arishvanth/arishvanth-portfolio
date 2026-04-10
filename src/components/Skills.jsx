@@ -88,7 +88,7 @@ export default function Skills() {
   }
 
   return (
-    <section id="skills" className={`py-20 px-6 relative w-full max-w-7xl mx-auto ${selectedCategory ? 'z-[100]' : 'z-10'}`}>
+    <section id="skills" className={`py-20 px-4 sm:px-6 md:px-12 2xl:px-0 relative w-full max-w-[1600px] mx-auto ${selectedCategory ? 'z-[100]' : 'z-10'}`}>
       
       <div className="text-center mb-16">
         <motion.h2 

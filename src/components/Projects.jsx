@@ -148,7 +148,7 @@ export default function Projects() {
   }
 
   return (
-    <section id="projects" className={`py-20 px-6 relative w-full max-w-7xl mx-auto ${selectedProject ? 'z-[100]' : 'z-10'}`}>
+    <section id="projects" className={`py-20 px-4 sm:px-6 md:px-12 2xl:px-0 relative w-full max-w-[1600px] mx-auto ${selectedProject ? 'z-[100]' : 'z-10'}`}>
       
 
 

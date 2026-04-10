@@ -32,7 +32,7 @@ export default function WorkExperience() {
   }
 
   return (
-    <section id="experience" className={`py-20 px-6 relative w-full max-w-7xl mx-auto ${selectedExp ? 'z-[100]' : 'z-10'}`}>
+    <section id="experience" className={`py-20 px-4 sm:px-6 md:px-12 2xl:px-0 relative w-full max-w-[1600px] mx-auto ${selectedExp ? 'z-[100]' : 'z-10'}`}>
       
       <motion.h2 
         initial={{ opacity: 0, x: -20 }}
