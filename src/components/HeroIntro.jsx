@@ -69,7 +69,8 @@ export default function HeroIntro({ onComplete }) {
       filter.frequency.setValueAtTime(150, ctx.currentTime);
 
       oscSub.connect(filter);
-      oscMid.connect(filter);
+      oscMid.connect(gainMid);
+      gainMid.connect(filter);
       filter.connect(gainSub);
       gainSub.connect(ctx.destination);
 
@@ -121,12 +122,18 @@ export default function HeroIntro({ onComplete }) {
     }
   };
 
+  const handleOverlayClick = () => {
+    if (activated) return;
+    handleActivate(false);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, filter: "blur(15px)" }}
       transition={{ duration: 1.2, ease: "easeInOut" }}
-      className="fixed inset-0 w-screen h-screen z-[999] flex flex-col justify-center items-center bg-black overflow-hidden hud-grid-red px-6 text-white font-mono text-xs select-none"
+      onClick={handleOverlayClick}
+      className={`fixed inset-0 w-screen h-screen z-[999] flex flex-col justify-center items-center bg-black overflow-hidden hud-grid-red px-6 text-white font-mono text-xs select-none ${!activated ? 'cursor-pointer' : ''}`}
     >
       <AnimatePresence mode="wait">
         {!activated ? (
