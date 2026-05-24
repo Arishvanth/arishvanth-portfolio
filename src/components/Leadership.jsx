@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BookOpen, Trophy, Medal, Award, X, ExternalLink, CalendarDays, ChevronRight, Globe, Layers } from 'lucide-react';
+import { BookOpen, Trophy, Medal, Award, X, ExternalLink, CalendarDays, ChevronRight, Globe, Layers, Cpu, BrainCircuit } from 'lucide-react';
 
 const leadershipItems = [
   { 
