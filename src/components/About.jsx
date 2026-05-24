@@ -104,51 +104,9 @@ export default function About() {
   }
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center pt-32 px-6 lg:px-12 xl:px-20">
-      
-      {/* Hero Section */}
-      <motion.div 
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
-        className="text-center max-w-4xl mx-auto z-10"
-      >
-        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-4">
-          Arishvanth <span className="text-gradient">Sriganesh</span>
-        </h1>
-        <h2 className="text-xl md:text-2xl text-gray-400 font-medium tracking-wide mb-8">
-          Embedded Systems & IoT Engineer
-        </h2>
-        
-        <p className="text-lg md:text-xl text-gray-300 leading-relaxed mb-10 max-w-2xl mx-auto font-light">
-          "Building intelligent systems that connect hardware, data, and real-world impact."
-        </p>
+    <div id="about" className="w-full max-w-7xl mx-auto py-24 px-6 lg:px-12 xl:px-20 z-10 relative">
+      <div className="absolute -top-[10%] left-1/2 -translate-x-1/2 w-[70vw] h-[1px] bg-gradient-to-r from-transparent via-red-950 to-transparent"></div>
 
-        <div className="flex flex-col sm:flex-row gap-6 justify-center">
-          <a href="#projects" className="px-8 py-4 rounded-lg border border-red-900 text-white font-semibold hover:bg-red-900/20 transition-all inline-flex items-center justify-center tracking-wide">
-            View Projects
-          </a>
-          <a href="#contact" className="px-8 py-4 rounded-lg border border-red-900 text-white font-semibold hover:bg-red-900/20 transition-all inline-flex items-center justify-center tracking-wide">
-            Contact Me
-          </a>
-          <a href="/resume.pdf" target="_blank" className="px-8 py-4 rounded-lg border border-red-900 text-white font-semibold hover:bg-red-900/20 transition-all inline-flex items-center justify-center gap-2 tracking-wide">
-            <Download className="w-5 h-5" /> Resume
-          </a>
-        </div>
-      </motion.div>
-
-      {/* Scroll indicator */}
-      <motion.div 
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-10 text-red-500 opacity-60 z-10"
-      >
-        <ChevronDown size={32} />
-      </motion.div>
-
-      {/* About Me Section */}
-      <div id="about" className="w-full max-w-7xl mx-auto mt-40 pb-20 z-10">
         <motion.h2 
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -171,7 +129,7 @@ export default function About() {
             <div className="absolute inset-0 bg-red-600 blur-[60px] opacity-20 rounded-full"></div>
             <img 
               src="/images/Profile pic.jpeg" 
-              alt="Arishvanth Sriganesh" 
+              alt="Arishvanth Sriganesh M N" 
               className="relative w-80 h-80 object-cover rounded-2xl border-2 border-red-900/50 shadow-[0_0_30px_rgba(139,0,0,0.4)] hover:scale-105 transition-transform duration-500"
               onError={(e) => { e.target.src = "https://via.placeholder.com/400x400/0a0a0a/ff0000?text=Profile"; }}
             />
@@ -208,7 +166,6 @@ export default function About() {
             
           </div>
         </motion.div>
-      </div>
 
       {/* STATS MODAL POPUP */}
       <AnimatePresence>
@@ -242,7 +199,7 @@ export default function About() {
                 </button>
               </div>
               
-              <div className="p-6 max-h-[60vh] overflow-y-auto">
+              <div className="p-6 max-h-[50vh] overflow-y-auto">
                 <ul className="space-y-3">
                   {statLists[activeStat].items.map((item, idx) => (
                     <li key={idx} className="flex gap-3 text-gray-300 font-light">
@@ -251,6 +208,16 @@ export default function About() {
                     </li>
                   ))}
                 </ul>
+              </div>
+
+              {/* Mobile-friendly bottom dismiss button */}
+              <div className="p-6 border-t border-white/5 bg-black/30 flex w-full">
+                <button
+                  onClick={() => setActiveStat(null)}
+                  className="w-full py-3 bg-red-950/20 hover:bg-red-600/30 text-red-500 hover:text-white border border-red-500/20 hover:border-red-500/50 rounded-xl transition-all duration-300 cursor-pointer uppercase font-mono text-[9px] font-bold tracking-widest text-center"
+                >
+                  DISMISS DETAILED STATS CONSOLE
+                </button>
               </div>
             </motion.div>
           </motion.div>

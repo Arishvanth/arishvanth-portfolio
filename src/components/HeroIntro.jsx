@@ -1,46 +1,117 @@
-import { motion } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Power } from 'lucide-react';
 
-export default function HeroIntro() {
+export default function HeroIntro({ onComplete, onBoot }) {
+  const [activated, setActivated] = useState(false);
+  const [bootReady, setBootReady] = useState(false);
+  const autoBootTimerRef = useRef(null);
+
+  // Set up a 3-second auto-boot timer to guarantee the site loads even without a click interaction
+  useEffect(() => {
+    autoBootTimerRef.current = setTimeout(() => {
+      if (!activated) {
+        handleActivate(true); // Trigger auto-boot
+      }
+    }, 3000);
+
+    return () => {
+      if (autoBootTimerRef.current) {
+        clearTimeout(autoBootTimerRef.current);
+      }
+    };
+  }, [activated]);
+
+  const handleActivate = (isAutoBoot = false) => {
+    if (autoBootTimerRef.current) {
+      clearTimeout(autoBootTimerRef.current);
+    }
+    setActivated(true);
+    
+    // Call the parent onBoot prop callback to trigger the web audio synthesizer!
+    if (onBoot) onBoot();
+    
+    // Auto transition to portfolio after 3.5 seconds
+    setTimeout(() => {
+      setBootReady(true);
+      if (onComplete) onComplete();
+    }, 3500);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0, filter: "blur(10px)" }}
+      exit={{ opacity: 0, filter: "blur(15px)" }}
       transition={{ duration: 1.2, ease: "easeInOut" }}
-      className="fixed inset-0 w-screen h-screen z-50 flex items-center justify-center bg-black overflow-hidden"
+      className="fixed inset-0 w-screen h-screen z-[999] flex flex-col justify-center items-center bg-black overflow-hidden hud-grid-red px-6 text-white font-mono text-xs select-none"
     >
-      {/* Background Glow */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: [0, 0.5, 0] }}
-        transition={{ duration: 3, ease: "easeInOut" }}
-        className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--color-dragon-red)_0%,_transparent_50%)] opacity-30 mix-blend-screen"
-      ></motion.div>
+      <AnimatePresence mode="wait">
+        {!activated ? (
+          // Initial Engage Button Overlay
+          <motion.div 
+            key="activator"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col items-center gap-6 text-center max-w-sm"
+          >
+            {/* Spinning decorative concentric scopes */}
+            <div className="relative w-32 h-32 flex items-center justify-center">
+              <div className="absolute inset-0 border border-red-500/20 rounded-full animate-spin-slow"></div>
+              <div className="absolute inset-2 border border-dashed border-red-600/30 rounded-full animate-spin-reverse-slow"></div>
+              
+              <button 
+                onClick={() => handleActivate(false)}
+                className="w-20 h-20 rounded-full border border-red-500/40 bg-red-950/20 hover:bg-red-600/30 text-red-500 hover:text-white transition-all shadow-[0_0_25px_rgba(255,26,26,0.3)] hover:shadow-[0_0_45px_rgba(255,26,26,0.7)] flex items-center justify-center cursor-pointer active:scale-95 group z-10"
+              >
+                <Power className="w-8 h-8 group-hover:scale-115 transition-transform" />
+              </button>
+            </div>
+            
+            <div className="space-y-2">
+              <h2 className="text-sm font-bold tracking-[0.25em] text-white uppercase">LAUNCH SYSTEM CORE</h2>
+              <p className="text-gray-500 text-[10px] leading-relaxed uppercase">
+                TAP TO UNLOCK HIGH-FIDELITY AUDIO & ACTIVE HUD VISUALS
+              </p>
+              <p className="text-red-500/50 text-[9px] font-mono tracking-wider pt-2 uppercase">
+                AUTO-BOOT INITIATES IN 3 SECONDS
+              </p>
+            </div>
+          </motion.div>
+        ) : (
+          // Immersive Clean Name Reveal (Centered and Initial M N Removed for Perfect Alignment)
+          <motion.div 
+            key="reveal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center relative max-w-3xl z-10"
+          >
+            {/* Pulsing visual halo */}
+            <div className="absolute -inset-10 bg-[radial-gradient(circle_at_center,rgba(255,26,26,0.12)_0%,transparent_60%)] animate-pulse-glow pointer-events-none" />
 
-      {/* Cinematic Text Reveal */}
-      <motion.div
-        initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
-        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        transition={{ duration: 1.5, ease: "easeOut", delay: 0.5 }}
-        className="relative z-10 text-center"
-      >
-        <h1 className="text-4xl md:text-7xl font-bold tracking-[0.2em] text-white uppercase drop-shadow-[0_0_15px_rgba(255,26,26,0.8)]">
-          Arishvanth <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400">Sriganesh</span>
-        </h1>
-        <motion.div 
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 1, delay: 1.2, ease: "circOut" }}
-          className="h-[2px] w-full bg-gradient-to-r from-transparent via-red-600 to-transparent mt-6 origin-center shadow-[0_0_10px_rgba(255,26,26,0.8)]"
-        ></motion.div>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.8 }}
-          className="mt-6 text-sm md:text-lg tracking-widest text-gray-400 font-light uppercase"
-        >
-          System Initializing...
-        </motion.p>
-      </motion.div>
+            <h1 className="text-4xl md:text-7xl font-extrabold tracking-[0.2em] text-white uppercase drop-shadow-[0_0_20px_rgba(255,26,26,0.6)] font-sans">
+              ARISHVANTH <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400">SRIGANESH</span>
+            </h1>
+            
+            <motion.div 
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 1.4, delay: 0.4, ease: "circOut" }}
+              className="h-[2px] w-full bg-gradient-to-r from-transparent via-red-600 to-transparent mt-8 origin-center shadow-[0_0_15px_rgba(255,26,26,0.7)]"
+            ></motion.div>
+            
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0.3, 0.9, 0.3] }}
+              transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+              className="mt-8 text-xs tracking-[0.35em] text-red-500 font-bold uppercase"
+            >
+              SYSTEM CORE INITIALIZING...
+            </motion.p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }

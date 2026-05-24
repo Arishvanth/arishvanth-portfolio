@@ -1,51 +1,112 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BookOpen, Trophy, Medal, Award, X, ExternalLink, CalendarDays } from 'lucide-react';
+import { BookOpen, Trophy, Medal, Award, X, ChevronRight, Globe, Layers, Cpu, BrainCircuit } from 'lucide-react';
 
 const leadershipItems = [
-  { title: "Technical Lead – Project Development", image: "/images/CGS Internship on site.jpeg", link: "#", detail: "Spearheaded technical architecture and mentored junior members throughout the project lifecycle." },
-  { title: "Hackathon Team Lead", image: "/images/Fastest line following robot Gyan mitra team pic.jpeg", link: "#", detail: "Led multidisciplinary teams in multiple national hackathons, driving the vision and assigning core technical deliverables." },
-  { title: "Project Presentation Event Lead – ECSTASY", image: "/images/ECSTASY 2026 event coordinator.jpeg", link: "#", detail: "Organized and managed the flagship project presentation event, coordinating judging panels and student participants." },
-  { title: "Research Publication (AQUA-SENSE)", image: "/images/Journal Publication.jpeg", link: "#", detail: "Published comprehensive research detailing the intersection of IoT arrays and predictive algorithms in water quality monitoring." },
-  { title: "IEEE Conference Presentation", image: "/images/Conference invitation pic.jpeg", link: "#", detail: "Presented IoT hardware findings at an IEEE tech conference to an audience of industry professionals." },
-  { title: "Student Trainer - 3D Printing", image: "/images/3D Printing & Designing Teaching.jpeg", link: "#", detail: "Conducted hands-on training sessions for peers focusing on CAD modeling and 3D printing rapid prototyping." }
+  { 
+    title: "Technical Lead – Project Development", 
+    image: "/images/CGS Internship on site.jpeg", 
+    detail: "Spearheaded technical architecture and mentored junior members throughout the project lifecycle." 
+  },
+  { 
+    title: "Hackathon Team Lead", 
+    image: "/images/Fastest line following robot Gyan mitra team pic.jpeg", 
+    detail: "Led multidisciplinary teams in multiple national hackathons, driving the vision and assigning core technical deliverables." 
+  },
+  { 
+    title: "Project Presentation Event Lead – ECSTASY", 
+    image: "/images/ECSTASY 2026 event coordinator.jpeg", 
+    detail: "Organized and managed the flagship project presentation event, coordinating judging panels and student participants." 
+  },
+  { 
+    title: "Research Publication (AQUA-SENSE)", 
+    image: "/images/Journal Publication.jpeg", 
+    detail: "Published comprehensive research detailing the intersection of IoT arrays and predictive algorithms in water quality monitoring." 
+  },
+  { 
+    title: "IEEE Conference Presentation", 
+    image: "/images/Conference invitation pic.jpeg", 
+    detail: "Presented IoT hardware findings at an IEEE tech conference to an audience of industry professionals." 
+  },
+  { 
+    title: "Student Trainer - 3D Printing", 
+    image: "/images/3D Printing & Designing Teaching.jpeg", 
+    detail: "Conducted hands-on training sessions for peers focusing on CAD modeling and 3D printing rapid prototyping." 
+  }
 ];
 
 const podiumFinishes = [
-  { title: "24 hr Hackathon – Hack Odyssey 2k25 – Second Prize", image: "/images/Smart Urban Sustainability System (SUSS) price.jpeg", link: "#" },
-  { title: "Project Expo – Gyan Mitra’25 – Second Prize", image: "/images/Fastest line following robot Gyan mitra price.jpeg", link: "#" },
-  { title: "Technoxian World Cup 2024 – World Robotics Championship – Semi Finals", image: "/images/TechnoXian World Cup 2024 certificate.jpeg", link: "#" }
+  { 
+    title: "Hack Odyssey 2k25 – Second Prize Winner", 
+    image: "/images/Smart Urban Sustainability System (SUSS) price.jpeg", 
+    detail: "Won 2nd prize in the prestigious 24-Hour National Hack Odyssey by engineering SUSS—an integrated ESP32 + edge AI smart city system managing traffic flow, smart waste bins, and sustainable micro-grids.",
+    badge: "National Hackathon Podium",
+    sub: "24-Hour Hack Odyssey // 2nd Place Winner"
+  },
+  { 
+    title: "Gyan Mitra’25 Project Expo – Second Prize Winner", 
+    image: "/images/Fastest line following robot Gyan mitra price.jpeg", 
+    detail: "Awarded 2nd prize in the national-level Gyan Mitra'25 Project Expo for engineering and calibrating a high-speed, PID-controlled autonomous line-following robot resolving complex tracking trajectories.",
+    badge: "National Project Expo Podium",
+    sub: "Technical Project Expo // 2nd Place Winner"
+  }
 ];
 
 const participatedEvents = [
-  { title: "Tirunelveli Innovation Conclave – Pitch Fest", image: "/images/TN conclave certificate.jpeg", link: "#" },
-  { title: "24 hr Hackathon – Codecraft’25", image: "/images/Codecraft'25 certificate.jpeg", link: "#" },
-  { title: "24 hr Hackathon – HACK O’ HOLICS 5.0", image: "/images/hack o' holics 5.0.jpg", link: "#" },
-  { title: "12 hr Hackathon – Aura 2025", image: "/images/Aura hackathon.jpeg", link: "#" },
-  { title: "Project Expo – Techathon’24", image: "/images/Techathon'24.jpg", link: "#" },
-  { title: "24 hr Hackathon – Hack Odyssey 3.0", image: "/images/hack odyssey 3.0 certificate.jpeg", link: "#" },
-  { title: "Paper Presentation – Theervu’athon’24", image: "/images/Theervu'athon '24.jpg", link: "#" },
-  { title: "Project Expo (Line Follower) – BIT V-PRAYUKTI’25", image: "/images/BIT V-PRAYUKTI' 25 certificate.jpg", link: "#" },
-  { title: "Paper Presentation – Kalam’24", image: "/images/Kalam certificate certificate.jpg", link: "#" },
-  { title: "Elecsphere Odyssey 24 hr Hackathon – Euphoria’24", image: "/images/kalasalingam Hackathon certification.jpg", link: "#" }
+  { title: "Tirunelveli Innovation Conclave – Pitch Fest", image: "/images/TN conclave certificate.jpeg", link: "#", detail: "Presented smart ecological grid concepts at the regional innovation pitch fest." },
+  { title: "24 hr Hackathon – Codecraft’25", image: "/images/Codecraft'25 certificate.jpeg", link: "#", detail: "Collaborated on low-latency web database integration systems." },
+  { title: "24 hr Hackathon – HACK O’ HOLICS 5.0", image: "/images/hack o' holics 5.0.jpg", link: "#", detail: "Engineered emergency vital alert signals." },
+  { title: "12 hr Hackathon – Aura 2025", image: "/images/Aura hackathon.jpeg", link: "#", detail: "Built dynamic sensor telemetry streams." },
+  { title: "Project Expo – Techathon’24", image: "/images/Techathon'24.jpg", link: "#", detail: "Presented IoT-based monitoring networks." },
+  { title: "24 hr Hackathon – Hack Odyssey 3.0", image: "/images/hack odyssey 3.0 certificate.jpeg", link: "#", detail: "Engineered automated edge detection sensors." },
+  { title: "Paper Presentation – Theervu’athon’24", image: "/images/Theervu'athon '24.jpg", link: "#", detail: "Presented papers on smart hydro-current generators." },
+  { title: "Project Expo (Line Follower) – BIT V-PRAYUKTI’25", image: "/images/BIT V-PRAYUKTI' 25 certificate.jpg", link: "#", detail: "Navigated autonomous speed tracking courses." },
+  { title: "Paper Presentation – Kalam’24", image: "/images/Kalam certificate certificate.jpg", link: "#", detail: "Showcased embedded diagnostics methodologies." },
+  { title: "Elecsphere Odyssey 24 hr Hackathon – Euphoria’24", image: "/images/kalasalingam Hackathon certification.jpg", link: "#", detail: "Devised off-grid marine solar arrays." }
 ];
 
-const certs = [
-  { title: "NPTEL IoT (Elite)", image: "/images/Introduction to Industry 4.0 and Industrial Internet of Things certificate.jpg", link: "#" },
-  { title: "Data Science", image: "/images/DATA SCIENCE FOUNDATIONS.jpg", link: "#" },
-  { title: "Machine Learning", image: "/images/Basics of Machine Learning certificate.jpg", link: "#" },
-  { title: "Data Analytics (NoviTech)", image: "/images/Data Analytics certificate.jpg", link: "#" },
-  { title: "Backend Development in Java", image: "/images/backend developmet in java.jpeg", link: "#" },
-  { title: "Power BI", image: "/images/Power BI workshop certificate.jpg", link: "#" },
-  { title: "Java OOP", image: "/images/OOPs in JAVA certificate.jpg", link: "#" },
-  { title: "Digital Marketing", image: "/images/Introduction to Digital Marketing certificate.jpg", link: "#" },
-  { title: "PCB Designing", image: "/images/PCB designing.jpg", link: "#" },
-  { title: "3D Printing Skill Training", image: "/images/3D printing skill training certificate.jpeg", link: "#" },
-  { title: "Antenna Skill", image: "/images/Antenna skill certificate.jpeg", link: "#" }
+// Organized Certifications catalog
+const groupedCerts = [
+  {
+    category: "IoT & Hardware Diagnostics",
+    icon: <Cpu className="w-5 h-5 text-red-500" />,
+    items: [
+      { title: "NPTEL IoT (Elite)", image: "/images/Introduction to Industry 4.0 and Industrial Internet of Things certificate.jpg", detail: "Elite certification covering Industry 4.0 standards, industrial networks, and IoT routing frameworks." },
+      { title: "PCB Designing", image: "/images/PCB designing.jpg", detail: "Hands-on design of double-layer circuit traces and trace route clearance protocols." },
+      { title: "3D Printing Skill Training", image: "/images/3D printing skill training certificate.jpeg", detail: "Slicing, rapid rapid-prototyping, and printing precise structural housings." }
+    ]
+  },
+  {
+    category: "Machine Learning & Data Science",
+    icon: <BrainCircuit className="w-5 h-5 text-red-500" />,
+    items: [
+      { title: "Machine Learning Foundations", image: "/images/Basics of Machine Learning certificate.jpg", detail: "Supervised and unsupervised learning, regression trees, and classification pipelines." },
+      { title: "Data Science", image: "/images/DATA SCIENCE FOUNDATIONS.jpg", detail: "Data cleaning, statistical models, and pattern extraction on large datasets." },
+      { title: "Data Analytics (NoviTech)", image: "/images/Data Analytics certificate.jpg", detail: "Data exploration, feature engineering, and automated analytics routines." },
+      { title: "Power BI", image: "/images/Power BI workshop certificate.jpg", detail: "Building interactive corporate business intelligence and diagnostic charts." }
+    ]
+  },
+  {
+    category: "Software & Architecture",
+    icon: <Layers className="w-5 h-5 text-red-500" />,
+    items: [
+      { title: "Backend Development in Java", image: "/images/backend developmet in java.jpeg", detail: "Handling multithreaded backend servers, REST APIs, and servlet integration in Java." },
+      { title: "Java OOP", image: "/images/OOPs in JAVA certificate.jpg", detail: "Encapsulation, polymorphic routing, and structured database abstraction patterns in Java." },
+      { title: "Digital Marketing", image: "/images/Introduction to Digital Marketing certificate.jpg", detail: "SEO customization, search indexing pipelines, and metadata tracking rules." }
+    ]
+  },
+  {
+    category: "Specialized Engineering Skills",
+    icon: <Award className="w-5 h-5 text-red-500" />,
+    items: [
+      { title: "Antenna Skill", image: "/images/Antenna skill certificate.jpeg", detail: "RF signal modeling, impedance tuning, and antenna wavelength prototyping." }
+    ]
+  }
 ];
 
 export default function Leadership() {
   const [activeModalItem, setActiveModalItem] = useState(null);
+  const [openCertCategory, setOpenCertCategory] = useState(null);
 
   if (activeModalItem) {
     document.body.style.overflow = 'hidden';
@@ -57,113 +118,480 @@ export default function Leadership() {
     setActiveModalItem({ ...itemProps, icon: iconComponent });
   };
 
-  const renderCard = (item, idx, IconComponent, colorClass, placeholderText, modalDescFallback, statusLabel, showLinkProp) => (
-    <motion.div 
-      key={idx}
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{ delay: idx * 0.05 }}
-      className="p-5 rounded-xl border border-white/5 bg-[#070707] hover:border-red-500/50 hover:shadow-[0_0_15px_rgba(139,0,0,0.2)] transition-all group flex flex-col h-full shadow-lg"
-    >
-      <div 
-        className="w-full h-40 bg-[#030303] rounded-lg mb-4 overflow-hidden relative border border-white/5 cursor-pointer flex-shrink-0" 
-        onClick={() => openModal({ ...item, detail: item.detail || modalDescFallback, status: statusLabel, showLink: showLinkProp }, <IconComponent className={`w-8 h-8 ${colorClass}`} />)}
+  const renderCard = (item, idx, IconComponent, colorClass, placeholderText, modalDescFallback, statusLabel, isHighlight = false) => {
+    // Generate a premium random micro-code for each tech card to give it an authentic systems feel!
+    const subCodes = ["SYS_INTEL_A", "COMP_ROBOT_B", "DEV_GATEWAY_X", "INF_TENSOR_Y", "ENG_ACCEL_Z"];
+    const cardCode = subCodes[idx % subCodes.length];
+
+    return (
+      <motion.div 
+        key={idx}
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: idx * 0.04 }}
+        className={`p-5 pl-9 rounded-3xl border ${isHighlight ? 'border-red-500/30 bg-red-950/10' : 'border-white/10 bg-black/60'} hover:border-red-500/40 hover:shadow-[0_0_30px_rgba(255,26,26,0.12)] transition-all group flex flex-col justify-between h-full shadow-2xl relative overflow-hidden select-none`}
       >
-        {item.image ? (
-          <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-        ) : (
-          <div className={`w-full h-full flex flex-col items-center justify-center text-gray-600 transition-colors ${colorClass.replace('text-', 'group-hover:text-')}`}>
-            <IconComponent className="w-8 h-8 mb-2" />
-            <span className="text-xs uppercase tracking-widest font-mono text-center px-4">{placeholderText}</span>
+        {/* Internal tech grid backdrop */}
+        <div className="absolute inset-0 bg-gradient-to-br from-transparent to-red-950/5 pointer-events-none" />
+        <div className="absolute inset-0 hud-grid-red opacity-10 pointer-events-none" />
+        <div className="hud-scanline opacity-20 z-20 pointer-events-none" />
+
+        {/* Glowing circuit path traces linking pins to components */}
+        <svg className="absolute inset-0 w-full h-full text-red-500/10 pointer-events-none z-0" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 12,45 L 26,45 L 34,16 Q 36,12 40,12 L 58,12" fill="none" stroke="currentColor" strokeWidth="0.75" />
+          <path d="M 12,65 L 22,65 L 30,85 L 70,85" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 3" />
+          <path d="M 12,85 L 45,85 L 55,115 L 120,115" fill="none" stroke="#FF1A1A" strokeWidth="0.75" className="opacity-25 animate-pulse" />
+        </svg>
+        
+        {/* Bounding tech corner marks */}
+        <span className="absolute top-2 left-2 w-2 h-2 border-t border-l border-red-500/40 pointer-events-none"></span>
+        <span className="absolute bottom-2 left-2 w-2 h-2 border-b border-l border-red-500/40 pointer-events-none"></span>
+        <span className="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-red-500/40 pointer-events-none"></span>
+
+        {/* Left vertical pin array header */}
+        <div className="absolute left-0 top-1/4 bottom-1/4 w-5 flex flex-col justify-between items-center pointer-events-none z-10 pl-1.5">
+          <div className="w-[1px] h-full bg-red-500/25 absolute left-[11px]"></div>
+          {['VCC', 'GND', 'SDA', 'SCL'].map((pin, pIdx) => (
+            <div key={pIdx} className="relative flex items-center justify-center">
+              <div className="w-1.5 h-1.5 rounded-full border border-red-500 bg-black flex items-center justify-center shadow-[0_0_6px_rgba(255,26,26,0.3)] group-hover:bg-red-900 group-hover:scale-110 transition-all">
+                <div className="w-0.5 h-0.5 rounded-full bg-red-500"></div>
+              </div>
+              <span className="absolute left-3 text-[4.5px] font-mono text-red-500/35 uppercase font-bold tracking-wider opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">{pin}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Mounted silicon chip graphic - positioned next to left pins to prevent top-right overlaps */}
+        <div className="absolute top-3 left-8 z-10 hidden sm:flex items-center gap-1.5 pointer-events-none">
+          <div className="w-6 h-6 bg-zinc-900 border border-white/10 rounded flex items-center justify-center shadow-[0_0_8px_rgba(0,0,0,0.8)] relative group-hover:border-red-500/30 transition-colors">
+            {/* Pin legs */}
+            <span className="absolute -left-[3px] top-1 w-0.5 h-0.5 bg-gray-500 rounded"></span>
+            <span className="absolute -left-[3px] top-2.5 w-0.5 h-0.5 bg-gray-500 rounded"></span>
+            <span className="absolute -left-[3px] top-4 w-0.5 h-0.5 bg-gray-500 rounded"></span>
+            
+            <span className="absolute -right-[3px] top-1 w-0.5 h-0.5 bg-gray-500 rounded"></span>
+            <span className="absolute -right-[3px] top-2.5 w-0.5 h-0.5 bg-gray-500 rounded"></span>
+            <span className="absolute -right-[3px] top-4 w-0.5 h-0.5 bg-gray-500 rounded"></span>
+
+            <Cpu className="w-3.5 h-3.5 text-red-500/40 group-hover:text-red-500 transition-colors animate-pulse" />
           </div>
-        )}
-      </div>
-      <div className="mt-auto flex items-center justify-between gap-2">
-        <p 
-          className="font-bold text-gray-200 text-sm group-hover:text-white transition-colors line-clamp-3 cursor-pointer"
-          onClick={() => openModal({ ...item, detail: item.detail || modalDescFallback, status: statusLabel, showLink: showLinkProp }, <IconComponent className={`w-8 h-8 ${colorClass}`} />)}
+          <div className="flex flex-col text-[5px] font-mono text-gray-600 uppercase leading-none">
+            <span>CHIP: {cardCode}</span>
+            <span>0x4D2A</span>
+          </div>
+        </div>
+
+        {/* Dynamic Tag header with micro-LED */}
+        {/* mt-0 on mobile, mt-5 on PC clears the mounted silicon chip next to left pins */}
+        <div className="flex justify-between items-center mb-3.5 mt-0 sm:mt-5 z-10">
+          <div className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping"></span>
+            <span className="text-[8px] font-mono font-bold tracking-widest text-red-500 uppercase">{statusLabel || "VERIFIED"}</span>
+          </div>
+          <span className="text-[7.5px] font-mono text-gray-500 tracking-wider font-semibold">{cardCode}</span>
+        </div>
+        
+        {/* Visual Target Frame with scanner overlay */}
+        <div 
+          className="w-full h-40 bg-zinc-950 rounded-2xl mb-4 overflow-hidden relative border border-white/5 cursor-pointer flex-shrink-0 group-hover:border-red-500/30 transition-colors" 
+          onClick={() => openModal({ ...item, detail: item.detail || modalDescFallback, status: statusLabel, showLink: true }, <IconComponent className={`w-8 h-8 ${colorClass}`} />)}
         >
-          {item.title}
-        </p>
-        {showLinkProp && (
-          <a 
-            href={item.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 bg-white/5 rounded hover:bg-red-600 hover:text-white text-gray-400 transition-colors shrink-0"
-            title="Open Link"
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 z-10 pointer-events-none"></div>
+          
+          {/* Scanline sweep */}
+          <div className="hud-scanline opacity-30 z-20 pointer-events-none" />
+          
+          {item.image ? (
+            <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-85 group-hover:opacity-100" />
+          ) : (
+            <div className={`w-full h-full flex flex-col items-center justify-center text-gray-600 transition-colors bg-zinc-950 ${colorClass.replace('text-', 'group-hover:text-')}`}>
+              <IconComponent className="w-7 h-7 mb-2 animate-pulse" />
+              <span className="text-[9px] uppercase tracking-widest font-mono text-center px-4 font-bold opacity-75">{placeholderText}</span>
+            </div>
+          )}
+
+          {/* Target Corner Tick Marks */}
+          <div className="absolute top-2 left-2 w-1.5 h-1.5 border-t border-l border-red-500/40 pointer-events-none"></div>
+          <div className="absolute top-2 right-2 w-1.5 h-1.5 border-t border-r border-red-500/40 pointer-events-none"></div>
+          <div className="absolute bottom-2 left-2 w-1.5 h-1.5 border-b border-l border-red-500/40 pointer-events-none"></div>
+          <div className="absolute bottom-2 right-2 w-1.5 h-1.5 border-b border-r border-red-500/40 pointer-events-none"></div>
+          
+          {/* Tech overlay */}
+          <div className="absolute bottom-2 left-3 z-20 font-mono text-[7px] text-red-500/80 bg-black/80 px-2 py-0.5 rounded border border-red-500/20 uppercase tracking-widest">
+            LOG_REF: ONLINE
+          </div>
+        </div>
+
+        {/* Premium Physical PCB Terminals & Status LEDs */}
+        <div className="flex justify-between items-center mb-3 pt-3 border-t border-white/5 font-mono text-[6.5px] text-gray-500 select-none w-full">
+          {/* Status LEDs Array */}
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-0.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_6px_#22c55e] animate-pulse"></span>
+              <span className="font-bold scale-90">PWR</span>
+            </div>
+            <div className="flex items-center gap-0.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_6px_#22c55e] animate-ping"></span>
+              <span className="font-bold scale-90">ACT</span>
+            </div>
+            <div className="flex items-center gap-0.5 opacity-45">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-955 border border-red-500/20"></span>
+              <span className="font-bold scale-90">ERR</span>
+            </div>
+          </div>
+
+          {/* Silkscreen Board Blueprint */}
+          <div className="hidden xs:block text-[5.5px] tracking-wider text-gray-600 font-extrabold uppercase">
+            TG130_PCB
+          </div>
+
+          {/* Solder Test Points */}
+          <div className="flex items-center gap-1">
+            <div className="flex flex-col items-center">
+              <span className="w-1 h-1 rounded-full bg-amber-500/80 border border-amber-400 flex items-center justify-center"></span>
+              <span className="scale-75 text-gray-600 font-bold">TP1</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <span className="w-1 h-1 rounded-full bg-amber-500/80 border border-amber-400 flex items-center justify-center"></span>
+              <span className="scale-75 text-gray-600 font-bold">TP2</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Text bottom content and Action trigger */}
+        <div className="mt-auto flex items-center justify-between gap-3 pt-3 border-t border-white/5 w-full">
+          <p 
+            className="font-extrabold text-gray-200 text-xs group-hover:text-red-200 transition-colors line-clamp-2 cursor-pointer leading-snug flex-grow"
+            onClick={() => openModal({ ...item, detail: item.detail || modalDescFallback, status: statusLabel, showLink: true }, <IconComponent className={`w-8 h-8 ${colorClass}`} />)}
           >
-            <ExternalLink className="w-4 h-4" />
-          </a>
-        )}
-      </div>
-    </motion.div>
-  );
+            {item.title}
+          </p>
+          <button 
+            onClick={() => openModal({ ...item, detail: item.detail || modalDescFallback, status: statusLabel, showLink: true }, <IconComponent className={`w-8 h-8 ${colorClass}`} />)}
+            className="p-2 bg-red-950/20 border border-red-500/20 rounded-xl hover:bg-red-600 hover:border-red-500 text-red-500 hover:text-white transition-all shrink-0 cursor-pointer flex items-center justify-center"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+      </motion.div>
+    );
+  };
 
   return (
-    <section id="leadership" style={{ zIndex: activeModalItem ? 9999 : 10 }} className="py-20 px-6 lg:px-12 xl:px-20 relative w-full max-w-7xl mx-auto space-y-32">
+    <section id="leadership" style={{ zIndex: activeModalItem ? 9999 : 10 }} className="py-24 px-6 lg:px-12 xl:px-20 relative w-full max-w-7xl mx-auto space-y-32">
       
+      {/* Background glow layers */}
+      <div className="absolute bottom-[20%] left-[-10%] w-[35vw] h-[35vw] bg-red-950/10 blur-[150px] rounded-full pointer-events-none mix-blend-screen" />
+
       {/* Leadership & Research */}
       <div>
         <motion.h2 
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-bold mb-10 flex items-center gap-3"
+          className="text-3xl md:text-4xl font-bold mb-10 flex items-center gap-3 text-white"
         >
-          <BookOpen className="text-red-500 w-8 h-8" /> 
-          Leadership <span className="text-gradient">& Research</span>
+          <BookOpen className="text-red-500 w-8 h-8 animate-pulse" /> 
+          <span>Leadership <span className="text-gradient">& Research</span></span>
         </motion.h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {leadershipItems.map((item, idx) => renderCard(item, idx, BookOpen, "text-red-500", "Add Image", item.detail, null, false))}
+          {leadershipItems.map((item, idx) => renderCard(item, idx, BookOpen, "text-red-500", "Technical Log", item.detail, "System Leadership", false))}
         </div>
       </div>
 
-      {/* Achievements - Split into Podium Finishes & Participated */}
-      <div id="accolades" className="-mt-10 pt-10">
+      {/* Achievements - Standout horizontal Spotlight Cards */}
+      <div id="accolades" className="-mt-10 pt-10 select-none">
         <motion.h2 
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-bold mb-10 flex items-center gap-3"
+          className="text-3xl md:text-4xl font-bold mb-10 flex items-center gap-3 text-white"
         >
-          <Trophy className="text-red-500 w-8 h-8" /> 
+          <Trophy className="text-red-500 w-8 h-8 animate-pulse" /> 
           <span>Accolades <span className="text-gradient">& Engagements</span></span>
         </motion.h2>
         
-        {/* Podium Finishes */}
-        <h3 className="text-2xl font-bold text-gray-300 mb-6 border-l-4 border-yellow-500 pl-3">Podium Finishes</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
-          {podiumFinishes.map((item, idx) => renderCard(item, idx, Trophy, "text-yellow-500", "Add Image", "Achieved an exemplary podium finish representing elite competitive success.", "Winner / Podium", true))}
+        <div className="space-y-12">
+          
+          {/* 1. GLOBAL SPOTLIGHT: Technoxian World Cup */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 border border-red-500/30 rounded-3xl p-6 sm:p-8 md:p-10 shadow-[0_0_40px_rgba(255,26,26,0.15)] overflow-hidden flex flex-col md:flex-row gap-8 items-center group cursor-pointer"
+            onClick={() => openModal({
+              title: "Technoxian World Cup 2024 – World Robotics Championship",
+              image: "/images/TechnoXian World Cup 2024 certificate.jpeg",
+              detail: "Competed in the prestigious global World Robotics Championship (Technoxian World Cup 2024), scaling through international divisions to secure a coveted Semi-Finalist rank.",
+              status: "Global Competitor",
+              showLink: true
+            }, <Globe className="w-8 h-8 text-yellow-500" />)}
+          >
+            {/* Spotlight Glow overlays */}
+            <div className="absolute -right-20 -top-20 w-80 h-80 bg-red-600/10 blur-[100px] rounded-full pointer-events-none mix-blend-screen" />
+
+            {/* Image spotlight */}
+            <div className="w-full md:w-2/5 aspect-video overflow-hidden rounded-2xl border border-yellow-500/20 group-hover:border-yellow-500/50 shadow-2xl relative shrink-0">
+              <div className="absolute inset-0 bg-yellow-500/10 group-hover:bg-transparent transition-colors z-10 pointer-events-none mix-blend-overlay"></div>
+              <img src="/images/TechnoXian World Cup 2024 certificate.jpeg" alt="Technoxian World Cup" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            </div>
+
+            {/* Spotlight text */}
+            <div className="flex-grow space-y-4 text-center md:text-left">
+              <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
+                <span className="px-3 py-1.5 border border-yellow-500/30 bg-yellow-500/10 text-yellow-500 font-mono text-[10px] font-bold tracking-widest rounded-full uppercase flex items-center gap-1.5 shadow-[0_0_15px_rgba(234,179,8,0.15)]">
+                  <Globe className="w-3.5 h-3.5 text-yellow-500 animate-spin-slow" />
+                  Global Arena Acquired
+                </span>
+                <span className="px-3 py-1.5 border border-red-500/20 bg-red-950/30 text-red-500 font-mono text-[10px] font-bold tracking-widest rounded-full uppercase">
+                  Robotics Championship
+                </span>
+              </div>
+
+              <div className="space-y-1">
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">Technoxian World Cup 2024</h3>
+                <h4 className="text-yellow-500 font-mono text-sm uppercase tracking-widest font-bold">World Robotics Championship // Semi-Finals</h4>
+              </div>
+
+              <p className="text-gray-300 font-light text-sm md:text-base leading-relaxed max-w-xl">
+                Scaled through rigorous international regional divisions to represent elite competitive robotics at the highest global tier. The event evaluated autonomous navigation speeds, sensor processing efficiency, and real-time controller feedback.
+              </p>
+
+              <div className="flex items-center justify-center md:justify-start gap-1.5 text-[10px] font-mono font-bold text-yellow-500 uppercase tracking-widest">
+                <span>View Spec Log</span>
+                <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 2. PODIUM SPOTLIGHT 1: Hack Odyssey 2k25 */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 border border-yellow-500/30 rounded-3xl p-6 sm:p-8 md:p-10 shadow-[0_0_40px_rgba(234,179,8,0.1)] overflow-hidden flex flex-col md:flex-row gap-8 items-center group cursor-pointer"
+            onClick={() => openModal({
+              title: "Hack Odyssey 2k25 – Second Prize Winner",
+              image: "/images/Smart Urban Sustainability System (SUSS) price.jpeg",
+              detail: "Won 2nd prize in the prestigious 24-Hour National Hack Odyssey by engineering SUSS—an integrated ESP32 + edge AI smart city system managing traffic flow, smart waste bins, and sustainable micro-grids.",
+              status: "Podium Winner",
+              showLink: true
+            }, <Trophy className="w-8 h-8 text-yellow-500" />)}
+          >
+            {/* Spotlight Glow overlays */}
+            <div className="absolute -right-20 -top-20 w-80 h-80 bg-yellow-500/10 blur-[100px] rounded-full pointer-events-none mix-blend-screen" />
+
+            {/* Image spotlight */}
+            <div className="w-full md:w-2/5 aspect-video overflow-hidden rounded-2xl border border-yellow-500/20 group-hover:border-yellow-500/50 shadow-2xl relative shrink-0">
+              <div className="absolute inset-0 bg-yellow-500/10 group-hover:bg-transparent transition-colors z-10 pointer-events-none mix-blend-overlay"></div>
+              <img src="/images/Smart Urban Sustainability System (SUSS) price.jpeg" alt="Hack Odyssey Winner" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            </div>
+
+            {/* Spotlight text */}
+            <div className="flex-grow space-y-4 text-center md:text-left">
+              <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
+                <span className="px-3 py-1.5 border border-yellow-500/30 bg-yellow-500/10 text-yellow-500 font-mono text-[10px] font-bold tracking-widest rounded-full uppercase flex items-center gap-1.5">
+                  <Trophy className="w-3.5 h-3.5 text-yellow-500 animate-bounce" />
+                  National Hackathon Podium
+                </span>
+                <span className="px-3 py-1.5 border border-red-500/20 bg-red-950/30 text-red-500 font-mono text-[10px] font-bold tracking-widest rounded-full uppercase">
+                  Second Prize
+                </span>
+              </div>
+
+              <div className="space-y-1">
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">Hack Odyssey 2k25</h3>
+                <h4 className="text-yellow-500 font-mono text-sm uppercase tracking-widest font-bold">24-Hour National Hackathon // 2nd Place</h4>
+              </div>
+
+              <p className="text-gray-300 font-light text-sm md:text-base leading-relaxed max-w-xl">
+                Competed against top engineering teams to build SUSS—an integrated smart city module that connects ESP32 microcontrollers, waste fill sensors, carbon monoxide telemetry, and smart parking arrays, pushing synchronized logs onto remote dashboards.
+              </p>
+
+              <div className="flex items-center justify-center md:justify-start gap-1.5 text-[10px] font-mono font-bold text-yellow-500 uppercase tracking-widest">
+                <span>View Spec Log</span>
+                <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 3. PODIUM SPOTLIGHT 2: Gyan Mitra’25 */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 border border-yellow-500/30 rounded-3xl p-6 sm:p-8 md:p-10 shadow-[0_0_40px_rgba(234,179,8,0.1)] overflow-hidden flex flex-col md:flex-row gap-8 items-center group cursor-pointer"
+            onClick={() => openModal({
+              title: "Gyan Mitra’25 Project Expo – Second Prize Winner",
+              image: "/images/Fastest line following robot Gyan mitra price.jpeg",
+              detail: "Awarded 2nd prize in the national-level Gyan Mitra'25 Project Expo for engineering and calibrating a high-speed, PID-controlled autonomous line-following robot resolving complex tracking trajectories.",
+              status: "Podium Winner",
+              showLink: true
+            }, <Trophy className="w-8 h-8 text-yellow-500" />)}
+          >
+            {/* Spotlight Glow overlays */}
+            <div className="absolute -right-20 -top-20 w-80 h-80 bg-yellow-500/10 blur-[100px] rounded-full pointer-events-none mix-blend-screen" />
+
+            {/* Image spotlight */}
+            <div className="w-full md:w-2/5 aspect-video overflow-hidden rounded-2xl border border-yellow-500/20 group-hover:border-yellow-500/50 shadow-2xl relative shrink-0">
+              <div className="absolute inset-0 bg-yellow-500/10 group-hover:bg-transparent transition-colors z-10 pointer-events-none mix-blend-overlay"></div>
+              <img src="/images/Fastest line following robot Gyan mitra price.jpeg" alt="Gyan Mitra Winner" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            </div>
+
+            {/* Spotlight text */}
+            <div className="flex-grow space-y-4 text-center md:text-left">
+              <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
+                <span className="px-3 py-1.5 border border-yellow-500/30 bg-yellow-500/10 text-yellow-500 font-mono text-[10px] font-bold tracking-widest rounded-full uppercase flex items-center gap-1.5">
+                  <Trophy className="w-3.5 h-3.5 text-yellow-500 animate-bounce" />
+                  National Project Expo Podium
+                </span>
+                <span className="px-3 py-1.5 border border-red-500/20 bg-red-950/30 text-red-500 font-mono text-[10px] font-bold tracking-widest rounded-full uppercase">
+                  Second Prize
+                </span>
+              </div>
+
+              <div className="space-y-1">
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">Gyan Mitra’25 Project Expo</h3>
+                <h4 className="text-yellow-500 font-mono text-sm uppercase tracking-widest font-bold">Autonomous Robotics Category // 2nd Place</h4>
+              </div>
+
+              <p className="text-gray-300 font-light text-sm md:text-base leading-relaxed max-w-xl">
+                Designed a high-speed autonomous robot equipped with infrared sensor arrays and micro-geared motors. Tuned real-time proportional-integral-derivative (PID) feedback algorithms to achieve optimal cornering velocities and trajectory stability.
+              </p>
+
+              <div className="flex items-center justify-center md:justify-start gap-1.5 text-[10px] font-mono font-bold text-yellow-500 uppercase tracking-widest">
+                <span>View Spec Log</span>
+                <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+          </motion.div>
+
         </div>
 
-        {/* Participated Events */}
-        <h3 className="text-2xl font-bold text-gray-300 mb-6 border-l-4 border-blue-500 pl-3">Hackathons & Engagements</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {participatedEvents.map((item, idx) => renderCard(item, idx, CalendarDays, "text-blue-400", "Add Image", "Actively engaged, contributed technical insights, and collaborated with peers during this event.", "Participant", true))}
+        {/* Participated Events Timeline */}
+        <div className="space-y-6 mt-16">
+          <h3 className="text-xl font-bold text-gray-200 flex items-center gap-2 border-l-4 border-blue-500 pl-3">
+            <Layers className="w-5 h-5 text-blue-400" />
+            National Hackathons & Engagements
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {participatedEvents.map((item, idx) => renderCard(item, idx, Trophy, "text-blue-400", "Participation Record", item.detail, "Competitor", false))}
+          </div>
         </div>
       </div>
 
-      {/* Certifications (Upgraded to Image Boxes) */}
+      {/* Certifications (Upgraded to Grouped & Expandable Blocks - Scanners Removed) */}
       <div id="certifications" className="-mt-10 pt-10">
         <motion.h2 
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-bold mb-10 flex items-center gap-3"
+          className="text-3xl md:text-4xl font-bold mb-10 flex items-center gap-3 text-white"
         >
-          <Award className="text-red-500 w-8 h-8" /> 
-          Certifications
+          <Award className="text-red-500 w-8 h-8 animate-pulse" /> 
+          <span>Professional <span className="text-gradient">Credentials</span></span>
         </motion.h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {certs.map((item, idx) => renderCard(item, idx, Award, "text-green-400", "Add Certificate Image", `Verified proficiency and extensive knowledge in ${item.title}.`, "Certified", true))}
+        <p className="text-gray-400 font-light text-sm md:text-base max-w-2xl mb-12">
+          Verify verified proficiencies spanning bare-metal PCB layout architectures, machine learning foundations, and enterprise systems optimization.
+        </p>
+
+        {/* Expandable Domain Panels */}
+        <div className="space-y-4 max-w-4xl mx-auto">
+          {groupedCerts.map((group, gIdx) => {
+            const isOpen = openCertCategory === gIdx;
+            
+            return (
+              <div 
+                key={gIdx} 
+                className="hud-panel border border-white/5 overflow-hidden transition-all duration-500"
+              >
+                {/* Header button triggers collapse */}
+                <button 
+                  onClick={() => setOpenCertCategory(isOpen ? null : gIdx)}
+                  className="w-full px-6 py-5 flex items-center justify-between text-left cursor-pointer bg-[#070707] hover:bg-red-950/5 relative z-10"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-red-950/20 rounded-lg border border-red-500/20 text-red-500">
+                      {group.icon}
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-sm sm:text-base text-gray-200">{group.category}</h4>
+                      <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">{group.items.length} Credentials Available</span>
+                    </div>
+                  </div>
+                  <ChevronRight className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${isOpen ? 'rotate-90 text-red-500' : ''}`} />
+                </button>
+
+                {/* Collapsible item container */}
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div 
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: "easeInOut" }}
+                      className="border-t border-white/5 bg-[#030303]/40"
+                    >
+                      <div className="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                        {group.items.map((item, idx) => (
+                          <div 
+                            key={idx}
+                            onClick={() => openModal({ ...item, status: "Verified Certificate", showLink: true }, <Award className="w-8 h-8 text-green-400" />)}
+                            className="p-4 pl-9 rounded-xl border border-white/5 bg-[#070707] hover:border-red-500/30 hover:shadow-[0_0_20px_rgba(255,26,26,0.1)] transition-all cursor-pointer group flex flex-col justify-between h-36 relative overflow-hidden select-none"
+                          >
+                            <div className="absolute inset-0 bg-gradient-to-br from-transparent to-red-950/5 pointer-events-none" />
+                            <div className="absolute inset-0 hud-grid-red opacity-10 pointer-events-none" />
+                            <div className="hud-scanline opacity-15 z-20 pointer-events-none" />
+
+                            {/* Corner ticks */}
+                            <span className="absolute top-1 left-1.5 w-1.5 h-1.5 border-t border-l border-red-500/30 pointer-events-none"></span>
+                            <span className="absolute top-1 right-1.5 w-1.5 h-1.5 border-t border-r border-red-500/30 pointer-events-none"></span>
+                            <span className="absolute bottom-1 left-1.5 w-1.5 h-1.5 border-b border-l border-red-500/30 pointer-events-none"></span>
+                            <span className="absolute bottom-1 right-1.5 w-1.5 h-1.5 border-b border-r border-red-500/30 pointer-events-none"></span>
+
+                            {/* Mini Left pins */}
+                            <div className="absolute left-0 top-1/4 bottom-1/4 w-4 flex flex-col justify-between items-center pointer-events-none z-10 pl-1">
+                              <div className="w-[0.5px] h-full bg-red-500/20 absolute left-[9px]"></div>
+                              {['VCC', 'GND', 'SIG'].map((pin, pIdx) => (
+                                <div key={pIdx} className="w-1 h-1 rounded-full border border-red-500 bg-black flex items-center justify-center shadow-[0_0_4px_rgba(255,26,26,0.2)] group-hover:bg-red-900 group-hover:scale-115 transition-all" key={pIdx}>
+                                  <div className="w-0.5 h-0.5 rounded-full bg-red-500"></div>
+                                </div>
+                              ))}
+                            </div>
+
+                            {/* Mini Mounted silicon chip graphic top left */}
+                            <div className="absolute top-2 left-6 z-10 hidden xs:flex items-center pointer-events-none">
+                              <div className="w-4 h-4 bg-zinc-900 border border-white/10 rounded flex items-center justify-center relative">
+                                <Cpu className="w-2.5 h-2.5 text-red-500/30 group-hover:text-red-500 transition-colors animate-pulse" />
+                              </div>
+                            </div>
+
+                            <div className="space-y-1 z-10">
+                              <span className="text-[8px] font-mono text-red-500 uppercase font-bold tracking-widest">VERIFIED</span>
+                              <h5 className="font-extrabold text-sm text-white group-hover:text-red-200 transition-colors line-clamp-2 leading-snug">{item.title}</h5>
+                            </div>
+                            
+                            <div className="flex items-center justify-between gap-2 pt-2 border-t border-white/5 z-10">
+                              <span className="text-[9px] font-mono text-gray-500 uppercase">View Credentials</span>
+                              <ChevronRight className="w-3.5 h-3.5 text-gray-500 group-hover:text-red-500 group-hover:translate-x-0.5 transition-all" />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
         </div>
+
       </div>
 
-      {/* MODAL PLACED AT THE VERY BOTTOM OF THE DOM FOR Z-INDEX FIX */}
+      {/* Credential Spotlight Modal (Scanner Removed) */}
       <AnimatePresence>
         {activeModalItem && (
           <motion.div 
@@ -174,7 +602,7 @@ export default function Leadership() {
             className="fixed inset-0 flex items-center justify-center p-4 sm:p-6"
           >
             <div 
-              className="absolute inset-0 bg-black/90 backdrop-blur-md cursor-pointer"
+              className="absolute inset-0 bg-black/95 backdrop-blur-md cursor-pointer"
               onClick={() => setActiveModalItem(null)}
             ></div>
             
@@ -183,64 +611,63 @@ export default function Leadership() {
               animate={{ y: 0, scale: 1, opacity: 1 }}
               exit={{ y: 20, scale: 0.95, opacity: 0 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="relative w-full max-w-4xl bg-zinc-950 border border-white/10 rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(139,0,0,0.5)] flex flex-col md:flex-row"
+              className="relative w-full max-w-4xl bg-zinc-950 border border-white/10 rounded-2xl overflow-hidden shadow-[0_0_60px_rgba(255,26,26,0.35)] flex flex-col md:flex-row z-10"
             >
               <button 
                 onClick={() => setActiveModalItem(null)}
-                className="absolute top-4 right-4 p-2 bg-black/50 hover:bg-red-600 rounded-full transition-colors z-50 backdrop-blur-md border border-white/10"
+                className="absolute top-4 right-4 p-2 bg-black/60 hover:bg-red-600 rounded-full transition-colors z-50 backdrop-blur-md border border-white/10 text-white cursor-pointer"
               >
-                <X className="w-5 h-5 text-white" />
+                <X className="w-5 h-5" />
               </button>
               
               <div className="w-full md:w-1/2 bg-[#030303] relative border-b md:border-b-0 md:border-r border-white/10 min-h-[250px] md:min-h-[400px]">
                 {activeModalItem.image ? (
                   <img src={activeModalItem.image} alt={activeModalItem.title} className="absolute inset-0 w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center text-gray-500 absolute inset-0">
-                    <div className="w-20 h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4">
+                  <div className="w-full h-full flex flex-col items-center justify-center text-gray-500 absolute inset-0 bg-zinc-950">
+                    <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-3 text-red-500 animate-pulse">
                       {activeModalItem.icon}
                     </div>
-                    <span className="font-mono text-sm uppercase tracking-widest">Image Unavailable</span>
+                    <span className="font-mono text-[10px] uppercase tracking-widest">Image File Unloaded</span>
                   </div>
                 )}
               </div>
 
-              <div className="w-full md:w-1/2 p-8 md:p-10 flex flex-col justify-center bg-[#070707]">
+              <div className="w-full md:w-1/2 p-8 md:p-10 flex flex-col justify-center bg-black/90">
                 <div className="flex flex-wrap items-center gap-3 mb-6">
-                  <div className="p-2 bg-red-900/20 text-red-500 rounded-lg border border-red-500/30">
+                  <div className="p-2 bg-red-950/20 text-red-500 rounded-lg border border-red-500/30 shrink-0">
                     {activeModalItem.icon}
                   </div>
                   {activeModalItem.status && (
-                    <span className="text-xs font-mono font-bold tracking-widest uppercase text-yellow-500 bg-yellow-900/10 px-3 py-1.5 rounded-full border border-yellow-500/20">
+                    <span className="text-[10px] font-mono font-bold tracking-widest uppercase text-yellow-500 bg-yellow-900/20 px-3 py-1.5 rounded-full border border-yellow-500/20">
                       {activeModalItem.status}
                     </span>
                   )}
-                  {activeModalItem.title.includes("Second Prize") || activeModalItem.title.toLowerCase().includes("winner") ? (
-                    <span className="text-xs font-mono font-bold tracking-widest uppercase text-green-400 bg-green-900/20 px-3 py-1.5 rounded-full border border-green-500/30">
-                      Prize Secured
+                  {activeModalItem.title.includes("Prize") || activeModalItem.title.toLowerCase().includes("semi") || activeModalItem.title.toLowerCase().includes("winner") ? (
+                    <span className="text-[10px] font-mono font-bold tracking-widest uppercase text-green-400 bg-green-900/20 px-3 py-1.5 rounded-full border border-green-500/30">
+                      Award Vetted
                     </span>
                   ) : null}
                 </div>
 
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 leading-tight">{activeModalItem.title}</h3>
+                <h3 className="text-xl md:text-2xl font-extrabold text-white mb-6 leading-tight">{activeModalItem.title}</h3>
                 
                 <div className="space-y-4 mb-8 flex-grow">
                   <div>
-                    <span className="text-gray-500 text-xs font-semibold uppercase tracking-widest block mb-2">Event / Certification Details</span>
-                    <p className="text-gray-300 font-light leading-relaxed">{activeModalItem.detail}</p>
+                    <span className="text-red-500 font-mono text-[10px] font-bold uppercase tracking-widest block mb-2">System Intel Summary</span>
+                    <p className="text-gray-300 font-light text-sm md:text-base leading-relaxed">{activeModalItem.detail}</p>
                   </div>
                 </div>
                 
-                {activeModalItem.showLink && (
-                  <a 
-                    href={activeModalItem.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex max-w-max items-center gap-2 glow-button !py-3 !px-6 disabled:opacity-50"
+                {/* Mobile-friendly bottom close button */}
+                <div className="pt-6 border-t border-white/5 flex w-full mt-4">
+                  <button 
+                    onClick={() => setActiveModalItem(null)}
+                    className="w-full py-3.5 bg-red-950/20 hover:bg-red-600/30 text-red-500 hover:text-white border border-red-500/20 hover:border-red-500/50 rounded-xl transition-all duration-300 cursor-pointer uppercase font-mono text-[9px] font-bold tracking-widest text-center"
                   >
-                    View Official Credential <ExternalLink className="w-4 h-4" />
-                  </a>
-                )}
+                    DISMISS SYSTEM LOG
+                  </button>
+                </div>
               </div>
             </motion.div>
           </motion.div>

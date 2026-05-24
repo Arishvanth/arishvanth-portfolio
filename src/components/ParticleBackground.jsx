@@ -90,12 +90,16 @@ export default function ParticleBackground() {
         ctx.closePath();
         ctx.fill();
         
-        // Only glow the intense red core particles to save performance and make center look crazy
-        if (this.isBright && this.g < 100) {
-          ctx.shadowBlur = 10;
-          ctx.shadowColor = `rgba(255, 26, 26, ${opacity})`;
-        } else {
-          ctx.shadowBlur = 0;
+        // Avoid canvas shadow state thrashing by wrapping inside context value checks.
+        // On mobile viewports, we completely bypass shadow operations to run at 60 FPS.
+        const isMobile = canvas.width < 768;
+        if (!isMobile) {
+          if (this.isBright && this.g < 100) {
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = `rgba(255, 26, 26, ${opacity})`;
+          } else if (ctx.shadowBlur !== 0) {
+            ctx.shadowBlur = 0;
+          }
         }
       }
       
@@ -129,8 +133,15 @@ export default function ParticleBackground() {
 
     const init = () => {
       particlesArray = [];
-      let count = (canvas.width * canvas.height) / 800; // Increased density for a crazier core 
-      if (count > 2500) count = 2500;
+      const isMobile = window.innerWidth < 768;
+      let count = (canvas.width * canvas.height) / 800; // Standard density for a crazy core
+      
+      if (isMobile) {
+        count = (canvas.width * canvas.height) / 2800; // Lower density on mobile
+        if (count > 100) count = 100; // Strictly capped at 100 particles for smooth mobile framerates
+      } else {
+        if (count > 1800) count = 1800; // Capped at 1800 for high performance on desktop
+      }
       
       for (let i = 0; i < count; i++) {
         particlesArray.push(new Particle());
