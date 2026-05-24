@@ -28,10 +28,20 @@ export default function Navbar() {
   const handleScrollClick = (e, href) => {
     e.preventDefault();
     setMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    
+    // Add a small delay to let the mobile menu close animation trigger
+    // and stabilize the viewport layout, avoiding scroll freezing
+    setTimeout(() => {
+      const element = document.querySelector(href);
+      if (element) {
+        const yOffset = -80; // Navbar offset
+        const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({
+          top: y,
+          behavior: 'smooth'
+        });
+      }
+    }, 150);
   };
 
   return (
@@ -47,7 +57,7 @@ export default function Navbar() {
         <a 
           href="#about" 
           onClick={(e) => handleScrollClick(e, '#about')}
-          className="text-xl font-bold tracking-widest uppercase text-white hover:text-red-500 transition-colors cursor-pointer"
+          className="text-xl font-bold tracking-widest uppercase text-white hover:text-red-500 transition-colors cursor-pointer relative z-50 pointer-events-auto"
         >
           Arishvanth <span className="text-red-600">.</span>
         </a>
@@ -69,8 +79,9 @@ export default function Navbar() {
 
         {/* Mobile Menu Toggle */}
         <button 
-          className="md:hidden text-white hover:text-red-500 transition-colors"
+          className="md:hidden text-white hover:text-red-500 transition-colors p-2 relative z-50 cursor-pointer pointer-events-auto"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
         >
           {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
@@ -81,7 +92,7 @@ export default function Navbar() {
       <motion.div 
         initial={{ height: 0, opacity: 0 }}
         animate={{ height: mobileMenuOpen ? 'auto' : 0, opacity: mobileMenuOpen ? 1 : 0 }}
-        className="md:hidden overflow-hidden bg-black/95 backdrop-blur-md border-b border-white/10 absolute top-full w-full left-0 origin-top"
+        className="md:hidden overflow-hidden bg-black/95 backdrop-blur-md border-b border-white/10 absolute top-full w-full left-0 origin-top z-[100] pointer-events-auto"
       >
         <div className="flex flex-col p-6 gap-6">
           {navLinks.map((link, idx) => (
