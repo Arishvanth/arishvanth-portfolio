@@ -38,18 +38,12 @@ export default function HeroIntro({ onComplete, onBoot }) {
     }, 3500);
   };
 
-  const handleOverlayClick = () => {
-    if (activated) return;
-    handleActivate(false);
-  };
-
   return (
     <motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, filter: "blur(15px)" }}
       transition={{ duration: 1.2, ease: "easeInOut" }}
-      onClick={handleOverlayClick}
-      className={`fixed inset-0 w-screen h-screen z-[999] flex flex-col justify-center items-center bg-black overflow-hidden hud-grid-red px-6 text-white font-mono text-xs select-none ${!activated ? 'cursor-pointer' : ''}`}
+      className="fixed inset-0 w-screen h-screen z-[999] flex flex-col justify-center items-center bg-black overflow-hidden hud-grid-red px-6 text-white font-mono text-xs select-none"
     >
       <AnimatePresence mode="wait">
         {!activated ? (

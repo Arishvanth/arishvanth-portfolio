@@ -90,9 +90,10 @@ export default function ParticleBackground() {
         ctx.closePath();
         ctx.fill();
         
-        // Only glow the intense red core particles to save performance and make center look crazy
-        if (this.isBright && this.g < 100) {
-          ctx.shadowBlur = 10;
+        // Only glow the intense red core particles on desktop to save performance
+        const isMobile = canvas.width < 768;
+        if (this.isBright && this.g < 100 && !isMobile) {
+          ctx.shadowBlur = 8;
           ctx.shadowColor = `rgba(255, 26, 26, ${opacity})`;
         } else {
           ctx.shadowBlur = 0;

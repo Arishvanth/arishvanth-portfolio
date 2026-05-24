@@ -30,13 +30,14 @@ export default function Hero() {
   const generateOscilloscopePath = () => {
     let points = [];
     const width = 240;
-    const height = 30;
+    const height = 36;
     for (let x = 0; x <= width; x += 4) {
       // Oscilloscope frequency and amplitude responds organically to coreSpeed!
-      const amp = 6 + (coreSpeed / 240) * 4;
+      // Limit amplitude to prevent any vertical clipping within the 36px SVG boundaries
+      const amp = 4 + (coreSpeed / 240) * 5.5;
       const y = height / 2 + 
                 Math.sin(x * 0.06 + waveOffset) * amp + 
-                Math.cos(x * 0.12 - waveOffset * 0.5) * 2;
+                Math.cos(x * 0.12 - waveOffset * 0.5) * 1.5;
       points.push(`${x},${y}`);
     }
     return `M ${points.join(' L ')}`;
@@ -275,9 +276,9 @@ export default function Hero() {
                     REAL-TIME
                   </span>
                 </div>
-                <div className="w-full h-9 bg-black/80 border border-white/5 rounded-xl overflow-hidden relative flex items-center">
+                <div className="w-full h-11 bg-black/80 border border-white/5 rounded-xl overflow-hidden relative flex items-center">
                   <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:10px_10px] pointer-events-none" />
-                  <svg width="100%" height="25" className="text-red-500 relative z-10 w-full">
+                  <svg width="100%" height="36" className="text-red-500 relative z-10 w-full">
                     <path 
                       d={generateOscilloscopePath()} 
                       fill="none" 

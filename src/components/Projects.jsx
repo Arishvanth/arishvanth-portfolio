@@ -553,6 +553,14 @@ export default function Projects() {
               {/* Internal tech grid backdrop */}
               <div className="absolute inset-0 bg-gradient-to-br from-transparent to-red-950/5 pointer-events-none" />
               <div className="absolute inset-0 hud-grid-red opacity-10 pointer-events-none" />
+              <div className="hud-scanline opacity-20 z-20 pointer-events-none" />
+
+              {/* Glowing circuit path traces linking pins to components */}
+              <svg className="absolute inset-0 w-full h-full text-red-500/10 pointer-events-none z-0" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 12,45 L 26,45 L 34,16 Q 36,12 40,12 L 58,12" fill="none" stroke="currentColor" strokeWidth="0.75" />
+                <path d="M 12,65 L 22,65 L 30,85 L 70,85" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 3" />
+                <path d="M 12,85 L 45,85 L 55,115 L 120,115" fill="none" stroke="#FF1A1A" strokeWidth="0.75" className="opacity-25 animate-pulse" />
+              </svg>
               
               {/* Bounding tech corner marks */}
               <span className="absolute top-2 left-2 w-2 h-2 border-t border-l border-red-500/40 pointer-events-none"></span>
@@ -573,8 +581,8 @@ export default function Projects() {
                 ))}
               </div>
 
-              {/* Mounted silicon chip graphic in top right */}
-              <div className="absolute top-3 right-3 z-10 hidden sm:flex items-center gap-1.5 pointer-events-none">
+              {/* Mounted silicon chip graphic - positioned next to left pins to prevent top-right overlaps */}
+              <div className="absolute top-3 left-8 z-10 hidden sm:flex items-center gap-1.5 pointer-events-none">
                 <div className="w-6 h-6 bg-zinc-900 border border-white/10 rounded flex items-center justify-center shadow-[0_0_8px_rgba(0,0,0,0.8)] relative group-hover:border-red-500/30 transition-colors">
                   {/* Pin legs */}
                   <span className="absolute -left-[3px] top-1 w-0.5 h-0.5 bg-gray-500 rounded"></span>
@@ -587,7 +595,7 @@ export default function Projects() {
 
                   <Cpu className="w-3.5 h-3.5 text-red-500/40 group-hover:text-red-500 transition-colors animate-pulse" />
                 </div>
-                <div className="flex flex-col text-[5px] font-mono text-gray-600 uppercase text-right leading-none">
+                <div className="flex flex-col text-[5px] font-mono text-gray-600 uppercase leading-none">
                   <span>CHIP: SEC_{idx}</span>
                   <span>0x7F2A</span>
                 </div>
