@@ -107,132 +107,177 @@ export default function Hero() {
   };
 
   return (
-    <div id="hero" className="relative min-h-screen flex items-center justify-center pt-28 pb-20 px-6 lg:px-12 xl:px-16 w-full overflow-hidden bg-[#050505] hud-grid-red select-none">
+    <div id="hero" className="relative min-h-screen flex items-center justify-center pt-28 pb-20 px-6 lg:px-12 xl:px-20 w-full overflow-hidden bg-[#050505] hud-grid-red select-none">
       
       {/* Dynamic ambient red background glow layers */}
       <div className="absolute top-[10%] left-[5%] w-[40vw] h-[40vw] bg-red-900/10 blur-[130px] rounded-full pointer-events-none mix-blend-screen" />
       <div className="absolute bottom-[10%] right-[5%] w-[45vw] h-[45vw] bg-red-950/10 blur-[160px] rounded-full pointer-events-none mix-blend-screen" />
 
-      {/* Main command deck container */}
-      <div className="w-full max-w-[1500px] mx-auto flex flex-col gap-8 relative z-20">
+      {/* Spacious 2-Column Responsive Split Deck Layout */}
+      <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-20">
         
-        {/* Top Active Systems Ribbon Status */}
-        <div className="w-full flex flex-col md:flex-row justify-between items-center px-6 py-3 bg-black/60 border border-white/10 rounded-2xl backdrop-blur-md gap-4 text-[9px] font-mono text-gray-500 tracking-wider">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-ping"></span>
-            <span className="text-white font-bold uppercase">COMMAND CENTER HUD V2.8 // SECURE CONNECTION STABLE</span>
-          </div>
-          <div className="flex flex-wrap justify-center gap-6 text-[8.5px] uppercase">
-            <span>CORE_VOLTS: <span className="text-red-500">{(1.10 + (coreSpeed / 240) * 0.15).toFixed(2)} V</span></span>
-            <span>SYSTEM_STRESS: <span className="text-red-500">{((coreSpeed - 80) / 1.6).toFixed(0)}%</span></span>
-            <span>CORE_CLOCK: <span className="text-red-500">{coreSpeed} MHz</span></span>
-            <span>HARDWARE_LINK: <span className="text-green-400">SECURE</span></span>
-          </div>
-        </div>
+        {/* COLUMN 1: THE FLOATING IDENTITY PCB MODULE (Left - 60% spacious cockpit layout) */}
+        <motion.div 
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="col-span-1 lg:col-span-7 bg-black/60 border border-white/10 rounded-3xl p-8 backdrop-blur-md relative overflow-hidden shadow-[0_0_55px_rgba(255,26,26,0.06)] hover:border-red-500/30 transition-all duration-500 group flex flex-col justify-between gap-6"
+        >
+          {/* Ambient pulse glow backdrop */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,26,26,0.08)_0%,transparent_60%)] animate-pulse-glow pointer-events-none" />
+          <div className="absolute inset-0 hud-grid-red opacity-20 pointer-events-none" />
+          <div className="hud-scanline opacity-30 z-20 pointer-events-none" />
 
-        {/* The 3-Column Panoramic Dashboard Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch w-full">
-          
-          {/* COLUMN 1: CORE IDENTITY PANEL (Left) */}
-          <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="col-span-1 lg:col-span-4 bg-black/55 border border-white/10 p-8 rounded-3xl backdrop-blur-md shadow-2xl relative flex flex-col justify-between overflow-hidden group hover:border-red-500/20 transition-colors"
-          >
-            {/* Tech grid and corner tick marks */}
-            <div className="absolute inset-0 hud-grid opacity-15 pointer-events-none" />
+          {/* High-tech corner bracket ticks */}
+          <span className="absolute top-3 left-4 w-2.5 h-2.5 border-t border-l border-red-500/40 pointer-events-none"></span>
+          <span className="absolute top-3 right-4 w-2.5 h-2.5 border-t border-r border-red-500/40 pointer-events-none"></span>
+          <span className="absolute bottom-3 left-4 w-2.5 h-2.5 border-b border-l border-red-500/40 pointer-events-none"></span>
+          <span className="absolute bottom-3 right-4 w-2.5 h-2.5 border-b border-r border-red-500/40 pointer-events-none"></span>
+
+          {/* Left vertical pin array header */}
+          <div className="absolute left-0 top-1/4 bottom-1/4 w-6 flex flex-col justify-between items-center pointer-events-none z-10">
+            <div className="w-[1px] h-full bg-red-600/30 absolute left-1/2 -translate-x-1/2"></div>
+            {['VCC', 'GND', 'TX', 'RX'].map((pin, pIdx) => (
+              <div key={pIdx} className="relative flex items-center justify-center">
+                <div className="w-2.5 h-2.5 rounded-full border border-red-500 bg-black flex items-center justify-center shadow-[0_0_8px_rgba(255,26,26,0.4)] group-hover:bg-red-900 group-hover:scale-110 transition-all">
+                  <div className="w-1 h-1 rounded-full bg-red-500 animate-pulse"></div>
+                </div>
+                <span className="absolute left-4 text-[5.5px] font-mono text-red-500/40 uppercase font-bold tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">{pin}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Mounted silicon chip graphic top right */}
+          <div className="absolute top-4 right-4 z-10 hidden sm:flex items-center gap-2 pointer-events-none">
+            <div className="w-9 h-9 bg-zinc-900 border border-white/20 rounded flex items-center justify-center shadow-[0_0_15px_rgba(0,0,0,0.8)] relative group-hover:border-red-500/40 transition-colors">
+              {/* Tiny copper legs */}
+              <span className="absolute -left-1 top-1.5 w-1 h-0.5 bg-gray-500 rounded"></span>
+              <span className="absolute -left-1 top-3.5 w-1 h-0.5 bg-gray-500 rounded"></span>
+              <span className="absolute -left-1 top-5.5 w-1 h-0.5 bg-gray-500 rounded"></span>
+              <span className="absolute -left-1 top-7.5 w-1 h-0.5 bg-gray-500 rounded"></span>
+              
+              <span className="absolute -right-1 top-1.5 w-1 h-0.5 bg-gray-500 rounded"></span>
+              <span className="absolute -right-1 top-3.5 w-1 h-0.5 bg-gray-500 rounded"></span>
+              <span className="absolute -right-1 top-5.5 w-1 h-0.5 bg-gray-500 rounded"></span>
+              <span className="absolute -right-1 top-7.5 w-1 h-0.5 bg-gray-500 rounded"></span>
+
+              <span className="absolute -top-1 left-1.5 w-0.5 h-1 bg-gray-500 rounded"></span>
+              <span className="absolute -top-1 left-3.5 w-0.5 h-1 bg-gray-500 rounded"></span>
+              <span className="absolute -top-1 left-5.5 w-0.5 h-1 bg-gray-500 rounded"></span>
+              <span className="absolute -top-1 left-7.5 w-0.5 h-1 bg-gray-500 rounded"></span>
+
+              <span className="absolute -bottom-1 left-1.5 w-0.5 h-1 bg-gray-500 rounded"></span>
+              <span className="absolute -bottom-1 left-3.5 w-0.5 h-1 bg-gray-500 rounded"></span>
+              <span className="absolute -bottom-1 left-5.5 w-0.5 h-1 bg-gray-500 rounded"></span>
+              <span className="absolute -bottom-1 left-7.5 w-0.5 h-1 bg-gray-500 rounded"></span>
+
+              <Cpu className="w-5 h-5 text-red-500/50 group-hover:text-red-500 transition-colors animate-pulse" />
+              <span className="absolute inset-0.5 rounded border border-dashed border-red-500/10 pointer-events-none"></span>
+            </div>
+            <div className="flex flex-col text-[6.5px] font-mono text-gray-500 text-right uppercase">
+              <span>CHIP ID: ARISH_ID</span>
+              <span>VCC: +3.3V REG</span>
+            </div>
+          </div>
+
+          {/* Active Status Ribbon Pill */}
+          <div className="flex items-center gap-2.5 px-4 py-2 border border-red-500/20 bg-red-950/20 rounded-full text-red-500 text-xs font-mono tracking-widest uppercase shadow-[0_0_15px_rgba(255,26,26,0.1)] w-fit pl-10">
+            <div className="w-2 h-2 rounded-full bg-green-500 animate-ping"></div>
+            <span>SECURE SYSTEM LINKED & ACTIVE</span>
+          </div>
+
+          {/* Stately, Spacious Typography */}
+          <div className="space-y-4 pl-10">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.08] font-sans">
+              <span className="block hover:text-red-500 transition-colors cursor-default">ARISHVANTH</span>
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400 hover:text-white transition-colors cursor-default mt-1">SRIGANESH</span>
+            </h1>
+            
+            <h2 className="text-lg md:text-2xl text-gray-400 font-mono tracking-[0.25em] uppercase font-light pt-2">
+              Embedded Systems & IoT Engineer
+            </h2>
+          </div>
+
+          {/* Project Tagline */}
+          <p className="text-gray-300 text-lg md:text-xl leading-relaxed max-w-2xl font-sans font-light tracking-wide pt-4 border-t border-white/5 w-full lg:w-4/5 pl-10">
+            "Building intelligent systems that connect hardware, data, and real-world impact."
+          </p>
+
+          {/* Spacious Horizontal HUD CTA Deck */}
+          <div className="flex flex-wrap gap-4 sm:gap-6 justify-center lg:justify-start w-full pt-4 pl-10">
+            <button 
+              onClick={() => handleScrollTo('#projects')}
+              className="relative overflow-hidden rounded-xl px-8 py-4 font-semibold text-white transition-all hover:scale-105 active:scale-95 border border-red-500/50 bg-gradient-to-r from-[#8B0000] to-[#FF1A1A] hover:shadow-[0_0_30px_rgba(255,26,26,0.6)] cursor-pointer group tracking-widest uppercase font-mono text-xs flex items-center gap-2"
+            >
+              <Cpu className="w-4 h-4 animate-pulse text-white" />
+              <span>Launch Case Studies</span>
+              {/* Corner tick details */}
+              <span className="absolute top-0 right-0 w-1.5 h-1.5 border-t border-r border-white/50"></span>
+              <span className="absolute bottom-0 left-0 w-1.5 h-1.5 border-b border-l border-white/50"></span>
+            </button>
+
+            <button 
+              onClick={() => handleScrollTo('#skills')}
+              className="relative overflow-hidden rounded-xl px-8 py-4 font-semibold text-gray-300 hover:text-white transition-all hover:scale-105 active:scale-95 border border-white/10 hover:border-red-500/40 bg-zinc-950/40 backdrop-blur-md cursor-pointer tracking-widest uppercase font-mono text-xs flex items-center gap-2 group animate-none"
+            >
+              <Terminal className="w-4 h-4 text-red-500" />
+              <span>Core Systems</span>
+              <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-red-600 transition-all duration-300 group-hover:w-full"></span>
+            </button>
+
+            <a 
+              href="/resume.pdf" 
+              target="_blank" 
+              className="relative overflow-hidden rounded-xl px-8 py-4 font-semibold text-gray-300 hover:text-white transition-all hover:scale-105 active:scale-95 border border-white/10 hover:border-red-500/40 bg-zinc-950/40 backdrop-blur-md cursor-pointer tracking-widest uppercase font-mono text-xs flex items-center gap-2"
+            >
+              <Download className="w-4 h-4 text-red-500" />
+              <span>Credentials</span>
+            </a>
+          </div>
+        </motion.div>
+
+        {/* COLUMN 2: THE FLOATING SILICON COMMAND CONSOLE (Right - 40% clean split) */}
+        <motion.div 
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+          className="col-span-1 lg:col-span-5 w-full flex justify-center items-center py-6"
+        >
+          <div className="w-full max-w-[430px] rounded-3xl border border-white/10 bg-black/60 backdrop-blur-md p-6 relative overflow-hidden shadow-[0_0_55px_rgba(255,26,26,0.06)] hover:border-red-500/30 transition-all duration-500 group flex flex-col justify-between gap-5">
+            
+            {/* Ambient pulse glow backdrop */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,26,26,0.08)_0%,transparent_60%)] animate-pulse-glow pointer-events-none" />
             <span className="absolute top-3 left-4 w-2.5 h-2.5 border-t border-l border-red-500/40 pointer-events-none"></span>
             <span className="absolute top-3 right-4 w-2.5 h-2.5 border-t border-r border-red-500/40 pointer-events-none"></span>
             <span className="absolute bottom-3 left-4 w-2.5 h-2.5 border-b border-l border-red-500/40 pointer-events-none"></span>
             <span className="absolute bottom-3 right-4 w-2.5 h-2.5 border-b border-r border-red-500/40 pointer-events-none"></span>
 
-            <div className="space-y-6">
-              {/* Active System Link Pill */}
-              <div className="flex max-w-max items-center gap-2 px-3 py-1.5 border border-red-500/20 bg-red-950/20 rounded-lg text-red-500 text-[9px] font-mono tracking-widest uppercase">
-                <ShieldCheck className="w-3.5 h-3.5 text-red-500 animate-pulse" />
-                <span>CORE INTERFACE LINKED</span>
+            {/* Inner Console Content */}
+            <div className="relative w-full h-full flex flex-col justify-between font-mono z-10 text-[10px] text-gray-400">
+              
+              {/* Console Header */}
+              <div className="flex justify-between items-center border-b border-white/10 pb-3 mb-2.5">
+                <div className="flex items-center gap-2">
+                  <Cpu className="w-4 h-4 text-red-500 animate-pulse" />
+                  <span className="font-bold text-white tracking-widest uppercase">HOLOGRAPHIC SILICON CORE</span>
+                </div>
+                <div className="px-2 py-0.5 bg-red-950/30 border border-red-500/20 text-red-500 text-[8px] rounded uppercase font-bold tracking-wider">
+                  LINK: ACTIVE
+                </div>
               </div>
 
-              {/* Massive Centered Clean Typography Reveal */}
-              <div className="space-y-3 pt-4">
-                <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold tracking-tight text-white leading-tight font-sans">
-                  <span className="block hover:text-red-500 transition-colors cursor-default">ARISHVANTH</span>
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400 hover:text-white transition-colors cursor-default mt-1">SRIGANESH</span>
-                </h1>
-                
-                <h2 className="text-sm xl:text-base text-gray-400 font-mono tracking-[0.25em] uppercase font-light pt-2">
-                  Embedded Systems & IoT Engineer
-                </h2>
-              </div>
-
-              <p className="text-gray-300 text-sm leading-relaxed font-sans font-light tracking-wide pt-4 border-t border-white/5">
-                "Building intelligent systems that connect hardware, data, and real-world impact."
-              </p>
-            </div>
-
-            {/* Glowing HUD Call-To-Action Panel */}
-            <div className="space-y-3.5 pt-8 border-t border-white/5 w-full mt-8">
-              <button 
-                onClick={() => handleScrollTo('#projects')}
-                className="w-full relative overflow-hidden rounded-xl py-3.5 font-bold text-white transition-all hover:scale-[1.02] active:scale-98 border border-red-500/50 bg-gradient-to-r from-[#8B0000] to-[#FF1A1A] hover:shadow-[0_0_35px_rgba(255,26,26,0.55)] cursor-pointer group tracking-widest uppercase font-mono text-[9.5px] flex items-center justify-between px-5"
-              >
-                <div className="flex items-center gap-2">
-                  <Cpu className="w-3.5 h-3.5 animate-pulse text-white" />
-                  <span>Launch Case Studies</span>
-                </div>
-                <span className="text-[8px] opacity-75 font-normal tracking-wide">[4 PORTALS ACTIVE]</span>
-              </button>
-
-              <button 
-                onClick={() => handleScrollTo('#skills')}
-                className="w-full relative overflow-hidden rounded-xl py-3.5 font-bold text-gray-300 hover:text-white transition-all hover:scale-[1.02] active:scale-98 border border-white/10 hover:border-red-500/40 bg-zinc-950/40 backdrop-blur-md cursor-pointer tracking-widest uppercase font-mono text-[9.5px] flex items-center justify-between px-5 group"
-              >
-                <div className="flex items-center gap-2">
-                  <Terminal className="w-3.5 h-3.5 text-red-500" />
-                  <span>Core Systems</span>
-                </div>
-                <span className="text-[8px] text-gray-500 tracking-wide group-hover:text-red-400">[7 CLUSTERS]</span>
-              </button>
-
-              <a 
-                href="/resume.pdf" 
-                target="_blank" 
-                className="w-full relative overflow-hidden rounded-xl py-3.5 font-bold text-gray-300 hover:text-white transition-all hover:scale-[1.02] active:scale-98 border border-white/10 hover:border-red-500/40 bg-zinc-950/40 backdrop-blur-md cursor-pointer tracking-widest uppercase font-mono text-[9.5px] flex items-center justify-between px-5"
-              >
-                <div className="flex items-center gap-2">
-                  <Download className="w-3.5 h-3.5 text-red-500" />
-                  <span>Credentials</span>
-                </div>
-                <span className="text-[8px] text-gray-500 tracking-wide">[11 CERTIFIED]</span>
-              </a>
-            </div>
-          </motion.div>
-
-          {/* COLUMN 2: SILICON CORE INTERACTIVE ENGINE (Center) */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-            className="col-span-1 lg:col-span-4 bg-black/55 border border-white/10 p-6 rounded-3xl backdrop-blur-md shadow-2xl relative flex flex-col justify-between overflow-hidden group hover:border-red-500/20 transition-colors"
-          >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,26,26,0.06)_0%,transparent_60%)] animate-pulse-glow pointer-events-none" />
-            <span className="absolute top-3 left-4 w-2.5 h-2.5 border-t border-l border-red-500/40 pointer-events-none"></span>
-            <span className="absolute top-3 right-4 w-2.5 h-2.5 border-t border-r border-red-500/40 pointer-events-none"></span>
-
-            <div className="space-y-4">
-              {/* Real-time Oscilloscope Wave Scope above the Chip */}
-              <div className="w-full space-y-1">
-                <div className="flex justify-between items-center text-[7.5px] text-gray-500 uppercase tracking-widest">
-                  <span>ADC_CH1 SIGNALS OSCILLOSCOPE</span>
+              {/* Real-time Oscilloscope Signals */}
+              <div className="w-full space-y-1 mb-2">
+                <div className="flex justify-between items-center text-[7px] text-gray-500 uppercase tracking-widest">
+                  <span>ADC_CH1 OSCILLOSCOPE SIGNALS</span>
                   <span className="text-red-500 font-bold flex items-center gap-1">
                     <Activity className="w-3 h-3 animate-pulse" />
                     REAL-TIME
                   </span>
                 </div>
-                <div className="w-full h-10 bg-black/80 border border-white/5 rounded-xl overflow-hidden relative flex items-center">
-                  <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:12px_12px] pointer-events-none" />
-                  <svg width="100%" height="30" className="text-red-500 relative z-10 w-full">
+                <div className="w-full h-9 bg-black/80 border border-white/5 rounded-xl overflow-hidden relative flex items-center">
+                  <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:10px_10px] pointer-events-none" />
+                  <svg width="100%" height="25" className="text-red-500 relative z-10 w-full">
                     <path 
                       d={generateOscilloscopePath()} 
                       fill="none" 
@@ -246,23 +291,23 @@ export default function Hero() {
 
               {/* Silicon Core Visual Simulation */}
               <div className="w-full flex justify-center items-center relative py-1">
-                <svg viewBox="0 0 200 160" className="w-full h-44 text-gray-700 select-none">
+                <svg viewBox="0 0 200 150" className="w-full h-40 text-gray-700 select-none">
                   <defs>
-                    <linearGradient id="mcuSubGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <linearGradient id="coreSubGlow" x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" stopColor="#121212" />
                       <stop offset="100%" stopColor="#050505" />
                     </linearGradient>
                   </defs>
 
                   {/* Concentric orbital rings */}
-                  <ellipse cx="100" cy="80" rx="75" ry="40" stroke="rgba(255,26,26,0.06)" strokeWidth="1" fill="none" strokeDasharray="5 5" />
-                  <ellipse cx="100" cy="80" rx="90" ry="48" stroke="rgba(255,26,26,0.04)" strokeWidth="0.5" fill="none" />
+                  <ellipse cx="100" cy="75" rx="70" ry="36" stroke="rgba(255,26,26,0.06)" strokeWidth="1" fill="none" strokeDasharray="5 5" />
+                  <ellipse cx="100" cy="75" rx="85" ry="44" stroke="rgba(255,26,26,0.04)" strokeWidth="0.5" fill="none" />
 
                   {/* Bus Pathways */}
                   {/* RF Path (Top Left to Core) */}
-                  <path d="M 40,45 L 80,70" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" fill="none" />
+                  <path d="M 40,40 L 80,65" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" fill="none" />
                   <path 
-                    d="M 40,45 L 80,70" 
+                    d="M 40,40 L 80,65" 
                     stroke="#FF1A1A" 
                     strokeWidth="1.5" 
                     fill="none" 
@@ -273,9 +318,9 @@ export default function Hero() {
                   />
 
                   {/* AI Path (Top Right to Core) */}
-                  <path d="M 160,45 L 120,70" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" fill="none" />
+                  <path d="M 160,40 L 120,65" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" fill="none" />
                   <path 
-                    d="M 160,45 L 120,70" 
+                    d="M 160,40 L 120,65" 
                     stroke="#FF1A1A" 
                     strokeWidth="1.5" 
                     fill="none" 
@@ -286,9 +331,9 @@ export default function Hero() {
                   />
 
                   {/* ADC Path (Bottom Left to Core) */}
-                  <path d="M 40,115 L 80,90" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" fill="none" />
+                  <path d="M 40,110 L 80,85" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" fill="none" />
                   <path 
-                    d="M 40,115 L 80,90" 
+                    d="M 40,110 L 80,85" 
                     stroke="#FF1A1A" 
                     strokeWidth="1.5" 
                     fill="none" 
@@ -299,9 +344,9 @@ export default function Hero() {
                   />
 
                   {/* RAM Path (Bottom Right to Core) */}
-                  <path d="M 160,115 L 120,90" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" fill="none" />
+                  <path d="M 160,110 L 120,85" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" fill="none" />
                   <path 
-                    d="M 160,115 L 120,90" 
+                    d="M 160,110 L 120,85" 
                     stroke="#FF1A1A" 
                     strokeWidth="1.5" 
                     fill="none" 
@@ -317,13 +362,13 @@ export default function Hero() {
                     onClick={() => setActiveSub('RF')}
                   >
                     <polygon 
-                      points="40,35 60,45 40,55 20,45" 
-                      fill="url(#mcuSubGlow)" 
+                      points="40,30 60,40 40,50 20,40" 
+                      fill="url(#coreSubGlow)" 
                       stroke={activeSub === 'RF' ? '#FF1A1A' : 'rgba(255,255,255,0.1)'} 
                       strokeWidth={activeSub === 'RF' ? '1.5' : '1'} 
                     />
-                    <circle cx="40" cy="45" r="2.5" fill={activeSub === 'RF' ? '#FF1A1A' : 'rgba(255,255,255,0.3)'} className="animate-pulse" />
-                    <text x="40" y="28" textAnchor="middle" fill={activeSub === 'RF' ? '#FFFFFF' : '#888888'} fontSize="6.5" fontWeight="bold">RF_COMM</text>
+                    <circle cx="40" cy="40" r="2.5" fill={activeSub === 'RF' ? '#FF1A1A' : 'rgba(255,255,255,0.3)'} className="animate-pulse" />
+                    <text x="40" y="24" textAnchor="middle" fill={activeSub === 'RF' ? '#FFFFFF' : '#888888'} fontSize="6.5" fontWeight="bold">RF_COMM</text>
                   </g>
 
                   {/* Subsystem 2: EDGE AI (Top Right) */}
@@ -332,13 +377,13 @@ export default function Hero() {
                     onClick={() => setActiveSub('AI')}
                   >
                     <polygon 
-                      points="160,35 180,45 160,55 140,45" 
-                      fill="url(#mcuSubGlow)" 
+                      points="160,30 180,40 160,50 140,40" 
+                      fill="url(#coreSubGlow)" 
                       stroke={activeSub === 'AI' ? '#FF1A1A' : 'rgba(255,255,255,0.1)'} 
                       strokeWidth={activeSub === 'AI' ? '1.5' : '1'} 
                     />
-                    <circle cx="160" cy="45" r="2.5" fill={activeSub === 'AI' ? '#FF1A1A' : 'rgba(255,255,255,0.3)'} className="animate-pulse" />
-                    <text x="160" y="28" textAnchor="middle" fill={activeSub === 'AI' ? '#FFFFFF' : '#888888'} fontSize="6.5" fontWeight="bold">EDGE_AI</text>
+                    <circle cx="160" cy="40" r="2.5" fill={activeSub === 'AI' ? '#FF1A1A' : 'rgba(255,255,255,0.3)'} className="animate-pulse" />
+                    <text x="160" y="24" textAnchor="middle" fill={activeSub === 'AI' ? '#FFFFFF' : '#888888'} fontSize="6.5" fontWeight="bold">EDGE_AI</text>
                   </g>
 
                   {/* Subsystem 3: ADC DATA (Bottom Left) */}
@@ -347,13 +392,13 @@ export default function Hero() {
                     onClick={() => setActiveSub('ADC')}
                   >
                     <polygon 
-                      points="40,105 60,115 40,125 20,115" 
-                      fill="url(#mcuSubGlow)" 
+                      points="40,100 60,110 40,120 20,110" 
+                      fill="url(#coreSubGlow)" 
                       stroke={activeSub === 'ADC' ? '#FF1A1A' : 'rgba(255,255,255,0.1)'} 
                       strokeWidth={activeSub === 'ADC' ? '1.5' : '1'} 
                     />
-                    <circle cx="40" cy="115" r="2.5" fill={activeSub === 'ADC' ? '#FF1A1A' : 'rgba(255,255,255,0.3)'} className="animate-pulse" />
-                    <text x="40" y="136" textAnchor="middle" fill={activeSub === 'ADC' ? '#FFFFFF' : '#888888'} fontSize="6.5" fontWeight="bold">ADC_DATA</text>
+                    <circle cx="40" cy="110" r="2.5" fill={activeSub === 'ADC' ? '#FF1A1A' : 'rgba(255,255,255,0.3)'} className="animate-pulse" />
+                    <text x="40" y="130" textAnchor="middle" fill={activeSub === 'ADC' ? '#FFFFFF' : '#888888'} fontSize="6.5" fontWeight="bold">ADC_DATA</text>
                   </g>
 
                   {/* Subsystem 4: CENTRAL CPU (Center 3D isometric block) */}
@@ -363,34 +408,34 @@ export default function Hero() {
                   >
                     {/* Top Face */}
                     <polygon 
-                      points="100,60 135,78 100,96 65,78" 
-                      fill="url(#mcuSubGlow)" 
+                      points="100,55 135,73 100,91 65,73" 
+                      fill="url(#coreSubGlow)" 
                       stroke={activeSub === 'CPU' ? '#FF1A1A' : 'rgba(255,255,255,0.15)'} 
                       strokeWidth={activeSub === 'CPU' ? '1.5' : '1'} 
                     />
                     {/* Left Isometric Side Face */}
                     <polygon 
-                      points="65,78 100,96 100,104 65,86" 
+                      points="65,73 100,91 100,99 65,81" 
                       fill="rgba(139,0,0,0.2)" 
                       stroke={activeSub === 'CPU' ? '#FF1A1A' : 'rgba(255,255,255,0.1)'} 
                       strokeWidth="0.8" 
                     />
                     {/* Right Isometric Side Face */}
                     <polygon 
-                      points="100,96 135,78 135,86 100,104" 
+                      points="100,91 135,73 135,81 100,99" 
                       fill="rgba(139,0,0,0.1)" 
                       stroke={activeSub === 'CPU' ? '#FF1A1A' : 'rgba(255,255,255,0.1)'} 
                       strokeWidth="0.8" 
                     />
 
                     {/* Engraved glowing text on silicon */}
-                    <text x="100" y="75" textAnchor="middle" fill="#FFFFFF" fontSize="5.5" fontWeight="black" letterSpacing="0.5" className="animate-pulse opacity-90">ARISH_32</text>
-                    <text x="100" y="82" textAnchor="middle" fill="#FF1A1A" fontSize="4.5" fontWeight="bold" opacity="0.8">CORE ENGINE</text>
+                    <text x="100" y="70" textAnchor="middle" fill="#FFFFFF" fontSize="5.5" fontWeight="black" letterSpacing="0.5" className="animate-pulse opacity-90">ARISH_32</text>
+                    <text x="100" y="77" textAnchor="middle" fill="#FF1A1A" fontSize="4.5" fontWeight="bold" opacity="0.8">CORE ENGINE</text>
 
                     {/* Central pulsing core node */}
                     <circle 
                       cx="100" 
-                      cy="90" 
+                      cy="85" 
                       r="3.5" 
                       fill="#FF1A1A" 
                       style={{
@@ -405,91 +450,59 @@ export default function Hero() {
                     onClick={() => setActiveSub('CPU')}
                   >
                     <polygon 
-                      points="160,105 180,115 160,125 140,115" 
-                      fill="url(#mcuSubGlow)" 
+                      points="160,100 180,110 160,120 140,110" 
+                      fill="url(#coreSubGlow)" 
                       stroke="rgba(255,255,255,0.1)" 
                       strokeWidth="1" 
                     />
-                    <circle cx="160" cy="115" r="2.5" fill="rgba(255,255,255,0.3)" className="animate-pulse" />
-                    <text x="160" y="136" textAnchor="middle" fill="#888888" fontSize="6.5" fontWeight="bold">EDGE_RAM</text>
+                    <circle cx="160" cy="110" r="2.5" fill="rgba(255,255,255,0.3)" className="animate-pulse" />
+                    <text x="160" y="130" textAnchor="middle" fill="#888888" fontSize="6.5" fontWeight="bold">EDGE_RAM</text>
                   </g>
                 </svg>
               </div>
-            </div>
 
-            {/* Core Stress & Frequency Control Slider (Reactor Throttle styled) */}
-            <div className="border-t border-white/10 pt-4 flex flex-col gap-2 shrink-0">
-              <div className="flex justify-between items-center text-[7.5px] text-gray-500 uppercase tracking-widest">
-                <span>CORE THROTTLE / CLOCK FREQ</span>
-                <span className="text-red-500 font-bold">{coreSpeed} MHz</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="text-[7px] text-gray-600 font-bold uppercase shrink-0">MIN_CLK</span>
-                <input 
-                  type="range" 
-                  min="80" 
-                  max="240" 
-                  step="10"
-                  value={coreSpeed} 
-                  onChange={(e) => setCoreSpeed(parseInt(e.target.value))}
-                  className="w-full h-1.5 bg-zinc-900 rounded-lg appearance-none cursor-pointer accent-red-600 outline-none hover:bg-zinc-800 transition-colors border border-white/5"
-                />
-                <span className="text-[7px] text-red-500 font-bold uppercase shrink-0">MAX_CLK</span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* COLUMN 3: SUBSYSTEM TELEMETRY PANEL (Right) */}
-          <motion.div 
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-            className="col-span-1 lg:col-span-4 bg-black/55 border border-white/10 p-6 rounded-3xl backdrop-blur-md shadow-2xl relative flex flex-col justify-between overflow-hidden group hover:border-red-500/20 transition-colors"
-          >
-            <div className="absolute inset-0 hud-grid opacity-15 pointer-events-none" />
-            <span className="absolute top-3 left-4 w-2.5 h-2.5 border-t border-l border-red-500/40 pointer-events-none"></span>
-            <span className="absolute top-3 right-4 w-2.5 h-2.5 border-t border-r border-red-500/40 pointer-events-none"></span>
-            <span className="absolute bottom-3 left-4 w-2.5 h-2.5 border-b border-l border-red-500/40 pointer-events-none"></span>
-            <span className="absolute bottom-3 right-4 w-2.5 h-2.5 border-b border-r border-red-500/40 pointer-events-none"></span>
-
-            <div className="space-y-6 h-full flex flex-col justify-between">
-              {/* Dynamic Telemetry Header */}
-              <div className="flex justify-between items-center border-b border-white/10 pb-3">
-                <div className="flex items-center gap-2">
-                  <Radio className="w-4 h-4 text-red-500 animate-pulse" />
-                  <span className="font-extrabold text-white tracking-widest text-[9.5px] uppercase">ACTIVE TELEMETRY SCANNER</span>
+              {/* Core Stress & Frequency Control Slider */}
+              <div className="border-t border-white/10 pt-3 flex flex-col gap-2 shrink-0">
+                <div className="flex justify-between items-center text-[7.5px] text-gray-500 uppercase tracking-widest">
+                  <span>CORE THROTTLE / CLOCK FREQ</span>
+                  <span className="text-red-500 font-bold">{coreSpeed} MHz</span>
                 </div>
-                <span className="px-2 py-0.5 bg-red-950/20 border border-red-500/20 text-red-500 text-[7px] rounded font-bold uppercase tracking-wider">
-                  LINK: OK
-                </span>
+                <div className="flex items-center gap-3">
+                  <span className="text-[7px] text-gray-600 font-bold uppercase shrink-0">MIN_CLK</span>
+                  <input 
+                    type="range" 
+                    min="80" 
+                    max="240" 
+                    step="10"
+                    value={coreSpeed} 
+                    onChange={(e) => setCoreSpeed(parseInt(e.target.value))}
+                    className="w-full h-1.5 bg-zinc-900 rounded-lg appearance-none cursor-pointer accent-red-600 outline-none hover:bg-zinc-800 transition-colors border border-white/5"
+                  />
+                  <span className="text-[7px] text-red-500 font-bold uppercase shrink-0">MAX_CLK</span>
+                </div>
               </div>
 
-              {/* Sub-metrics Grid */}
-              <div className="space-y-2 mt-2">
-                <div className="flex justify-between items-center text-[7px] text-gray-500 uppercase tracking-widest font-bold">
+              {/* Integrated Telemetry scanner panel inside the Console */}
+              <div className="border-t border-white/10 pt-3 space-y-2.5 mt-3 shrink-0">
+                <div className="flex justify-between items-center text-[7.5px] text-gray-500 uppercase tracking-widest font-bold">
                   <span className="text-red-500">{subInfo[activeSub].title}</span>
-                  <span>REG_SPECS</span>
+                  <span>SYS_LOG</span>
                 </div>
                 
-                <div className="grid grid-cols-3 gap-2.5">
+                {/* Metrics row */}
+                <div className="grid grid-cols-3 gap-2">
                   {subInfo[activeSub].metrics.map((metric, mIdx) => (
-                    <div key={mIdx} className="p-2 border border-white/5 bg-zinc-950/60 rounded-xl flex flex-col justify-between items-center text-center">
-                      <span className="text-[6px] text-gray-500 font-bold uppercase tracking-wider">{metric.label}</span>
-                      <span className="text-white text-[9px] font-bold mt-1 tracking-tight">{metric.val()}</span>
+                    <div key={mIdx} className="p-1.5 border border-white/5 bg-zinc-950/60 rounded-xl flex flex-col justify-between items-center text-center">
+                      <span className="text-[5.5px] text-gray-500 font-bold uppercase tracking-wider">{metric.label}</span>
+                      <span className="text-white text-[9px] font-bold mt-0.5 tracking-tight">{metric.val()}</span>
                     </div>
                   ))}
                 </div>
-              </div>
 
-              {/* Live Ticker Console Logs */}
-              <div className="space-y-1.5 flex-grow mt-4 flex flex-col justify-end">
-                <div className="flex justify-between text-[7px] text-gray-500 uppercase tracking-widest font-bold pb-1 border-b border-white/5">
-                  <span>TELEMETRY_STREAM_CONSOLE</span>
-                  <span className="text-green-500">LIVE FEED</span>
-                </div>
-                <div className="w-full h-24 bg-black/85 border border-white/5 rounded-xl p-3 font-mono text-[8px] text-gray-400 space-y-1.5 overflow-hidden select-none">
-                  {subInfo[activeSub].logs.map((log, lIdx) => (
-                    <div key={lIdx} className="flex items-center gap-1.5 leading-relaxed">
+                {/* Console Logs Box */}
+                <div className="w-full h-16 bg-black/85 border border-white/5 rounded-xl p-2 font-mono text-[7.5px] text-gray-400 space-y-1 overflow-hidden select-none">
+                  {subInfo[activeSub].logs.slice(0, 3).map((log, lIdx) => (
+                    <div key={lIdx} className="flex items-center gap-1 truncate">
                       <span className="text-red-700/60 font-semibold">{`>`}</span>
                       <span className="text-gray-300 font-light truncate">{log}</span>
                     </div>
@@ -497,15 +510,9 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Bounding System Metadata info */}
-              <div className="pt-4 border-t border-white/5 text-[7px] font-mono text-gray-600 flex justify-between uppercase">
-                <span>BUFFER: 1024KB CLEAR</span>
-                <span>INTR: MULTI_INDEX STABLE</span>
-              </div>
             </div>
-          </motion.div>
-
-        </div>
+          </div>
+        </motion.div>
 
       </div>
 

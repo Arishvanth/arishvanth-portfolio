@@ -199,7 +199,7 @@ export default function About() {
                 </button>
               </div>
               
-              <div className="p-6 max-h-[60vh] overflow-y-auto">
+              <div className="p-6 max-h-[50vh] overflow-y-auto">
                 <ul className="space-y-3">
                   {statLists[activeStat].items.map((item, idx) => (
                     <li key={idx} className="flex gap-3 text-gray-300 font-light">
@@ -208,6 +208,16 @@ export default function About() {
                     </li>
                   ))}
                 </ul>
+              </div>
+
+              {/* Mobile-friendly bottom dismiss button */}
+              <div className="p-6 border-t border-white/5 bg-black/30 flex w-full">
+                <button
+                  onClick={() => setActiveStat(null)}
+                  className="w-full py-3 bg-red-950/20 hover:bg-red-600/30 text-red-500 hover:text-white border border-red-500/20 hover:border-red-500/50 rounded-xl transition-all duration-300 cursor-pointer uppercase font-mono text-[9px] font-bold tracking-widest text-center"
+                >
+                  DISMISS DETAILED STATS CONSOLE
+                </button>
               </div>
             </motion.div>
           </motion.div>

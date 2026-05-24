@@ -92,9 +92,50 @@ export default function WorkExperience() {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
           onClick={() => setSelectedExp(experiences[0])}
-          className="col-span-1 lg:col-span-5 bg-black/60 border border-white/10 rounded-3xl p-6 hover:border-red-500/40 hover:shadow-[0_0_30px_rgba(255,26,26,0.1)] transition-all cursor-pointer flex flex-col justify-between group relative select-none"
+          className="col-span-1 lg:col-span-5 bg-black/60 border border-white/10 rounded-3xl p-6 pl-10 hover:border-red-500/40 hover:shadow-[0_0_30px_rgba(255,26,26,0.12)] transition-all cursor-pointer flex flex-col justify-between group relative overflow-hidden select-none"
         >
-          <div className="absolute inset-0 hud-grid opacity-20 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-br from-transparent to-red-950/5 pointer-events-none" />
+          <div className="absolute inset-0 hud-grid-red opacity-15 pointer-events-none" />
+          <div className="hud-scanline opacity-20 z-20 pointer-events-none" />
+
+          {/* High-tech corner bracket ticks */}
+          <span className="absolute top-2 left-2 w-2 h-2 border-t border-l border-red-500/40 pointer-events-none"></span>
+          <span className="absolute top-2 right-2 w-2 h-2 border-t border-r border-red-500/40 pointer-events-none"></span>
+          <span className="absolute bottom-2 left-2 w-2 h-2 border-b border-l border-red-500/40 pointer-events-none"></span>
+          <span className="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-red-500/40 pointer-events-none"></span>
+
+          {/* Left vertical pin array header */}
+          <div className="absolute left-0 top-1/4 bottom-1/4 w-5 flex flex-col justify-between items-center pointer-events-none z-10 pl-1.5">
+            <div className="w-[1px] h-full bg-red-500/25 absolute left-[11px]"></div>
+            {['VCC', 'GND', 'SDA', 'SCL'].map((pin, pIdx) => (
+              <div key={pIdx} className="relative flex items-center justify-center">
+                <div className="w-1.5 h-1.5 rounded-full border border-red-500 bg-black flex items-center justify-center shadow-[0_0_6px_rgba(255,26,26,0.3)] group-hover:bg-red-900 group-hover:scale-110 transition-all">
+                  <div className="w-0.5 h-0.5 rounded-full bg-red-500"></div>
+                </div>
+                <span className="absolute left-3 text-[4.5px] font-mono text-red-500/35 uppercase font-bold tracking-wider opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">{pin}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Mounted silicon chip graphic in top right */}
+          <div className="absolute top-3 right-3 z-10 hidden sm:flex items-center gap-1.5 pointer-events-none">
+            <div className="w-6 h-6 bg-zinc-900 border border-white/10 rounded flex items-center justify-center shadow-[0_0_8px_rgba(0,0,0,0.8)] relative group-hover:border-red-500/30 transition-colors">
+              {/* Pin legs */}
+              <span className="absolute -left-[3px] top-1 w-0.5 h-0.5 bg-gray-500 rounded"></span>
+              <span className="absolute -left-[3px] top-2.5 w-0.5 h-0.5 bg-gray-500 rounded"></span>
+              <span className="absolute -left-[3px] top-4 w-0.5 h-0.5 bg-gray-500 rounded"></span>
+              
+              <span className="absolute -right-[3px] top-1 w-0.5 h-0.5 bg-gray-500 rounded"></span>
+              <span className="absolute -right-[3px] top-2.5 w-0.5 h-0.5 bg-gray-500 rounded"></span>
+              <span className="absolute -right-[3px] top-4 w-0.5 h-0.5 bg-gray-500 rounded"></span>
+
+              <Cpu className="w-3.5 h-3.5 text-red-500/40 group-hover:text-red-500 transition-colors animate-pulse" />
+            </div>
+            <div className="flex flex-col text-[5px] font-mono text-gray-600 uppercase text-right leading-none">
+              <span>CHIP: PV_01</span>
+              <span>0x5F1B</span>
+            </div>
+          </div>
 
           {/* Module Header */}
           <div className="flex justify-between items-start border-b border-white/10 pb-4 mb-5">
@@ -186,9 +227,50 @@ export default function WorkExperience() {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
           onClick={() => setSelectedExp(experiences[1])}
-          className="col-span-1 lg:col-span-5 bg-black/60 border border-white/10 rounded-3xl p-6 hover:border-red-500/40 hover:shadow-[0_0_30px_rgba(255,26,26,0.1)] transition-all cursor-pointer flex flex-col justify-between group relative select-none"
+          className="col-span-1 lg:col-span-5 bg-black/60 border border-white/10 rounded-3xl p-6 pl-10 hover:border-red-500/40 hover:shadow-[0_0_30px_rgba(255,26,26,0.12)] transition-all cursor-pointer flex flex-col justify-between group relative overflow-hidden select-none"
         >
-          <div className="absolute inset-0 hud-grid opacity-20 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-br from-transparent to-red-950/5 pointer-events-none" />
+          <div className="absolute inset-0 hud-grid-red opacity-15 pointer-events-none" />
+          <div className="hud-scanline opacity-20 z-20 pointer-events-none" />
+
+          {/* High-tech corner bracket ticks */}
+          <span className="absolute top-2 left-2 w-2 h-2 border-t border-l border-red-500/40 pointer-events-none"></span>
+          <span className="absolute top-2 right-2 w-2 h-2 border-t border-r border-red-500/40 pointer-events-none"></span>
+          <span className="absolute bottom-2 left-2 w-2 h-2 border-b border-l border-red-500/40 pointer-events-none"></span>
+          <span className="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-red-500/40 pointer-events-none"></span>
+
+          {/* Left vertical pin array header */}
+          <div className="absolute left-0 top-1/4 bottom-1/4 w-5 flex flex-col justify-between items-center pointer-events-none z-10 pl-1.5">
+            <div className="w-[1px] h-full bg-red-500/25 absolute left-[11px]"></div>
+            {['VCC', 'GND', 'SDA', 'SCL'].map((pin, pIdx) => (
+              <div key={pIdx} className="relative flex items-center justify-center">
+                <div className="w-1.5 h-1.5 rounded-full border border-red-500 bg-black flex items-center justify-center shadow-[0_0_6px_rgba(255,26,26,0.3)] group-hover:bg-red-900 group-hover:scale-110 transition-all">
+                  <div className="w-0.5 h-0.5 rounded-full bg-red-500"></div>
+                </div>
+                <span className="absolute left-3 text-[4.5px] font-mono text-red-500/35 uppercase font-bold tracking-wider opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">{pin}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Mounted silicon chip graphic in top right */}
+          <div className="absolute top-3 right-3 z-10 hidden sm:flex items-center gap-1.5 pointer-events-none">
+            <div className="w-6 h-6 bg-zinc-900 border border-white/10 rounded flex items-center justify-center shadow-[0_0_8px_rgba(0,0,0,0.8)] relative group-hover:border-red-500/30 transition-colors">
+              {/* Pin legs */}
+              <span className="absolute -left-[3px] top-1 w-0.5 h-0.5 bg-gray-500 rounded"></span>
+              <span className="absolute -left-[3px] top-2.5 w-0.5 h-0.5 bg-gray-500 rounded"></span>
+              <span className="absolute -left-[3px] top-4 w-0.5 h-0.5 bg-gray-500 rounded"></span>
+              
+              <span className="absolute -right-[3px] top-1 w-0.5 h-0.5 bg-gray-500 rounded"></span>
+              <span className="absolute -right-[3px] top-2.5 w-0.5 h-0.5 bg-gray-500 rounded"></span>
+              <span className="absolute -right-[3px] top-4 w-0.5 h-0.5 bg-gray-500 rounded"></span>
+
+              <Cpu className="w-3.5 h-3.5 text-red-500/40 group-hover:text-red-500 transition-colors animate-pulse" />
+            </div>
+            <div className="flex flex-col text-[5px] font-mono text-gray-600 uppercase text-right leading-none">
+              <span>CHIP: DB_02</span>
+              <span>0x3E7C</span>
+            </div>
+          </div>
 
           {/* Module Header */}
           <div className="flex justify-between items-start border-b border-white/10 pb-4 mb-5">
