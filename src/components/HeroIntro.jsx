@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Power } from 'lucide-react';
 
@@ -6,10 +6,30 @@ export default function HeroIntro() {
   const [activated, setActivated] = useState(false);
   const [bootReady, setBootReady] = useState(false);
   const audioContextRef = useRef(null);
+  const autoBootTimerRef = useRef(null);
 
-  // Initialize and play synthesizers upon user activation trigger
-  const handleActivate = () => {
+  // Set up a 3-second auto-boot timer to guarantee the site loads even without a click interaction
+  useEffect(() => {
+    autoBootTimerRef.current = setTimeout(() => {
+      if (!activated) {
+        handleActivate(true); // Trigger auto-boot
+      }
+    }, 3000);
+
+    return () => {
+      if (autoBootTimerRef.current) {
+        clearTimeout(autoBootTimerRef.current);
+      }
+    };
+  }, [activated]);
+
+  const handleActivate = (isAutoBoot = false) => {
+    if (autoBootTimerRef.current) {
+      clearTimeout(autoBootTimerRef.current);
+    }
     setActivated(true);
+    
+    // Play the boot audio hum in both explicit-click and auto-boot cases (tries to unlock context in both)
     playCinematicSound();
     
     // Auto transition to portfolio after 3.5 seconds
@@ -55,7 +75,6 @@ export default function HeroIntro() {
       oscSub.start();
       oscMid.start();
 
-      // Fade out ambient hums slowly before resolve chime
       gainSub.gain.setValueAtTime(0.04, ctx.currentTime + 2.5);
       gainSub.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 3.2);
       
@@ -125,7 +144,7 @@ export default function HeroIntro() {
               <div className="absolute inset-2 border border-dashed border-red-600/30 rounded-full animate-spin-reverse-slow"></div>
               
               <button 
-                onClick={handleActivate}
+                onClick={() => handleActivate(false)}
                 className="w-20 h-20 rounded-full border border-red-500/40 bg-red-950/20 hover:bg-red-600/30 text-red-500 hover:text-white transition-all shadow-[0_0_25px_rgba(255,26,26,0.3)] hover:shadow-[0_0_45px_rgba(255,26,26,0.7)] flex items-center justify-center cursor-pointer active:scale-95 group z-10"
               >
                 <Power className="w-8 h-8 group-hover:scale-115 transition-transform" />
@@ -135,12 +154,15 @@ export default function HeroIntro() {
             <div className="space-y-2">
               <h2 className="text-sm font-bold tracking-[0.25em] text-white uppercase">LAUNCH SYSTEM CORE</h2>
               <p className="text-gray-500 text-[10px] leading-relaxed uppercase">
-                TAPS TO UNLOCK HIGH-FIDELITY AUDIO & ACTIVE HUD VISUALS
+                TAP TO UNLOCK HIGH-FIDELITY AUDIO & ACTIVE HUD VISUALS
+              </p>
+              <p className="text-red-500/50 text-[9px] font-mono tracking-wider pt-2 uppercase">
+                AUTO-BOOT INITIATES IN 3 SECONDS
               </p>
             </div>
           </motion.div>
         ) : (
-          // Immersive Clean Name Reveal (Restored & Upgraded V1 Style)
+          // Immersive Clean Name Reveal (Centered and Initial M N Removed for Perfect Alignment)
           <motion.div 
             key="reveal"
             initial={{ opacity: 0 }}
@@ -151,7 +173,7 @@ export default function HeroIntro() {
             <div className="absolute -inset-10 bg-[radial-gradient(circle_at_center,rgba(255,26,26,0.12)_0%,transparent_60%)] animate-pulse-glow pointer-events-none" />
 
             <h1 className="text-4xl md:text-7xl font-extrabold tracking-[0.2em] text-white uppercase drop-shadow-[0_0_20px_rgba(255,26,26,0.6)] font-sans">
-              ARISHVANTH <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400">SRIGANESH</span> M N
+              ARISHVANTH <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400">SRIGANESH</span>
             </h1>
             
             <motion.div 
