@@ -146,7 +146,6 @@ export default function Leadership() {
         
         {/* Bounding tech corner marks */}
         <span className="absolute top-2 left-2 w-2 h-2 border-t border-l border-red-500/40 pointer-events-none"></span>
-        <span className="absolute top-2 right-2 w-2 h-2 border-t border-r border-red-500/40 pointer-events-none"></span>
         <span className="absolute bottom-2 left-2 w-2 h-2 border-b border-l border-red-500/40 pointer-events-none"></span>
         <span className="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-red-500/40 pointer-events-none"></span>
 
@@ -184,7 +183,8 @@ export default function Leadership() {
         </div>
 
         {/* Dynamic Tag header with micro-LED */}
-        <div className="flex justify-between items-center mb-3.5 z-10">
+        {/* mt-0 on mobile, mt-5 on PC clears the mounted silicon chip next to left pins */}
+        <div className="flex justify-between items-center mb-3.5 mt-0 sm:mt-5 z-10">
           <div className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping"></span>
             <span className="text-[8px] font-mono font-bold tracking-widest text-red-500 uppercase">{statusLabel || "VERIFIED"}</span>
@@ -220,6 +220,42 @@ export default function Leadership() {
           {/* Tech overlay */}
           <div className="absolute bottom-2 left-3 z-20 font-mono text-[7px] text-red-500/80 bg-black/80 px-2 py-0.5 rounded border border-red-500/20 uppercase tracking-widest">
             LOG_REF: ONLINE
+          </div>
+        </div>
+
+        {/* Premium Physical PCB Terminals & Status LEDs */}
+        <div className="flex justify-between items-center mb-3 pt-3 border-t border-white/5 font-mono text-[6.5px] text-gray-500 select-none w-full">
+          {/* Status LEDs Array */}
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-0.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_6px_#22c55e] animate-pulse"></span>
+              <span className="font-bold scale-90">PWR</span>
+            </div>
+            <div className="flex items-center gap-0.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_6px_#22c55e] animate-ping"></span>
+              <span className="font-bold scale-90">ACT</span>
+            </div>
+            <div className="flex items-center gap-0.5 opacity-45">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-955 border border-red-500/20"></span>
+              <span className="font-bold scale-90">ERR</span>
+            </div>
+          </div>
+
+          {/* Silkscreen Board Blueprint */}
+          <div className="hidden xs:block text-[5.5px] tracking-wider text-gray-600 font-extrabold uppercase">
+            TG130_PCB
+          </div>
+
+          {/* Solder Test Points */}
+          <div className="flex items-center gap-1">
+            <div className="flex flex-col items-center">
+              <span className="w-1 h-1 rounded-full bg-amber-500/80 border border-amber-400 flex items-center justify-center"></span>
+              <span className="scale-75 text-gray-600 font-bold">TP1</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <span className="w-1 h-1 rounded-full bg-amber-500/80 border border-amber-400 flex items-center justify-center"></span>
+              <span className="scale-75 text-gray-600 font-bold">TP2</span>
+            </div>
           </div>
         </div>
 
@@ -526,8 +562,8 @@ export default function Leadership() {
                               ))}
                             </div>
 
-                            {/* Mini Mounted silicon chip graphic top right */}
-                            <div className="absolute top-2 right-2 z-10 hidden xs:flex items-center pointer-events-none">
+                            {/* Mini Mounted silicon chip graphic top left */}
+                            <div className="absolute top-2 left-6 z-10 hidden xs:flex items-center pointer-events-none">
                               <div className="w-4 h-4 bg-zinc-900 border border-white/10 rounded flex items-center justify-center relative">
                                 <Cpu className="w-2.5 h-2.5 text-red-500/30 group-hover:text-red-500 transition-colors animate-pulse" />
                               </div>

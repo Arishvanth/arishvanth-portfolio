@@ -107,7 +107,6 @@ export default function WorkExperience() {
 
           {/* High-tech corner bracket ticks */}
           <span className="absolute top-2 left-2 w-2 h-2 border-t border-l border-red-500/40 pointer-events-none"></span>
-          <span className="absolute top-2 right-2 w-2 h-2 border-t border-r border-red-500/40 pointer-events-none"></span>
           <span className="absolute bottom-2 left-2 w-2 h-2 border-b border-l border-red-500/40 pointer-events-none"></span>
           <span className="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-red-500/40 pointer-events-none"></span>
 
@@ -208,6 +207,46 @@ export default function WorkExperience() {
             ))}
           </div>
 
+          {/* Premium Physical PCB Terminals & Status LEDs */}
+          <div className="flex justify-between items-center pt-4 mt-4 border-t border-white/5 font-mono text-[6.5px] text-gray-500 select-none">
+            {/* Status LEDs Array */}
+            <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_6px_#22c55e] animate-pulse"></span>
+                <span className="font-bold">PWR</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_6px_#22c55e] animate-ping"></span>
+                <span className="font-bold">ACT</span>
+              </div>
+              <div className="flex items-center gap-1 opacity-45">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-955 border border-red-500/20"></span>
+                <span className="font-bold">ERR</span>
+              </div>
+            </div>
+
+            {/* Silkscreen Board Blueprint */}
+            <div className="hidden xs:block text-[6px] tracking-wider text-gray-600 font-extrabold uppercase">
+              REV_2.0 // FR4_TG130 // LAYER_1_SIG
+            </div>
+
+            {/* Solder Test Points */}
+            <div className="flex items-center gap-1.5 pl-2">
+              <div className="flex flex-col items-center">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500/80 border border-amber-400 flex items-center justify-center shadow-[0_0_4px_rgba(245,158,11,0.4)]"></span>
+                <span className="scale-75 text-gray-600 font-bold mt-0.5">TP1</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500/80 border border-amber-400 flex items-center justify-center shadow-[0_0_4px_rgba(245,158,11,0.4)]"></span>
+                <span className="scale-75 text-gray-600 font-bold mt-0.5">TP2</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500/80 border border-amber-400 flex items-center justify-center shadow-[0_0_4px_rgba(245,158,11,0.4)]"></span>
+                <span className="scale-75 text-gray-600 font-bold mt-0.5">TP3</span>
+              </div>
+            </div>
+          </div>
+
           {/* Explore Button */}
           <div className="flex items-center gap-1 text-[10px] font-mono font-bold text-red-500 uppercase tracking-widest pt-4 mt-4 border-t border-white/5 group-hover:text-red-400 transition-colors">
             <span>Explore Case Details</span>
@@ -249,7 +288,6 @@ export default function WorkExperience() {
 
           {/* High-tech corner bracket ticks */}
           <span className="absolute top-2 left-2 w-2 h-2 border-t border-l border-red-500/40 pointer-events-none"></span>
-          <span className="absolute top-2 right-2 w-2 h-2 border-t border-r border-red-500/40 pointer-events-none"></span>
           <span className="absolute bottom-2 left-2 w-2 h-2 border-b border-l border-red-500/40 pointer-events-none"></span>
           <span className="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-red-500/40 pointer-events-none"></span>
 
@@ -348,6 +386,46 @@ export default function WorkExperience() {
                 <span className="line-clamp-1">{log}</span>
               </div>
             ))}
+          </div>
+
+          {/* Premium Physical PCB Terminals & Status LEDs */}
+          <div className="flex justify-between items-center pt-4 mt-4 border-t border-white/5 font-mono text-[6.5px] text-gray-500 select-none">
+            {/* Status LEDs Array */}
+            <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_6px_#22c55e] animate-pulse"></span>
+                <span className="font-bold">PWR</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_6px_#22c55e] animate-ping"></span>
+                <span className="font-bold">ACT</span>
+              </div>
+              <div className="flex items-center gap-1 opacity-45">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-955 border border-red-500/20"></span>
+                <span className="font-bold">ERR</span>
+              </div>
+            </div>
+
+            {/* Silkscreen Board Blueprint */}
+            <div className="hidden xs:block text-[6px] tracking-wider text-gray-600 font-extrabold uppercase">
+              REV_2.0 // FR4_TG130 // LAYER_1_SIG
+            </div>
+
+            {/* Solder Test Points */}
+            <div className="flex items-center gap-1.5 pl-2">
+              <div className="flex flex-col items-center">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500/80 border border-amber-400 flex items-center justify-center shadow-[0_0_4px_rgba(245,158,11,0.4)]"></span>
+                <span className="scale-75 text-gray-600 font-bold mt-0.5">TP1</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500/80 border border-amber-400 flex items-center justify-center shadow-[0_0_4px_rgba(245,158,11,0.4)]"></span>
+                <span className="scale-75 text-gray-600 font-bold mt-0.5">TP2</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500/80 border border-amber-400 flex items-center justify-center shadow-[0_0_4px_rgba(245,158,11,0.4)]"></span>
+                <span className="scale-75 text-gray-600 font-bold mt-0.5">TP3</span>
+              </div>
+            </div>
           </div>
 
           {/* Explore Button */}

@@ -602,7 +602,8 @@ export default function Projects() {
               </div>
               
               {/* Category indicator log pill */}
-              <div className="flex items-center gap-1.5 mb-2.5 z-10">
+              {/* mt-0 on mobile, mt-5 on PC clears the mounted silicon chip next to left pins */}
+              <div className="flex items-center gap-1.5 mb-2.5 mt-0 sm:mt-5 z-10">
                 <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping"></span>
                 <span className="text-[9px] font-mono font-bold tracking-widest text-red-500 uppercase">{project.category}</span>
               </div>
@@ -641,6 +642,42 @@ export default function Projects() {
                 <p className="text-gray-400 font-light text-xs leading-relaxed line-clamp-2 font-sans">{project.problem}</p>
               </div>
               
+              {/* Premium Physical PCB Terminals & Status LEDs */}
+              <div className="flex justify-between items-center mb-3 pt-3 border-t border-white/5 font-mono text-[6.5px] text-gray-500 select-none w-full">
+                {/* Status LEDs Array */}
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-0.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_6px_#22c55e] animate-pulse"></span>
+                    <span className="font-bold scale-90">PWR</span>
+                  </div>
+                  <div className="flex items-center gap-0.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_6px_#22c55e] animate-ping"></span>
+                    <span className="font-bold scale-90">ACT</span>
+                  </div>
+                  <div className="flex items-center gap-0.5 opacity-45">
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-955 border border-red-500/20"></span>
+                    <span className="font-bold scale-90">ERR</span>
+                  </div>
+                </div>
+
+                {/* Silkscreen Board Blueprint */}
+                <div className="hidden xs:block text-[5.5px] tracking-wider text-gray-600 font-extrabold uppercase">
+                  TG130_PCB
+                </div>
+
+                {/* Solder Test Points */}
+                <div className="flex items-center gap-1">
+                  <div className="flex flex-col items-center">
+                    <span className="w-1 h-1 rounded-full bg-amber-500/80 border border-amber-400 flex items-center justify-center"></span>
+                    <span className="scale-75 text-gray-600 font-bold">TP1</span>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <span className="w-1 h-1 rounded-full bg-amber-500/80 border border-amber-400 flex items-center justify-center"></span>
+                    <span className="scale-75 text-gray-600 font-bold">TP2</span>
+                  </div>
+                </div>
+              </div>
+
               {/* Tech tag list */}
               <div className="flex flex-wrap gap-1.5 pt-3 border-t border-white/5 mt-auto">
                 {project.tech.map((t, i) => (

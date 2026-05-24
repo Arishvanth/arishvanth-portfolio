@@ -118,10 +118,31 @@ function App() {
     }
   };
 
+  const showIntroRef = useRef(true);
+  
+  // Track showIntro state in a ref to prevent stale closure in event listeners
+  useEffect(() => {
+    showIntroRef.current = showIntro;
+  }, [showIntro]);
+
+  // Lock body scroll when the bootloader is active to prevent early page scrolling
+  useEffect(() => {
+    if (showIntro) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showIntro]);
+
   // Listen to document gestures to unlock blocked AudioContext
   useEffect(() => {
     const globalUnlock = () => {
-      if (bootStartedRef.current && !hasPlayedRef.current) {
+      // ONLY trigger sound synthesis if the boot sequence has started, it hasn't played yet,
+      // AND the loading screen is still active. This prevents late sound triggers during main scroll!
+      if (bootStartedRef.current && !hasPlayedRef.current && showIntroRef.current) {
         playCinematicSound();
       }
     };
