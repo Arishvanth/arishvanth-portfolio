@@ -2,51 +2,10 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Power } from 'lucide-react';
 
-export default function HeroIntro({ onComplete }) {
+export default function HeroIntro({ onComplete, onBoot }) {
   const [activated, setActivated] = useState(false);
   const [bootReady, setBootReady] = useState(false);
-  const audioContextRef = useRef(null);
   const autoBootTimerRef = useRef(null);
-
-  // Pre-initialize and unlock AudioContext on any initial user interaction to bypass autoplay restrictions
-  useEffect(() => {
-    const unlockAudio = () => {
-      try {
-        if (!audioContextRef.current) {
-          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-          if (AudioContextClass) {
-            audioContextRef.current = new AudioContextClass();
-            const ctx = audioContextRef.current;
-            if (ctx.state === 'suspended') {
-              ctx.resume();
-            }
-          }
-        }
-      } catch (e) {
-        console.warn("Pre-unlock AudioContext failed:", e);
-      }
-      // Remove listeners once unlocked
-      window.removeEventListener('mousemove', unlockAudio);
-      window.removeEventListener('mousedown', unlockAudio);
-      window.removeEventListener('keydown', unlockAudio);
-      window.removeEventListener('touchstart', unlockAudio);
-      window.removeEventListener('scroll', unlockAudio);
-    };
-
-    window.addEventListener('mousemove', unlockAudio);
-    window.addEventListener('mousedown', unlockAudio);
-    window.addEventListener('keydown', unlockAudio);
-    window.addEventListener('touchstart', unlockAudio);
-    window.addEventListener('scroll', unlockAudio);
-
-    return () => {
-      window.removeEventListener('mousemove', unlockAudio);
-      window.removeEventListener('mousedown', unlockAudio);
-      window.removeEventListener('keydown', unlockAudio);
-      window.removeEventListener('touchstart', unlockAudio);
-      window.removeEventListener('scroll', unlockAudio);
-    };
-  }, []);
 
   // Set up a 3-second auto-boot timer to guarantee the site loads even without a click interaction
   useEffect(() => {
@@ -69,122 +28,14 @@ export default function HeroIntro({ onComplete }) {
     }
     setActivated(true);
     
-    // Play the boot audio hum in both explicit-click and auto-boot cases (tries to unlock context in both)
-    playCinematicSound();
+    // Call the parent onBoot prop callback to trigger the web audio synthesizer!
+    if (onBoot) onBoot();
     
     // Auto transition to portfolio after 3.5 seconds
     setTimeout(() => {
       setBootReady(true);
       if (onComplete) onComplete();
     }, 3500);
-  };
-
-  const playCinematicSound = () => {
-    try {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContextClass) return;
-
-      // Reuse already pre-unlocked audio context if available!
-      if (!audioContextRef.current) {
-        audioContextRef.current = new AudioContextClass();
-      }
-      
-      const ctx = audioContextRef.current;
-      
-      const runSynthesis = () => {
-        // 1. Deep Sub-Bass Space Hum (55Hz / A1)
-        const oscSub = ctx.createOscillator();
-        const gainSub = ctx.createGain();
-        oscSub.type = 'sine';
-        oscSub.frequency.setValueAtTime(55, ctx.currentTime);
-        gainSub.gain.setValueAtTime(0.04, ctx.currentTime);
-        
-        // 2. Harmonic Mid-Range Pad (110Hz / A2)
-        const oscMid = ctx.createOscillator();
-        const gainMid = ctx.createGain();
-        oscMid.type = 'triangle';
-        oscMid.frequency.setValueAtTime(110, ctx.currentTime);
-        gainMid.gain.setValueAtTime(0.02, ctx.currentTime);
-
-        const filter = ctx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(150, ctx.currentTime);
-
-        oscSub.connect(filter);
-        oscMid.connect(gainMid);
-        gainMid.connect(filter);
-        filter.connect(gainSub);
-        gainSub.connect(ctx.destination);
-
-        oscSub.start();
-        oscMid.start();
-
-        gainSub.gain.setValueAtTime(0.04, ctx.currentTime + 2.5);
-        gainSub.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 3.2);
-        
-        setTimeout(() => {
-          try {
-            oscSub.stop();
-            oscMid.stop();
-          } catch (err) {}
-        }, 3300);
-
-        // 3. Cinematic Resolve Chime (A3 Sweep -> perfect fifth E5)
-        const oscResolve1 = ctx.createOscillator();
-        const oscResolve2 = ctx.createOscillator();
-        const gainResolve = ctx.createGain();
-        const filterChime = ctx.createBiquadFilter();
-
-        oscResolve1.type = 'triangle';
-        oscResolve1.frequency.setValueAtTime(220, ctx.currentTime + 2.6); // Sweep from A3
-        oscResolve1.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 3.0); // to A4
-        
-        oscResolve2.type = 'sine';
-        oscResolve2.frequency.setValueAtTime(659.25, ctx.currentTime + 2.8); // High E5 chime
-
-        filterChime.type = 'lowpass';
-        filterChime.frequency.setValueAtTime(900, ctx.currentTime + 2.6);
-
-        gainResolve.gain.setValueAtTime(0.0001, ctx.currentTime + 2.5);
-        gainResolve.gain.linearRampToValueAtTime(0.08, ctx.currentTime + 2.8);
-        gainResolve.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 3.8);
-
-        oscResolve1.connect(filterChime);
-        oscResolve2.connect(filterChime);
-        filterChime.connect(gainResolve);
-        gainResolve.connect(ctx.destination);
-
-        oscResolve1.start(ctx.currentTime + 2.5);
-        oscResolve2.start(ctx.currentTime + 2.6);
-        oscResolve1.stop(ctx.currentTime + 3.9);
-        oscResolve2.stop(ctx.currentTime + 3.9);
-      };
-
-      if (ctx.state === 'suspended') {
-        const gestureUnlock = () => {
-          ctx.resume().then(() => {
-            if (ctx.state === 'running') {
-              runSynthesis();
-            }
-          });
-          window.removeEventListener('click', gestureUnlock);
-          window.removeEventListener('touchstart', gestureUnlock);
-          window.removeEventListener('mousemove', gestureUnlock);
-          window.removeEventListener('keydown', gestureUnlock);
-          window.removeEventListener('scroll', gestureUnlock);
-        };
-        window.addEventListener('click', gestureUnlock);
-        window.addEventListener('touchstart', gestureUnlock);
-        window.addEventListener('mousemove', gestureUnlock);
-        window.addEventListener('keydown', gestureUnlock);
-        window.addEventListener('scroll', gestureUnlock);
-      } else {
-        runSynthesis();
-      }
-
-    } catch (e) {
-      console.warn("Web Audio API synthesis blocked/failed:", e);
-    }
   };
 
   const handleOverlayClick = () => {
@@ -202,7 +53,7 @@ export default function HeroIntro({ onComplete }) {
     >
       <AnimatePresence mode="wait">
         {!activated ? (
-          // Initial Engage Button Overlay (Unlocks Browser Audio API)
+          // Initial Engage Button Overlay
           <motion.div 
             key="activator"
             initial={{ opacity: 0, scale: 0.95 }}

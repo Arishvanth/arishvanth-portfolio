@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import HeroIntro from './components/HeroIntro';
@@ -14,11 +14,144 @@ import ParticleBackground from './components/ParticleBackground';
 
 function App() {
   const [showIntro, setShowIntro] = useState(true);
+  const audioContextRef = useRef(null);
+  const hasPlayedRef = useRef(false);
+  const bootStartedRef = useRef(false);
+
+  const playCinematicSound = () => {
+    if (hasPlayedRef.current) return;
+    
+    try {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) return;
+
+      if (!audioContextRef.current) {
+        audioContextRef.current = new AudioContextClass();
+      }
+      
+      const ctx = audioContextRef.current;
+      
+      const runSynthesis = () => {
+        if (hasPlayedRef.current) return;
+        hasPlayedRef.current = true;
+        
+        // 1. Deep Sub-Bass Space Hum (55Hz / A1)
+        const oscSub = ctx.createOscillator();
+        const gainSub = ctx.createGain();
+        oscSub.type = 'sine';
+        oscSub.frequency.setValueAtTime(55, ctx.currentTime);
+        gainSub.gain.setValueAtTime(0.04, ctx.currentTime);
+        
+        // 2. Harmonic Mid-Range Pad (110Hz / A2)
+        const oscMid = ctx.createOscillator();
+        const gainMid = ctx.createGain();
+        oscMid.type = 'triangle';
+        oscMid.frequency.setValueAtTime(110, ctx.currentTime);
+        gainMid.gain.setValueAtTime(0.02, ctx.currentTime);
+
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(150, ctx.currentTime);
+
+        oscSub.connect(filter);
+        oscMid.connect(gainMid);
+        gainMid.connect(filter);
+        filter.connect(gainSub);
+        gainSub.connect(ctx.destination);
+
+        oscSub.start();
+        oscMid.start();
+
+        gainSub.gain.setValueAtTime(0.04, ctx.currentTime + 2.5);
+        gainSub.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 3.2);
+        
+        setTimeout(() => {
+          try {
+            oscSub.stop();
+            oscMid.stop();
+          } catch (err) {}
+        }, 3300);
+
+        // 3. Cinematic Resolve Chime (A3 Sweep -> perfect fifth E5)
+        const oscResolve1 = ctx.createOscillator();
+        const oscResolve2 = ctx.createOscillator();
+        const gainResolve = ctx.createGain();
+        const filterChime = ctx.createBiquadFilter();
+
+        oscResolve1.type = 'triangle';
+        oscResolve1.frequency.setValueAtTime(220, ctx.currentTime + 2.6);
+        oscResolve1.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 3.0);
+        
+        oscResolve2.type = 'sine';
+        oscResolve2.frequency.setValueAtTime(659.25, ctx.currentTime + 2.8);
+
+        filterChime.type = 'lowpass';
+        filterChime.frequency.setValueAtTime(900, ctx.currentTime + 2.6);
+
+        gainResolve.gain.setValueAtTime(0.0001, ctx.currentTime + 2.5);
+        gainResolve.gain.linearRampToValueAtTime(0.08, ctx.currentTime + 2.8);
+        gainResolve.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 3.8);
+
+        oscResolve1.connect(filterChime);
+        oscResolve2.connect(filterChime);
+        filterChime.connect(gainResolve);
+        gainResolve.connect(ctx.destination);
+
+        oscResolve1.start(ctx.currentTime + 2.5);
+        oscResolve2.start(ctx.currentTime + 2.6);
+        oscResolve1.stop(ctx.currentTime + 3.9);
+        oscResolve2.stop(ctx.currentTime + 3.9);
+      };
+
+      if (ctx.state === 'suspended') {
+        ctx.resume().then(() => {
+          if (ctx.state === 'running') {
+            runSynthesis();
+          }
+        });
+      } else {
+        runSynthesis();
+      }
+
+    } catch (e) {
+      console.warn("Web Audio API synthesis blocked/failed:", e);
+    }
+  };
+
+  // Listen to document gestures to unlock blocked AudioContext
+  useEffect(() => {
+    const globalUnlock = () => {
+      if (bootStartedRef.current && !hasPlayedRef.current) {
+        playCinematicSound();
+      }
+    };
+    
+    window.addEventListener('click', globalUnlock);
+    window.addEventListener('touchstart', globalUnlock);
+    window.addEventListener('keydown', globalUnlock);
+    
+    return () => {
+      window.removeEventListener('click', globalUnlock);
+      window.removeEventListener('touchstart', globalUnlock);
+      window.removeEventListener('keydown', globalUnlock);
+    };
+  }, []);
+
+  const handleBoot = () => {
+    bootStartedRef.current = true;
+    playCinematicSound();
+  };
 
   return (
     <div className="bg-[#050505] min-h-screen text-white font-sans selection:bg-red-900 selection:text-white overflow-x-hidden w-full relative">
       <AnimatePresence>
-        {showIntro && <HeroIntro key="hero-intro" onComplete={() => setShowIntro(false)} />}
+        {showIntro && (
+          <HeroIntro 
+            key="hero-intro" 
+            onBoot={handleBoot}
+            onComplete={() => setShowIntro(false)} 
+          />
+        )}
       </AnimatePresence>
 
       {!showIntro && (
