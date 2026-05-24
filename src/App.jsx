@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import HeroIntro from './components/HeroIntro';
+import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
@@ -55,6 +56,7 @@ function App() {
 
           {/* Main Content */}
           <div className="relative z-10 w-full">
+            <Hero />
             <About />
             <Skills />
             <Projects />

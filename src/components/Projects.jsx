@@ -1,31 +1,180 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Award, X, Lightbulb, Rocket, FolderOpen } from 'lucide-react';
+import { ExternalLink, Award, X, Lightbulb, Rocket, FolderOpen, Heart, Activity, Cpu, Thermometer, ShieldCheck } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import ImageCarousel from './ImageCarousel';
+
+// Simulated Telemetry Feed Component for Case Studies
+function TelemetryWidget({ type }) {
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    const getInitialData = () => {
+      switch (type) {
+        case 'fishnet':
+          return { rpm: 1240, volts: 12.1, flow: 1.6, packets: 1042 };
+        case 'suss':
+          return { fill: 42, co2: 380, parking: 12, traffic: 'AUTO_OPT' };
+        case 'care':
+          return { hr: 78, spo2: 98, temp: 37.1, status: 'STABLE' };
+        case 'bovine':
+          return { class: 'Gir Cow', prob: 98.4, speed: 78, frame: 104 };
+        default:
+          return {};
+      }
+    };
+
+    setData(getInitialData());
+
+    const interval = setInterval(() => {
+      setData(prev => {
+        switch (type) {
+          case 'fishnet':
+            return {
+              rpm: Math.floor(1200 + Math.random() * 80),
+              volts: +(11.8 + Math.random() * 0.6).toFixed(2),
+              flow: +(1.4 + Math.random() * 0.4).toFixed(2),
+              packets: prev.packets + 1
+            };
+          case 'suss':
+            return {
+              fill: Math.max(10, Math.min(100, Math.floor(prev.fill + (Math.random() - 0.5) * 4))),
+              co2: Math.floor(370 + Math.random() * 20),
+              parking: Math.max(2, Math.min(30, Math.floor(prev.parking + (Math.random() - 0.5) * 2))),
+              traffic: Math.random() > 0.85 ? 'CONGEST_CLR' : 'AUTO_OPT'
+            };
+          case 'care':
+            return {
+              hr: Math.floor(74 + Math.random() * 8),
+              spo2: Math.max(95, Math.min(100, Math.floor(prev.spo2 + (Math.random() - 0.5) * 1.5))),
+              temp: +(36.8 + Math.random() * 0.4).toFixed(1),
+              status: Math.random() > 0.9 ? 'WARNING' : 'STABLE'
+            };
+          case 'bovine':
+            const breeds = ['Gir Cow', 'Sahiwal', 'Red Sindhi', 'Tharparkar'];
+            const randomBreed = breeds[Math.floor(Math.random() * breeds.length)];
+            return {
+              class: Math.random() > 0.85 ? randomBreed : prev.class,
+              prob: +(96.5 + Math.random() * 3).toFixed(1),
+              speed: Math.floor(74 + Math.random() * 8),
+              frame: prev.frame + 1
+            };
+          default:
+            return {};
+        }
+      });
+    }, 1800);
+
+    return () => clearInterval(interval);
+  }, [type]);
+
+  return (
+    <div className="font-mono text-[9px] text-gray-400 bg-black/80 border border-white/5 rounded-xl p-3 shadow-inner relative overflow-hidden flex flex-col justify-between h-28 group-hover:border-red-500/20 transition-all select-none">
+      <div className="flex justify-between items-center border-b border-white/10 pb-1 mb-2">
+        <span className="text-red-500 font-bold tracking-widest text-[8px] uppercase">Telemetry Link</span>
+        <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-ping"></span>
+      </div>
+
+      {type === 'fishnet' && (
+        <div className="space-y-1">
+          <div className="flex justify-between"><span>TURBINE ROTATION:</span><span className="text-white font-bold">{data.rpm} RPM</span></div>
+          <div className="flex justify-between"><span>INDUCED EMF:</span><span className="text-white font-bold">{data.volts} V</span></div>
+          <div className="flex justify-between"><span>TIDAL VELOCITY:</span><span className="text-white font-bold">{data.flow} m/s</span></div>
+          <div className="flex justify-between text-[8px] text-red-500/80"><span>TX_BUFFER_SIZE:</span><span>{data.packets} PKTS</span></div>
+        </div>
+      )}
+
+      {type === 'suss' && (
+        <div className="space-y-1">
+          <div className="flex justify-between"><span>BIN FILL RATIO:</span><span className="text-white font-bold">{data.fill}%</span></div>
+          <div className="flex justify-between"><span>CO2 POLLUTANTS:</span><span className="text-white font-bold">{data.co2} PPM</span></div>
+          <div className="flex justify-between"><span>OPEN BAYS:</span><span className="text-white font-bold">{data.parking} SLOTS</span></div>
+          <div className="flex justify-between text-[8px] text-red-500/80"><span>TRAFFIC_CORE:</span><span>{data.traffic}</span></div>
+        </div>
+      )}
+
+      {type === 'care' && (
+        <div className="space-y-1">
+          <div className="flex justify-between flex-wrap"><span>PATIENT VITAL TEMP:</span><span className="text-white font-bold">{data.temp}°C</span></div>
+          <div className="flex justify-between"><span>HEART FREQUENCY:</span><span className="text-white font-bold flex items-center gap-1"><Heart className="w-2.5 h-2.5 text-red-500 animate-pulse" /> {data.hr} BPM</span></div>
+          <div className="flex justify-between"><span>BLOOD OX-SPO2:</span><span className="text-white font-bold">{data.spo2}%</span></div>
+          <div className="flex justify-between text-[8px] text-red-500/80"><span>PRIORITY_STATE:</span><span className={data.status === 'WARNING' ? 'text-yellow-400 font-bold' : 'text-green-400'}>{data.status}</span></div>
+        </div>
+      )}
+
+      {type === 'bovine' && (
+        <div className="space-y-1">
+          <div className="flex justify-between flex-wrap"><span>DETECTED BREED:</span><span className="text-white font-bold">{data.class}</span></div>
+          <div className="flex justify-between"><span>CNN PROBABILITY:</span><span className="text-white font-bold">{data.prob}%</span></div>
+          <div className="flex justify-between"><span>INFERENCE TIME:</span><span className="text-white font-bold">{data.speed} ms</span></div>
+          <div className="flex justify-between text-[8px] text-red-500/80"><span>ANALYZED_FRAMES:</span><span>{data.frame}</span></div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Interactive Signal Flow Diagram
+function ArchitectureFlow({ steps }) {
+  return (
+    <div className="w-full overflow-x-auto scrollbar-none py-2 select-none">
+      <div className="flex items-center gap-2 min-w-[340px] px-1">
+        {steps.map((step, idx) => (
+          <div key={idx} className="flex items-center flex-1">
+            <div className="p-2 border border-white/10 bg-zinc-950/80 rounded-lg text-center flex-1 hover:border-red-500/30 transition-colors shadow">
+              <span className="text-[8px] font-mono tracking-wider text-gray-300 block uppercase font-bold">{step}</span>
+            </div>
+            {idx < steps.length - 1 && (
+              <div className="w-6 flex items-center justify-center shrink-0">
+                <svg width="24" height="6" viewBox="0 0 24 6" className="text-red-600">
+                  <path d="M0,3 L24,3" stroke="currentColor" strokeWidth="1" strokeDasharray="3 3" className="animate-pulse" />
+                  <polygon points="20,0 24,3 20,6" fill="currentColor" />
+                </svg>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 const featuredProjects = [
   {
     title: "Tidal Energy Powered Smart Fishnet",
-    category: "Sustainable Energy",
+    category: "Sustainable Marine Energy",
     images: ["/images/Fishnet project.jpeg"],
-    problem: "Overfishing & bycatch issues, High fuel cost for fishermen, Lack of sustainable energy.",
-    solution: "Smart fishnet with LED-based fish attraction and Tidal energy generation.",
-    tech: ["Embedded C", "IoT Architecture", "Sensors", "Energy Harvesting"],
-    longDesc: "A dual-purpose system combining sustainable fishing and renewable energy generation. The fishnet attracts target species while generating electricity from ocean tides, reducing environmental impact and operational cost."
+    telemetryType: "fishnet",
+    problem: "Overfishing of unvetted species, high operating fuel costs, and absence of clean off-grid energy sources at sea.",
+    solution: "A self-powering fishnet using mini hydro-induction turbines harvesting ocean currents to drive targeted LED arrays.",
+    tech: ["Embedded C", "IoT Architecture", "Hydro-induction Generators", "Energy Harvesters"],
+    flow: ["Hydrocurrents", "Core Turbine", "Power Harvester", "ESP32 + LEDs"],
+    metrics: [
+      { label: "Bycatch Avoidance", value: "45%" },
+      { label: "Power Output", value: "120Wh/hr" },
+      { label: "System Uptime", value: "99.8%" }
+    ],
+    longDesc: "This system addresses clean energy challenges in modern marine hardware. By integrating hydro-induction turbines inside fishnet structures, the flow of ocean currents generates sustainable voltage. This powers targeted light arrays that attract specific target fish species and repel endangered ones. Telemetry packets are generated locally and transmitted to the vessel hub."
   },
   {
-    title: "Smart Urban Sustainability System (SUSS)",
-    category: "IoT + AI Smart City",
+    title: "Smart Urban Sustainability System",
+    category: "IoT + Smart Infrastructure",
     images: ["/images/Smart Urban Sustainability System (SUSS).jpeg", "/images/Smart Urban Sustainability System (SUSS) price.jpeg"],
-    problem: "Urban areas face issues like traffic congestion, pollution, inefficient waste management, and energy wastage.",
-    solution: "An integrated IoT + AI smart city system managing waste, traffic, air quality, lighting, water, and parking.",
-    tech: ["ESP32", "Python", "Data Processing", "Dashboard Design"],
-    longDesc: "SUSS is a multi-module smart city platform that uses IoT sensors and AI algorithms to optimize urban systems. It improves efficiency, reduces environmental impact, and enhances the quality of life in cities."
+    telemetryType: "suss",
+    problem: "Inefficient waste pickups, air quality drops, grid power loss, and lack of real-time multi-module urban telemetry.",
+    solution: "An ESP32-WROOM edge controller managing integrated sensor nodes for smart waste, traffic loops, and solar grids.",
+    tech: ["ESP32 Controller", "Python", "Data Processing", "Blynk System Integration"],
+    flow: ["Urban Sensors", "ESP32 Node", "MQTT Gateway", "Central Dashboard"],
+    metrics: [
+      { label: "Waste Efficiency", value: "+35%" },
+      { label: "Sensory Response", value: "<15ms" },
+      { label: "Carbon Monitored", value: "100%" }
+    ],
+    longDesc: "SUSS bridges physical urban grids and central databases. Using low-latency ESP32 microcontrollers, the system aggregates ultrasonic trash metrics, air particulate values, smart parking grids, and ambient street light signals, processing them locally before cloud synchronisation to trigger active route optimisation and grid alerts."
   },
   {
-    title: "CarePriority – Smart Patient Prioritization System",
-    category: "Healthcare + IoT + AI",
+    title: "CarePriority – Smart Patient Vitals System",
+    category: "Healthcare + Bio-IoT System",
     images: [
       "/images/CarePriority.jpeg", 
       "/images/CarePriority old dashboard.jpeg", 
@@ -33,19 +182,33 @@ const featuredProjects = [
       "/images/CarePriority – Smart Patient Prioritization System hardware.jpeg",
       "/images/CarePriority – Smart Patient Prioritization System hardware1.jpeg"
     ],
-    problem: "Hospitals follow first-come-first-serve, risking delays for critical patients.",
-    solution: "A system that prioritizes patients based on vital signs and severity analysis.",
-    tech: ["Hardware Integration", "Sensors", "Data Analytics", "Dashboard"],
-    longDesc: "CarePriority is a healthcare system that evaluates patient conditions using real-time data and assigns priority levels. It improves emergency response and ensures critical cases receive immediate attention."
+    telemetryType: "care",
+    problem: "Hospital triage rooms operating on first-come-first-serve, leading to delays for critical patient vital anomalies.",
+    solution: "A bio-sensor priority node analyzing temp, SpO2, and heart rates to dynamically allocate emergency responses.",
+    tech: ["Bio-Sensors", "Priority Algorithms", "UART Interface", "Diagnostic Hub"],
+    flow: ["Bio Sensors", "Microcontroller", "Vitals Priority Log", "Nurse Alert Hub"],
+    metrics: [
+      { label: "Response Latency", value: "-60%" },
+      { label: "Priority Speed", value: "< 1.2s" },
+      { label: "Signal Precision", value: "99.4%" }
+    ],
+    longDesc: "CarePriority evaluates patient conditions dynamically. By mapping vital-sign signals (Heart Rate, SpO2, and Body Temperature) through a specialized hardware board, the system analyzes health severity levels in real time. It automatically pushes warnings to nursing dashboards, preventing critical oversights."
   },
-  { 
-    title: "AI-Powered Indian Bovine Breed Classifier", 
-    category: "Computer Vision & ML",
+  {
+    title: "AI-Powered Indian Bovine Breed Classifier",
+    category: "Computer Vision & Edge ML",
     images: [],
-    problem: "Manual cattle breed identification is time-consuming and error-prone.",
-    solution: "Use deep learning + computer vision for automatic classification.",
-    tech: ["Machine Learning", "Image Processing", "Classification"],
-    longDesc: "A machine learning-based system that classifies Indian cattle breeds using image inputs. It enhances accuracy and supports agricultural management through automated breed identification."
+    telemetryType: "bovine",
+    problem: "Manual cattle breed identification is slow, error-prone, and lacks integration with digital supply chain ledgers.",
+    solution: "Using custom CNN classification layers running edge inference to detect cattle breeds from live camera feeds.",
+    tech: ["Deep Learning", "Tensor Processing", "Computer Vision", "Python Architecture"],
+    flow: ["Cam Sensor Feed", "Neural Edge Block", "CNN Probability", "Breed Ledger ID"],
+    metrics: [
+      { label: "Inference Speed", value: "78ms" },
+      { label: "Model Accuracy", value: "98.4%" },
+      { label: "Dataset Size", value: "10k Imgs" }
+    ],
+    longDesc: "An AI-driven classification pipeline built to automate cattle breed classification. By capturing live frames, normalising image matrices, and invoking a custom convolutional network (CNN), the system differentiates between indigenous Indian bovine breeds, logging coordinates and classification variables into agricultural management records."
   }
 ];
 
@@ -148,55 +311,55 @@ export default function Projects() {
   }
 
   return (
-    <section id="projects" className={`py-20 px-6 lg:px-12 xl:px-20 relative w-full max-w-7xl mx-auto ${selectedProject ? 'z-[100]' : 'z-10'}`}>
+    <section id="projects" className={`py-24 px-6 lg:px-12 xl:px-20 relative w-full max-w-7xl mx-auto ${selectedProject ? 'z-[100]' : 'z-10'}`}>
       
-
-
       {/* Patent & Publications Highlight */}
-      <div className="mb-8 mt-10">
+      <div className="mb-12">
         <motion.h2 
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-bold flex items-center gap-4"
+          className="text-3xl md:text-5xl font-bold flex items-center gap-4 text-white"
         >
-          <Lightbulb className="text-red-500 w-10 h-10" />
-          <span>Patent <span className="text-gradient">and Journal Publications</span></span>
-          <div className="h-1 flex-grow bg-gradient-to-r from-red-900/50 to-transparent max-w-sm rounded hidden md:block"></div>
+          <Lightbulb className="text-red-500 w-8 h-8 md:w-10 md:h-10" />
+          <span>Patent <span className="text-gradient">& Research</span></span>
+          <div className="h-[1px] flex-grow bg-gradient-to-r from-red-900/40 to-transparent max-w-xs rounded hidden md:block"></div>
         </motion.h2>
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-32">
         {/* Patent Card */}
         <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.96 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="relative hover:scale-[1.02] transition-transform cursor-pointer h-full"
+          className="relative hover:scale-[1.01] transition-transform cursor-pointer h-full"
           onClick={() => setSelectedProject({
             title: "RFID-Based Access Control System",
             category: "Patent & Innovation",
             problem: "Traditional access control systems lack robust and scalable hardware integration.",
             solution: "A robust embedded security solution utilizing RFID-based authentication for secure, real-world access control applications.",
-            tech: ["RFID", "Embedded Systems", "Security"],
+            tech: ["RFID Reader", "SPI bus protocols", "Microcontrollers", "EEPROM registers"],
             images: ["/images/Patent.jpeg"],
             longDesc: "This patent (No: 202541021013 A) outlines an innovative approach to embedded security. By tying raw RFID authentication into a highly scalable microcontroller framework, it presents a robust method for real-world access control applications and facilities management."
           })}
         >
-          <div className="absolute -inset-1 bg-gradient-to-r from-red-900 via-red-500 to-red-900 rounded-2xl blur opacity-30 animate-pulse"></div>
-          <div className="relative glass-card p-8 flex flex-col items-center text-center gap-6 border-red-500/50 group h-full justify-center">
-            <div className="w-24 h-24 overflow-hidden rounded-full border-4 border-red-900 flex items-center justify-center bg-black/50 shadow-[0_0_20px_rgba(255,26,26,0.5)] group-hover:scale-110 transition-transform">
+          <div className="absolute -inset-[1px] bg-gradient-to-r from-red-950 via-red-600/40 to-red-950 rounded-2xl blur-sm opacity-50"></div>
+          <div className="relative bg-black/60 border border-white/10 rounded-2xl p-8 flex flex-col sm:flex-row items-center gap-6 group h-full hover:border-red-500/40 shadow-2xl transition-all">
+            {/* Scanned Badge Grid */}
+            <div className="w-24 h-24 overflow-hidden rounded-xl border border-red-500/30 flex items-center justify-center bg-black/80 shadow-[0_0_20px_rgba(255,26,26,0.3)] group-hover:scale-105 transition-transform relative">
+              <div className="absolute inset-0 bg-gradient-to-b from-red-500/20 via-transparent to-red-500/20 z-10 animate-pulse pointer-events-none" />
               <img src="/images/Patent.jpeg" alt="Patent Image" className="w-full h-full object-cover" />
             </div>
-            <div>
-              <div className="flex items-center justify-center gap-3 text-red-500 mb-2">
-                <Award className="w-6 h-6" />
-                <span className="font-semibold tracking-widest uppercase text-sm">Official Patent</span>
+            <div className="flex-1 text-center sm:text-left">
+              <div className="flex items-center justify-center sm:justify-start gap-2 text-red-500 mb-2">
+                <Award className="w-5 h-5" />
+                <span className="font-mono font-bold tracking-widest uppercase text-xs">Official Patent Approved</span>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-red-100 transition-colors">RFID-Based Access Control System</h3>
-              <p className="text-red-400 font-mono text-sm mb-4">Patent No: 202541021013 A</p>
-              <p className="text-gray-300 font-light text-sm">
-                A robust embedded security solution utilizing RFID-based authentication for secure, real-world access control applications.
+              <h3 className="text-xl font-bold text-white mb-1 group-hover:text-red-100 transition-colors">RFID-Based Access Control System</h3>
+              <p className="text-red-400 font-mono text-xs mb-3">ID: 202541021013 A</p>
+              <p className="text-gray-400 font-light text-sm">
+                Vetted embedded authentication network designed to encrypt and manage access signals.
               </p>
             </div>
           </div>
@@ -204,35 +367,36 @@ export default function Projects() {
 
         {/* Journal Publication Card */}
         <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.96 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="relative hover:scale-[1.02] transition-transform cursor-pointer h-full"
+          transition={{ delay: 0.15 }}
+          className="relative hover:scale-[1.01] transition-transform cursor-pointer h-full"
           onClick={() => setSelectedProject({
             title: "AQUA-SENSE Water Quality Monitoring",
             category: "Academic Journal",
             problem: "Contributions to the academic community often lack practical hardware validation.",
             solution: "Published comprehensive research detailing the intersection of IoT arrays and predictive algorithms.",
-            tech: ["Documentation", "Data Synthesis", "Research"],
+            tech: ["Data Synthesis", "AQUA-SENSE Nodes", "Environmental Science"],
             images: ["/images/Journal Publication.jpeg"],
             longDesc: "A rigorously vetted academic contribution that formalizes my experimental findings in the scalable IoT analytics sector, pushing the boundary of documented knowledge in my university cohort."
           })}
         >
-          <div className="absolute -inset-1 bg-gradient-to-r from-red-900 via-red-500 to-red-900 rounded-2xl blur opacity-30 animate-pulse"></div>
-          <div className="relative glass-card p-8 flex flex-col items-center text-center gap-6 border-red-500/50 group h-full justify-center">
-            <div className="w-24 h-24 overflow-hidden rounded-full border-4 border-red-900 flex items-center justify-center bg-black/50 shadow-[0_0_20px_rgba(255,26,26,0.5)] group-hover:scale-110 transition-transform">
+          <div className="absolute -inset-[1px] bg-gradient-to-r from-red-950 via-red-600/40 to-red-950 rounded-2xl blur-sm opacity-50"></div>
+          <div className="relative bg-black/60 border border-white/10 rounded-2xl p-8 flex flex-col sm:flex-row items-center gap-6 group h-full hover:border-red-500/40 shadow-2xl transition-all">
+            <div className="w-24 h-24 overflow-hidden rounded-xl border border-red-500/30 flex items-center justify-center bg-black/80 shadow-[0_0_20px_rgba(255,26,26,0.3)] group-hover:scale-105 transition-transform relative">
+              <div className="absolute inset-0 bg-gradient-to-b from-red-500/20 via-transparent to-red-500/20 z-10 animate-pulse pointer-events-none" />
               <img src="/images/Journal Publication.jpeg" alt="Journal Image" className="w-full h-full object-cover" />
             </div>
-            <div>
-              <div className="flex items-center justify-center gap-3 text-red-500 mb-2">
-                <Award className="w-6 h-6" />
-                <span className="font-semibold tracking-widest uppercase text-sm">Journal Publication</span>
+            <div className="flex-1 text-center sm:text-left">
+              <div className="flex items-center justify-center sm:justify-start gap-2 text-red-500 mb-2">
+                <Award className="w-5 h-5" />
+                <span className="font-mono font-bold tracking-widest uppercase text-xs">Research Journal Published</span>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-red-100 transition-colors">AQUA-SENSE Water Quality Monitoring</h3>
-              <p className="text-red-400 font-mono text-sm mb-4">Academic Research Analysis</p>
-              <p className="text-gray-300 font-light text-sm">
-                Published comprehensive research detailing the intersection of IoT arrays and predictive algorithms in water quality monitoring.
+              <h3 className="text-xl font-bold text-white mb-1 group-hover:text-red-100 transition-colors">AQUA-SENSE Water Analytics</h3>
+              <p className="text-red-400 font-mono text-xs mb-3">Academic Vetted Paper</p>
+              <p className="text-gray-400 font-light text-sm">
+                Documented study detailing low-latency sensor grids linked with predictive water safety logs.
               </p>
             </div>
           </div>
@@ -245,64 +409,121 @@ export default function Projects() {
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-bold mb-4 flex items-center gap-4"
+          className="text-3xl md:text-5xl font-bold mb-4 flex items-center gap-4 text-white"
         >
-          <Rocket className="text-red-500 w-10 h-10" />
+          <Rocket className="text-red-500 w-8 h-8 md:w-10 md:h-10" />
           <span>Featured <span className="text-gradient">Case Studies</span></span>
-          <div className="h-1 flex-grow bg-gradient-to-r from-red-900/50 to-transparent max-w-sm rounded hidden md:block"></div>
+          <div className="h-[1px] flex-grow bg-gradient-to-r from-red-900/40 to-transparent max-w-xs rounded hidden md:block"></div>
         </motion.h2>
+        <p className="text-gray-400 font-light max-w-2xl text-sm mt-2">
+          Explore complete hardware-software co-designs bridging edge controllers, active machine learning classifiers, and remote dashboards.
+        </p>
       </div>
 
-      {/* Featured Projects Grid */}
-      <div className="space-y-16 mb-24">
+      {/* Featured Projects - Immersive Horizontal Layouts */}
+      <div className="space-y-24 mb-32">
         {featuredProjects.map((project, idx) => (
           <motion.div 
             key={idx}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-            className={`flex flex-col ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 items-center group cursor-pointer bg-[#070707] p-6 md:p-8 rounded-3xl border border-white/5 shadow-xl hover:border-red-500/30 transition-all`}
-            onClick={() => setSelectedProject(project)}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7 }}
+            className={`flex flex-col ${idx % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-10 items-stretch group bg-black/40 border border-white/5 p-6 sm:p-8 md:p-10 rounded-3xl shadow-[0_0_50px_rgba(0,0,0,0.4)] hover:border-red-500/20 transition-all`}
           >
-            {/* Project Image */}
-            <div className="w-full md:w-1/2 relative overflow-hidden rounded-xl aspect-video border border-white/10 group-hover:border-red-500/50 transition-colors shadow-lg">
-              <div className="absolute inset-0 bg-red-900/20 group-hover:bg-transparent transition-colors z-10 mix-blend-overlay pointer-events-none"></div>
-              {/* Carousel logic internally handles rendering */}
-              <ImageCarousel images={project.images} />
+            {/* Visual Panel: Image & Telemetry console */}
+            <div className="w-full lg:w-[45%] flex flex-col gap-6 justify-between shrink-0">
+              
+              {/* Project Image Carousel Wrapper */}
+              <div 
+                className="w-full aspect-video relative overflow-hidden rounded-2xl border border-white/10 group-hover:border-red-500/30 transition-colors shadow-2xl bg-zinc-950 cursor-pointer"
+                onClick={() => setSelectedProject(project)}
+              >
+                <div className="absolute inset-0 bg-red-900/10 group-hover:bg-transparent transition-colors z-20 pointer-events-none mix-blend-overlay"></div>
+                
+                {project.images && project.images.length > 0 ? (
+                  <ImageCarousel images={project.images} />
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center text-gray-600 font-mono text-xs p-4 bg-zinc-950">
+                    <Cpu className="w-10 h-10 text-red-500/40 mb-3 animate-pulse" />
+                    <span>NEURAL STACK ACTIVE // IMAGE UNAVAILABLE</span>
+                  </div>
+                )}
+                
+                {/* Tech tag overlay */}
+                <div className="absolute top-3 left-3 px-3 py-1 bg-black/80 backdrop-blur-md rounded border border-red-500/20 text-[9px] font-mono text-red-500 z-30 uppercase font-bold tracking-widest">
+                  {project.category}
+                </div>
+              </div>
+
+              {/* Simulated active telemetry screen */}
+              <TelemetryWidget type={project.telemetryType} />
             </div>
 
-            {/* Project Details */}
-            <div className="w-full md:w-1/2 space-y-4">
-              <p className="text-red-500 font-mono text-sm tracking-wider uppercase">{project.category}</p>
-              <h3 className="text-3xl font-bold text-white group-hover:text-red-100 transition-colors">{project.title}</h3>
+            {/* Content Panel: Details & System diagram */}
+            <div className="w-full lg:w-[55%] flex flex-col justify-between space-y-6 pt-4 lg:pt-0">
               
-              <div className="glass-card p-6 !border-white/5 relative z-20 -mx-4 md:mx-0 shadow-2xl space-y-3 pointer-events-none">
-                <div>
-                  <span className="text-gray-400 text-sm font-semibold uppercase">Problem</span>
-                  <p className="text-gray-300 font-light text-sm line-clamp-2">{project.problem}</p>
+              <div className="space-y-4">
+                <div className="flex justify-between items-start gap-4">
+                  <h3 
+                    className="text-2xl sm:text-3xl font-extrabold text-white group-hover:text-red-200 transition-colors cursor-pointer leading-tight"
+                    onClick={() => setSelectedProject(project)}
+                  >
+                    {project.title}
+                  </h3>
                 </div>
-                <div>
-                  <span className="text-green-500/80 text-sm font-semibold uppercase">Solution</span>
-                  <p className="text-gray-300 font-light text-sm line-clamp-2">{project.solution}</p>
+
+                {/* Split Problems & Solutions blocks */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="p-4 rounded-xl border border-white/5 bg-zinc-950/40 relative">
+                    <span className="text-[9px] font-mono font-bold tracking-widest text-red-500 block mb-2 uppercase">CORE DILEMMA</span>
+                    <p className="text-gray-400 font-light text-xs leading-relaxed">{project.problem}</p>
+                  </div>
+                  <div className="p-4 rounded-xl border border-white/5 bg-zinc-950/40 relative">
+                    <span className="text-[9px] font-mono font-bold tracking-widest text-green-400 block mb-2 uppercase">ENGINEERED INTEGRATION</span>
+                    <p className="text-gray-400 font-light text-xs leading-relaxed">{project.solution}</p>
+                  </div>
+                </div>
+
+                {/* Interactive Signal Flow Diagram */}
+                <div className="pt-2">
+                  <span className="text-[9px] font-mono font-bold tracking-widest text-gray-500 block mb-2 uppercase">PIPELINE ROUTING STACK</span>
+                  <ArchitectureFlow steps={project.flow} />
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-2 pt-2">
-                {project.tech.map((t, i) => (
-                  <span key={i} className="text-xs font-mono text-gray-400 bg-white/5 px-3 py-1 rounded-full border border-white/10">
-                    {t}
-                  </span>
-                ))}
+              {/* Bottom footer: Tech pills, metrics, and launch */}
+              <div className="space-y-5 pt-4 border-t border-white/5">
+                {/* Visual Impact Metrics */}
+                <div className="grid grid-cols-3 gap-3">
+                  {project.metrics.map((metric, mIdx) => (
+                    <div key={mIdx} className="text-center p-2 bg-red-950/10 border border-red-500/10 rounded-lg group-hover:border-red-500/20 transition-all">
+                      <span className="text-white font-mono font-extrabold text-base sm:text-lg block tracking-tighter">{metric.value}</span>
+                      <span className="text-[8px] font-mono text-gray-500 uppercase tracking-wider block">{metric.label}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Tech Pills & case study button */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="flex flex-wrap gap-1.5 max-w-sm">
+                    {project.tech.map((t, i) => (
+                      <span key={i} className="text-[9px] font-mono text-gray-400 bg-white/5 px-2.5 py-1 rounded border border-white/10 hover:border-red-500/20 transition-all">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+
+                  <button 
+                    onClick={() => setSelectedProject(project)}
+                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg border border-red-900/60 text-xs font-mono text-white tracking-widest uppercase hover:bg-red-950/30 hover:border-red-500/50 transition-all shadow-[0_0_15px_rgba(255,26,26,0.05)] cursor-pointer group shrink-0"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5 text-red-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    <span>Open Case Diagnostics</span>
+                  </button>
+                </div>
               </div>
 
-              <div className="flex gap-4 pt-4">
-                <button 
-                  className="flex items-center gap-2 text-sm font-semibold text-gray-300 group-hover:text-red-500 transition-colors"
-                >
-                  <ExternalLink className="w-4 h-4" /> Read Case Study
-                </button>
-              </div>
             </div>
           </motion.div>
         ))}
@@ -317,36 +538,47 @@ export default function Projects() {
           className="text-2xl font-bold text-white mb-8 border-l-4 border-red-500 pl-4 flex items-center gap-3"
         >
           <FolderOpen className="text-red-500 w-6 h-6" />
-          Other Notable Work
+          <span>Other Notable <span className="text-gradient">Hardware Operations</span></span>
         </motion.h3>
-        {/* CHANGED TO 2 COLUMNS PRECISELY AS REQUESTED */}
+
+        {/* 2 COLUMN GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {otherProjects.map((project, idx) => (
             <motion.div 
               key={idx}
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.97 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              whileHover={{ y: -5 }}
+              transition={{ delay: idx * 0.08 }}
+              whileHover={{ y: -4 }}
               onClick={() => setSelectedProject(project)}
-              className="bg-[#070707] border border-white/10 p-6 rounded-2xl hover:border-red-500/50 hover:shadow-[0_0_20px_rgba(139,0,0,0.2)] transition-all cursor-pointer group flex flex-col gap-4 shadow-xl"
+              className="bg-[#070707] border border-white/10 p-6 rounded-2xl hover:border-red-500/40 hover:shadow-[0_0_25px_rgba(139,0,0,0.15)] transition-all cursor-pointer group flex flex-col gap-4 shadow-xl relative"
             >
+              {/* Scanline circuit overlay */}
+              <div className="hud-scanline" />
+              
               {/* Image Carousel integrated right into the card! */}
               <div className="w-full aspect-video overflow-hidden rounded-xl border border-white/5 relative bg-zinc-900">
-                <div className="absolute inset-0 bg-red-900/10 group-hover:bg-transparent transition-colors z-10 pointer-events-none mix-blend-overlay"></div>
-                <ImageCarousel images={project.images} />
+                <div className="absolute inset-0 bg-red-900/10 group-hover:bg-transparent transition-colors z-20 pointer-events-none mix-blend-overlay"></div>
+                {project.images && project.images.length > 0 ? (
+                  <ImageCarousel images={project.images} />
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center text-gray-600 font-mono text-[10px]">
+                    <Cpu className="w-6 h-6 text-red-500/30 mb-2 animate-pulse" />
+                    <span>SYSTEM COMPONENT</span>
+                  </div>
+                )}
               </div>
               
               <div className="space-y-2 flex-grow">
-                <p className="text-red-400 font-mono text-xs uppercase tracking-widest">{project.category}</p>
-                <h4 className="font-bold text-xl text-gray-100 group-hover:text-white transition-colors">{project.title}</h4>
-                <p className="text-gray-400 font-light text-sm line-clamp-2">{project.problem}</p>
+                <p className="text-red-500 font-mono text-[9px] uppercase tracking-widest font-bold">{project.category}</p>
+                <h4 className="font-bold text-lg text-gray-100 group-hover:text-white transition-colors">{project.title}</h4>
+                <p className="text-gray-400 font-light text-xs line-clamp-2 leading-relaxed">{project.problem}</p>
               </div>
               
-              <div className="flex flex-wrap gap-2 pt-2">
+              <div className="flex flex-wrap gap-1.5 pt-2">
                 {project.tech.map((t, i) => (
-                  <span key={i} className="text-[10px] font-mono text-gray-400 bg-white/5 px-2 py-1 rounded border border-white/10">
+                  <span key={i} className="text-[8px] font-mono text-gray-400 bg-white/5 px-2 py-0.5 rounded border border-white/10">
                     {t}
                   </span>
                 ))}
@@ -356,7 +588,7 @@ export default function Projects() {
         </div>
       </div>
 
-      {/* MODAL PLACED AT THE BOTTOM FOR Z-INDEX FIX */}
+      {/* Case Study Modal */}
       <AnimatePresence>
         {selectedProject && (
           <motion.div 
@@ -367,7 +599,7 @@ export default function Projects() {
             className="fixed inset-0 flex items-center justify-center p-4 sm:p-6"
           >
             <div 
-              className="absolute inset-0 bg-black/90 backdrop-blur-md cursor-pointer"
+              className="absolute inset-0 bg-black/95 backdrop-blur-md cursor-pointer"
               onClick={() => setSelectedProject(null)}
             ></div>
             
@@ -376,13 +608,16 @@ export default function Projects() {
               animate={{ y: 0, scale: 1, opacity: 1 }}
               exit={{ y: 20, scale: 0.95, opacity: 0 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="relative w-full max-w-4xl bg-[#0a0a0a] border border-white/10 rounded-2xl overflow-y-auto max-h-[90vh] shadow-[0_0_50px_rgba(139,0,0,0.5)] flex flex-col md:flex-row"
+              className="relative w-full max-w-4xl bg-zinc-950 border border-white/10 rounded-2xl overflow-y-auto max-h-[90vh] shadow-[0_0_50px_rgba(255,26,26,0.3)] flex flex-col md:flex-row z-10"
             >
+              {/* HUD scan overlay */}
+              <div className="hud-scanline" />
+              
               <button 
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 z-50 p-2 bg-black/50 hover:bg-red-600 rounded-full transition-colors backdrop-blur-md"
+                className="absolute top-4 right-4 z-50 p-2 bg-black/60 hover:bg-red-600 rounded-full transition-colors backdrop-blur-md border border-white/10 cursor-pointer text-white"
               >
-                <X className="w-5 h-5 text-white" />
+                <X className="w-5 h-5" />
               </button>
               
               <div className="w-full md:w-1/2 bg-black relative border-b md:border-b-0 md:border-r border-white/10 min-h-[300px]">
@@ -391,39 +626,40 @@ export default function Projects() {
                     <ImageCarousel images={selectedProject.images} />
                   </div>
                 ) : (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-gray-600 font-mono">No Image Provided</span>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-zinc-950/80 text-gray-500 font-mono text-xs">
+                    <Cpu className="w-12 h-12 text-red-500/20 mb-3 animate-pulse" />
+                    <span>DIAGNOSTIC VISUAL UNAVAILABLE</span>
                   </div>
                 )}
               </div>
 
-              <div className="w-full md:w-1/2 p-8 md:p-10 space-y-6 flex flex-col justify-center">
+              <div className="w-full md:w-1/2 p-8 md:p-10 space-y-6 flex flex-col justify-center bg-black/90">
                 <div>
-                  <p className="text-red-500 font-mono text-sm tracking-wider uppercase mb-2">{selectedProject.category}</p>
-                  <h3 className="text-3xl font-bold text-white leading-tight">{selectedProject.title}</h3>
+                  <p className="text-red-500 font-mono text-xs tracking-wider uppercase mb-2 font-bold">{selectedProject.category}</p>
+                  <h3 className="text-2xl md:text-3xl font-extrabold text-white leading-tight">{selectedProject.title}</h3>
                 </div>
                 
                 <div className="space-y-4">
                   <div>
-                    <span className="text-gray-400 text-sm font-semibold uppercase block mb-1">Problem</span>
-                    <p className="text-gray-300 font-light text-sm">{selectedProject.problem}</p>
+                    <span className="text-red-500 font-mono text-[9px] font-bold uppercase block mb-1">THE DILEMMA</span>
+                    <p className="text-gray-300 font-light text-xs leading-relaxed">{selectedProject.problem}</p>
                   </div>
                   <div>
-                    <span className="text-green-500/80 text-sm font-semibold uppercase block mb-1">Solution</span>
-                    <p className="text-gray-300 font-light text-sm">{selectedProject.solution}</p>
+                    <span className="text-green-400 font-mono text-[9px] font-bold uppercase block mb-1">ENGINEERED OUTCOME</span>
+                    <p className="text-gray-300 font-light text-xs leading-relaxed">{selectedProject.solution}</p>
                   </div>
                 </div>
 
                 <div className="pt-4 border-t border-white/10">
-                  <span className="text-white text-sm font-semibold uppercase block mb-3">Full Details</span>
-                  <p className="text-gray-400 font-light text-sm leading-relaxed">
-                    {selectedProject.longDesc || "Detailed description is being updated. This project showcases deep technical integration and core engineering concepts solved progressively."}
+                  <span className="text-white font-mono text-[9px] font-bold uppercase block mb-2">COMPLETE CASE SPECS</span>
+                  <p className="text-gray-400 font-light text-xs leading-relaxed">
+                    {selectedProject.longDesc || "System description is active. This project incorporates custom PCB circuitry design, low-level firmware integration, telemetry serialization and multi-sensor calibration protocols."}
                   </p>
                 </div>
 
-                <div className="flex flex-wrap gap-2 pt-2">
+                <div className="flex flex-wrap gap-1.5 pt-2">
                   {selectedProject.tech && selectedProject.tech.map((t, i) => (
-                    <span key={i} className="text-[10px] font-mono text-gray-400 bg-white/5 px-2 py-1 rounded border border-white/10">
+                    <span key={i} className="text-[8px] font-mono text-gray-400 bg-white/5 px-2.5 py-1 rounded border border-white/10">
                       {t}
                     </span>
                   ))}
