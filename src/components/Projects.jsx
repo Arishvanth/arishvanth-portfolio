@@ -488,33 +488,34 @@ export default function Projects() {
               </div>
 
               {/* Bottom footer: Tech pills, metrics, and launch */}
-              <div className="space-y-5 pt-4 border-t border-white/5">
+              <div className="space-y-6 pt-5 border-t border-white/5 mt-auto w-full">
                 {/* Visual Impact Metrics */}
                 <div className="grid grid-cols-3 gap-3">
                   {project.metrics.map((metric, mIdx) => (
-                    <div key={mIdx} className="text-center p-2 bg-red-950/10 border border-red-500/10 rounded-lg group-hover:border-red-500/20 transition-all">
+                    <div key={mIdx} className="text-center p-2.5 bg-red-950/10 border border-red-500/10 rounded-xl group-hover:border-red-500/20 transition-all">
                       <span className="text-white font-mono font-extrabold text-base sm:text-lg block tracking-tighter">{metric.value}</span>
-                      <span className="text-[9px] font-mono text-gray-500 uppercase tracking-wider block">{metric.label}</span>
+                      <span className="text-[8px] font-mono text-gray-500 uppercase tracking-wider block">{metric.label}</span>
                     </div>
                   ))}
                 </div>
 
-                {/* Tech Pills & case study button */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div className="flex flex-wrap gap-1.5 max-w-sm">
-                    {project.tech.map((t, i) => (
-                      <span key={i} className="text-[10px] font-mono text-gray-400 bg-white/5 px-2.5 py-1 rounded border border-white/10 hover:border-red-500/20 transition-all">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
+                {/* Tech Pills */}
+                <div className="flex flex-wrap gap-1.5 w-full">
+                  {project.tech.map((t, i) => (
+                    <span key={i} className="text-[9.5px] font-mono text-gray-400 bg-white/5 px-2.5 py-1 rounded border border-white/10 hover:border-red-500/20 transition-all">
+                      {t}
+                    </span>
+                  ))}
+                </div>
 
+                {/* Launch Button (Constant Position & Prominent Full-Width UI) */}
+                <div className="w-full pt-2">
                   <button 
                     onClick={() => setSelectedProject(project)}
-                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg border border-red-900/60 text-[10px] font-mono text-white tracking-widest uppercase hover:bg-red-950/30 hover:border-red-500/50 transition-all shadow-[0_0_15px_rgba(255,26,26,0.05)] cursor-pointer group shrink-0"
+                    className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl border border-red-500/40 hover:border-red-500 bg-red-950/20 hover:bg-red-600 text-[10px] font-mono text-white tracking-widest uppercase hover:shadow-[0_0_30px_rgba(255,26,26,0.4)] transition-all duration-300 cursor-pointer group"
                   >
-                    <ExternalLink className="w-3.5 h-3.5 text-red-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    <span>Launch Case Study</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-red-500 group-hover:text-white transition-colors group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    <span className="font-extrabold">LAUNCH CASE STUDY CORE PORTAL</span>
                   </button>
                 </div>
               </div>
@@ -547,31 +548,59 @@ export default function Projects() {
               transition={{ delay: idx * 0.08 }}
               whileHover={{ y: -4 }}
               onClick={() => setSelectedProject(project)}
-              className="bg-[#070707] border border-white/10 p-6 rounded-2xl hover:border-red-500/40 hover:shadow-[0_0_25px_rgba(139,0,0,0.15)] transition-all cursor-pointer group flex flex-col gap-4 shadow-xl relative"
+              className="bg-black/60 border border-white/10 p-6 rounded-3xl hover:border-red-500/40 hover:shadow-[0_0_30px_rgba(255,26,26,0.12)] transition-all cursor-pointer group flex flex-col justify-between shadow-2xl relative overflow-hidden select-none"
             >
+              {/* Internal tech grid backdrop */}
+              <div className="absolute inset-0 hud-grid opacity-15 pointer-events-none" />
               
-              {/* Image Carousel integrated right into the card! */}
-              <div className="w-full aspect-video overflow-hidden rounded-xl border border-white/5 relative bg-zinc-900">
-                <div className="absolute inset-0 bg-red-900/10 group-hover:bg-transparent transition-colors z-20 pointer-events-none mix-blend-overlay"></div>
+              {/* Bounding tech corner marks */}
+              <span className="absolute top-3 left-4 w-2 h-2 border-t border-l border-red-500/30 pointer-events-none"></span>
+              <span className="absolute top-3 right-4 w-2 h-2 border-t border-r border-red-500/30 pointer-events-none"></span>
+              
+              {/* Category indicator log pill */}
+              <div className="flex items-center gap-1.5 mb-2.5 z-10">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping"></span>
+                <span className="text-[9px] font-mono font-bold tracking-widest text-red-500 uppercase">{project.category}</span>
+              </div>
+              
+              {/* Visual image preview with glowing targets & scans */}
+              <div className="w-full aspect-video overflow-hidden rounded-2xl border border-white/5 relative bg-zinc-950 mb-4 group-hover:border-red-500/30 transition-colors shrink-0">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 z-10 pointer-events-none"></div>
+                
+                {/* Scanner sweep line */}
+                <div className="hud-scanline opacity-30 z-20 pointer-events-none" />
+                
                 {project.images && project.images.length > 0 ? (
                   <ImageCarousel images={project.images} />
                 ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center text-gray-600 font-mono text-[10px]">
-                    <Cpu className="w-6 h-6 text-red-500/30 mb-2 animate-pulse" />
-                    <span>SYSTEM COMPONENT</span>
+                  <div className="w-full h-full flex flex-col items-center justify-center text-gray-500 font-mono text-[9px] bg-zinc-950 p-4">
+                    <Cpu className="w-7 h-7 text-red-500/30 mb-2 animate-pulse" />
+                    <span>SYS_COMP_ACTIVE // GRAPHIC_OFFLINE</span>
                   </div>
                 )}
+                
+                {/* Tech Corner Crosshairs */}
+                <div className="absolute top-2 left-2 w-1.5 h-1.5 border-t border-l border-red-500/40 pointer-events-none"></div>
+                <div className="absolute top-2 right-2 w-1.5 h-1.5 border-t border-r border-red-500/40 pointer-events-none"></div>
+                <div className="absolute bottom-2 left-2 w-1.5 h-1.5 border-b border-l border-red-500/40 pointer-events-none"></div>
+                <div className="absolute bottom-2 right-2 w-1.5 h-1.5 border-b border-r border-red-500/40 pointer-events-none"></div>
+                
+                {/* Status overlay */}
+                <div className="absolute bottom-2 left-3 z-20 font-mono text-[7px] text-red-500/80 bg-black/80 px-2 py-0.5 rounded border border-red-500/20 uppercase tracking-widest">
+                  SYS_DEV: ACTIVE
+                </div>
               </div>
               
-              <div className="space-y-2 flex-grow text-sm sm:text-base">
-                <p className="text-red-500 font-mono text-[10px] uppercase tracking-widest font-bold">{project.category}</p>
-                <h4 className="font-bold text-lg text-gray-100 group-hover:text-white transition-colors">{project.title}</h4>
-                <p className="text-gray-400 font-light text-sm leading-relaxed line-clamp-2">{project.problem}</p>
+              {/* Text content details */}
+              <div className="space-y-2 flex-grow mb-4">
+                <h4 className="font-extrabold text-lg text-gray-100 group-hover:text-red-200 transition-colors leading-snug">{project.title}</h4>
+                <p className="text-gray-400 font-light text-xs leading-relaxed line-clamp-2 font-sans">{project.problem}</p>
               </div>
               
-              <div className="flex flex-wrap gap-1.5 pt-2">
+              {/* Tech tag list */}
+              <div className="flex flex-wrap gap-1.5 pt-3 border-t border-white/5 mt-auto">
                 {project.tech.map((t, i) => (
-                  <span key={i} className="text-[9px] font-mono text-gray-400 bg-white/5 px-2 py-0.5 rounded border border-white/10">
+                  <span key={i} className="text-[9px] font-mono text-gray-400 bg-white/5 px-2.5 py-0.5 rounded border border-white/10 hover:border-red-500/20 transition-all">
                     {t}
                   </span>
                 ))}
@@ -654,6 +683,16 @@ export default function Projects() {
                       {t}
                     </span>
                   ))}
+                </div>
+
+                {/* Mobile-friendly bottom dismiss button */}
+                <div className="pt-6 border-t border-white/5 flex w-full mt-4">
+                  <button
+                    onClick={() => setSelectedProject(null)}
+                    className="w-full py-3.5 bg-red-950/20 hover:bg-red-600/30 text-red-500 hover:text-white border border-red-500/20 hover:border-red-500/50 rounded-xl transition-all duration-300 cursor-pointer uppercase font-mono text-[9px] font-bold tracking-widest text-center"
+                  >
+                    DISMISS CORE METRIC PORTAL
+                  </button>
                 </div>
               </div>
             </motion.div>

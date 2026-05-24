@@ -118,44 +118,85 @@ export default function Leadership() {
     setActiveModalItem({ ...itemProps, icon: iconComponent });
   };
 
-  const renderCard = (item, idx, IconComponent, colorClass, placeholderText, modalDescFallback, statusLabel, isHighlight = false) => (
-    <motion.div 
-      key={idx}
-      initial={{ opacity: 0, scale: 0.95 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{ delay: idx * 0.04 }}
-      className={`p-5 rounded-xl border ${isHighlight ? 'border-red-500/30 bg-red-950/5' : 'border-white/5 bg-[#070707]'} hover:border-red-500/40 hover:shadow-[0_0_20px_rgba(139,0,0,0.15)] transition-all group flex flex-col h-full shadow-lg relative`}
-    >
-      <div 
-        className="w-full h-40 bg-[#030303] rounded-lg mb-4 overflow-hidden relative border border-white/5 cursor-pointer flex-shrink-0" 
-        onClick={() => openModal({ ...item, detail: item.detail || modalDescFallback, status: statusLabel, showLink: true }, <IconComponent className={`w-8 h-8 ${colorClass}`} />)}
+  const renderCard = (item, idx, IconComponent, colorClass, placeholderText, modalDescFallback, statusLabel, isHighlight = false) => {
+    // Generate a premium random micro-code for each tech card to give it an authentic systems feel!
+    const subCodes = ["SYS_INTEL_A", "COMP_ROBOT_B", "DEV_GATEWAY_X", "INF_TENSOR_Y", "ENG_ACCEL_Z"];
+    const cardCode = subCodes[idx % subCodes.length];
+
+    return (
+      <motion.div 
+        key={idx}
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: idx * 0.04 }}
+        className={`p-5 rounded-3xl border ${isHighlight ? 'border-red-500/30 bg-red-950/10' : 'border-white/10 bg-black/60'} hover:border-red-500/40 hover:shadow-[0_0_30px_rgba(255,26,26,0.12)] transition-all group flex flex-col justify-between h-full shadow-2xl relative overflow-hidden select-none`}
       >
-        {item.image ? (
-          <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-        ) : (
-          <div className={`w-full h-full flex flex-col items-center justify-center text-gray-600 transition-colors ${colorClass.replace('text-', 'group-hover:text-')}`}>
-            <IconComponent className="w-8 h-8 mb-2 animate-pulse" />
-            <span className="text-[10px] uppercase tracking-widest font-mono text-center px-4">{placeholderText}</span>
+        {/* Internal tech grid backdrop */}
+        <div className="absolute inset-0 hud-grid opacity-15 pointer-events-none" />
+        
+        {/* Bounding tech corner marks */}
+        <span className="absolute top-3 left-4 w-1.5 h-1.5 border-t border-l border-red-500/30 pointer-events-none"></span>
+        <span className="absolute top-3 right-4 w-1.5 h-1.5 border-t border-r border-red-500/30 pointer-events-none"></span>
+
+        {/* Dynamic Tag header with micro-LED */}
+        <div className="flex justify-between items-center mb-3.5 z-10">
+          <div className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping"></span>
+            <span className="text-[8px] font-mono font-bold tracking-widest text-red-500 uppercase">{statusLabel || "VERIFIED"}</span>
           </div>
-        )}
-      </div>
-      <div className="mt-auto flex items-center justify-between gap-2">
-        <p 
-          className="font-bold text-gray-200 text-xs sm:text-sm group-hover:text-white transition-colors line-clamp-3 cursor-pointer leading-snug"
+          <span className="text-[7.5px] font-mono text-gray-500 tracking-wider font-semibold">{cardCode}</span>
+        </div>
+        
+        {/* Visual Target Frame with scanner overlay */}
+        <div 
+          className="w-full h-40 bg-zinc-950 rounded-2xl mb-4 overflow-hidden relative border border-white/5 cursor-pointer flex-shrink-0 group-hover:border-red-500/30 transition-colors" 
           onClick={() => openModal({ ...item, detail: item.detail || modalDescFallback, status: statusLabel, showLink: true }, <IconComponent className={`w-8 h-8 ${colorClass}`} />)}
         >
-          {item.title}
-        </p>
-        <button 
-          onClick={() => openModal({ ...item, detail: item.detail || modalDescFallback, status: statusLabel, showLink: true }, <IconComponent className={`w-8 h-8 ${colorClass}`} />)}
-          className="p-1.5 bg-white/5 rounded hover:bg-red-600 hover:text-white text-gray-400 transition-colors shrink-0 cursor-pointer"
-        >
-          <ChevronRight className="w-3.5 h-3.5" />
-        </button>
-      </div>
-    </motion.div>
-  );
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 z-10 pointer-events-none"></div>
+          
+          {/* Scanline sweep */}
+          <div className="hud-scanline opacity-30 z-20 pointer-events-none" />
+          
+          {item.image ? (
+            <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-85 group-hover:opacity-100" />
+          ) : (
+            <div className={`w-full h-full flex flex-col items-center justify-center text-gray-600 transition-colors bg-zinc-950 ${colorClass.replace('text-', 'group-hover:text-')}`}>
+              <IconComponent className="w-7 h-7 mb-2 animate-pulse" />
+              <span className="text-[9px] uppercase tracking-widest font-mono text-center px-4 font-bold opacity-75">{placeholderText}</span>
+            </div>
+          )}
+
+          {/* Target Corner Tick Marks */}
+          <div className="absolute top-2 left-2 w-1.5 h-1.5 border-t border-l border-red-500/40 pointer-events-none"></div>
+          <div className="absolute top-2 right-2 w-1.5 h-1.5 border-t border-r border-red-500/40 pointer-events-none"></div>
+          <div className="absolute bottom-2 left-2 w-1.5 h-1.5 border-b border-l border-red-500/40 pointer-events-none"></div>
+          <div className="absolute bottom-2 right-2 w-1.5 h-1.5 border-b border-r border-red-500/40 pointer-events-none"></div>
+          
+          {/* Tech overlay */}
+          <div className="absolute bottom-2 left-3 z-20 font-mono text-[7px] text-red-500/80 bg-black/80 px-2 py-0.5 rounded border border-red-500/20 uppercase tracking-widest">
+            LOG_REF: ONLINE
+          </div>
+        </div>
+
+        {/* Text bottom content and Action trigger */}
+        <div className="mt-auto flex items-center justify-between gap-3 pt-3 border-t border-white/5 w-full">
+          <p 
+            className="font-extrabold text-gray-200 text-xs group-hover:text-red-200 transition-colors line-clamp-2 cursor-pointer leading-snug flex-grow"
+            onClick={() => openModal({ ...item, detail: item.detail || modalDescFallback, status: statusLabel, showLink: true }, <IconComponent className={`w-8 h-8 ${colorClass}`} />)}
+          >
+            {item.title}
+          </p>
+          <button 
+            onClick={() => openModal({ ...item, detail: item.detail || modalDescFallback, status: statusLabel, showLink: true }, <IconComponent className={`w-8 h-8 ${colorClass}`} />)}
+            className="p-2 bg-red-950/20 border border-red-500/20 rounded-xl hover:bg-red-600 hover:border-red-500 text-red-500 hover:text-white transition-all shrink-0 cursor-pointer flex items-center justify-center"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+      </motion.div>
+    );
+  };
 
   return (
     <section id="leadership" style={{ zIndex: activeModalItem ? 9999 : 10 }} className="py-24 px-6 lg:px-12 xl:px-20 relative w-full max-w-7xl mx-auto space-y-32">
@@ -511,15 +552,15 @@ export default function Leadership() {
                   </div>
                 </div>
                 
-                {activeModalItem.showLink && (
+                {/* Mobile-friendly bottom close button */}
+                <div className="pt-6 border-t border-white/5 flex w-full mt-4">
                   <button 
                     onClick={() => setActiveModalItem(null)}
-                    className="inline-flex max-w-max items-center justify-center gap-2 px-6 py-3 border border-red-900 bg-red-950/20 text-xs font-mono text-white tracking-widest uppercase rounded-lg hover:border-red-500/50 hover:bg-red-950/40 transition-all cursor-pointer shadow-[0_0_15px_rgba(255,26,26,0.1)]"
+                    className="w-full py-3.5 bg-red-950/20 hover:bg-red-600/30 text-red-500 hover:text-white border border-red-500/20 hover:border-red-500/50 rounded-xl transition-all duration-300 cursor-pointer uppercase font-mono text-[9px] font-bold tracking-widest text-center"
                   >
-                    <span>Close Diagnostics</span>
-                    <ChevronRight className="w-3.5 h-3.5" />
+                    DISMISS SYSTEM LOG
                   </button>
-                )}
+                </div>
               </div>
             </motion.div>
           </motion.div>

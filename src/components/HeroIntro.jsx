@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Power } from 'lucide-react';
 
-export default function HeroIntro() {
+export default function HeroIntro({ onComplete }) {
   const [activated, setActivated] = useState(false);
   const [bootReady, setBootReady] = useState(false);
   const audioContextRef = useRef(null);
@@ -35,6 +35,7 @@ export default function HeroIntro() {
     // Auto transition to portfolio after 3.5 seconds
     setTimeout(() => {
       setBootReady(true);
+      if (onComplete) onComplete();
     }, 3500);
   };
 

@@ -319,6 +319,16 @@ export default function WorkExperience() {
                     </span>
                   ))}
                 </div>
+
+                {/* Mobile-friendly bottom dismiss button */}
+                <div className="pt-6 border-t border-white/5 flex w-full mt-4">
+                  <button
+                    onClick={() => setSelectedExp(null)}
+                    className="w-full py-3.5 bg-red-950/20 hover:bg-red-600/30 text-red-500 hover:text-white border border-red-500/20 hover:border-red-500/50 rounded-xl transition-all duration-300 cursor-pointer uppercase font-mono text-[9px] font-bold tracking-widest text-center"
+                  >
+                    DISMISS BLUEPRINT CONSOLE
+                  </button>
+                </div>
               </div>
             </motion.div>
           </motion.div>

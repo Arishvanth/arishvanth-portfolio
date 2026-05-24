@@ -15,18 +15,10 @@ import ParticleBackground from './components/ParticleBackground';
 function App() {
   const [showIntro, setShowIntro] = useState(true);
 
-  useEffect(() => {
-    // Hide intro after 3.5 seconds
-    const timer = setTimeout(() => {
-      setShowIntro(false);
-    }, 3500);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <div className="bg-[#050505] min-h-screen text-white font-sans selection:bg-red-900 selection:text-white overflow-x-hidden w-full relative">
       <AnimatePresence>
-        {showIntro && <HeroIntro key="hero-intro" />}
+        {showIntro && <HeroIntro key="hero-intro" onComplete={() => setShowIntro(false)} />}
       </AnimatePresence>
 
       {!showIntro && (
