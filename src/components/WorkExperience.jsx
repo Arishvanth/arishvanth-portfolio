@@ -1,28 +1,52 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Briefcase, X, Calendar, MapPin, Code, ChevronRight } from 'lucide-react';
+import { Briefcase, X, Calendar, MapPin, Terminal, Cpu, ChevronRight, Activity, Database } from 'lucide-react';
 import ImageCarousel from './ImageCarousel';
 
 const experiences = [
   {
+    id: "cgs",
     role: "Renewable Energy Support",
     company: "CGS Green Sustainergy Pvt. Ltd.",
     date: "Dec 2025 – Jan 2026",
-    location: "Field Operations & Diagnostics",
+    location: "Field Operations & Systems Diagnostics",
     desc: "Field operations, solar systems diagnostics, and client interactions bridging sustainable energy and tech.",
     longDesc: "During my time at CGS Green Sustainergy, I was heavily involved in hands-on field operations. I diagnosed deeply technical issues within existing solar installations, engaged directly with clients to map out energy efficiency solutions, and successfully bridged the gap between sustainable energy hardware and modern technological integrations.",
     images: ["/images/CGS Internship on site.jpeg", "/images/CGS Internship.jpeg"],
-    tags: ["Solar Diagnostics", "Field Operations", "Grid Integration", "Power Analysis"]
+    blueprintCode: "MCU_PV_SYS_01",
+    sysLogs: [
+      "INIT: BINDING SOLAR ARRAY DATA REGISTERS",
+      "STATUS: OK // RESOLVING PHOTOVOLTAIC EMF DROPS",
+      "DIAG: TRACING SYSTEM CONNECTOR IMPEDANCES",
+      "OUT: COMPILED CLIENT POWER METRICS DRAW"
+    ],
+    deliverables: [
+      "Diagnosed deeply technical power drops in on-site photovoltaic solar arrays.",
+      "Bridged sustainable energy hardware with low-latency monitoring telemetry.",
+      "Conducted diagnostic tracing to optimize client electrical layouts."
+    ]
   },
   {
+    id: "loomkaari",
     role: "eCommerce & Data Developer",
     company: "Loomkaari Studio",
     date: "Dec 2024 – Present",
-    location: "Digital Infrastructure & Systems",
+    location: "Digital Commerce Infrastructure",
     desc: "Spearheading Shopify optimization, product metadata structuring, SEO strategies, and pricing data systems.",
     longDesc: "At Loomkaari Studio, I orchestrate the entire digital commerce pipeline for traditional block-printed fabrics. I implemented rigorous product metadata structures, engineered automated pricing strategies based on analytics, and spearheaded Shopify SEO optimization leading to substantial increases in organic digital traction.",
     images: ["/images/loomkaari_fabric.png"],
-    tags: ["Shopify Liquid APIs", "SEO Analytics", "Metadata Management", "Pricing Engines"]
+    blueprintCode: "DB_SHPFY_ENG_02",
+    sysLogs: [
+      "INIT: CONNECTING TO SHOPIFY LIQUID API GATEWAY",
+      "STATUS: OK // RESOLVED SEO METADATA INDEXES",
+      "DIAG: COMPILING PRODUCT CATALOG PRICING MATRIX",
+      "OUT: TRAPPING TRAFFIC TRACTION PEAKS (+45%)"
+    ],
+    deliverables: [
+      "Spearheaded complete catalog SEO optimization and Liquid API customization.",
+      "Engineered data-driven pricing models to optimize product yields dynamically.",
+      "Structured product metadata indexing to maximize search engine crawlers."
+    ]
   }
 ];
 
@@ -38,111 +62,155 @@ export default function WorkExperience() {
   return (
     <section id="experience" className={`py-24 px-6 lg:px-12 xl:px-20 relative w-full max-w-7xl mx-auto ${selectedExp ? 'z-[100]' : 'z-10'}`}>
       
-      {/* Background glow node */}
-      <div className="absolute top-[30%] left-[-5%] w-[40vw] h-[40vw] bg-red-950/5 blur-[150px] rounded-full pointer-events-none mix-blend-screen" />
+      {/* Background glow layers */}
+      <div className="absolute top-[20%] left-[-10%] w-[35vw] h-[35vw] bg-red-950/10 blur-[130px] rounded-full pointer-events-none mix-blend-screen" />
 
       <div className="text-center mb-20 relative z-10">
         <motion.h2 
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-3xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3 text-white"
         >
           <Briefcase className="text-red-500 w-8 h-8 md:w-10 md:h-10 animate-pulse" /> 
           <span>Internship <span className="text-gradient">& Experience</span></span>
         </motion.h2>
-        <p className="text-gray-400 font-light text-sm max-w-2xl mx-auto">
-          Technical engagements bridging hardware operations, solar telemetry diagnostics, and e-commerce database engineering.
+        <p className="text-gray-400 font-light text-sm md:text-base max-w-2xl mx-auto">
+          Technical systems integration. Click any architectural blueprint module below to examine official logs and case studies.
         </p>
       </div>
 
-      {/* Vertical Interactive Timeline */}
-      <div className="relative w-full max-w-4xl mx-auto z-10">
+      {/* Systems Architecture Blueprint View (Timeline Completely Replaced) */}
+      <div className="relative w-full z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch max-w-6xl mx-auto">
         
-        {/* Timeline spine path */}
-        <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-red-950 via-red-600/40 to-red-950 transform -translate-x-1/2 pointer-events-none"></div>
+        {/* Experience Node Module 1 */}
+        <motion.div 
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          onClick={() => setSelectedExp(experiences[0])}
+          className="col-span-1 lg:col-span-5 bg-black/60 border border-white/10 rounded-3xl p-6 hover:border-red-500/40 hover:shadow-[0_0_30px_rgba(255,26,26,0.1)] transition-all cursor-pointer flex flex-col justify-between group relative select-none"
+        >
+          <div className="absolute inset-0 hud-grid opacity-20 pointer-events-none" />
 
-        <div className="space-y-16">
-          {experiences.map((exp, idx) => {
-            const isEven = idx % 2 === 0;
-            
-            return (
-              <div key={idx} className="relative flex flex-col md:flex-row items-stretch md:justify-between w-full">
-                
-                {/* Center Timeline Node Tag */}
-                <div className="absolute left-4 md:left-1/2 top-6 -translate-x-1/2 z-20 flex items-center justify-center">
-                  <div className="w-8 h-8 rounded-full border-2 border-red-500 bg-black flex items-center justify-center shadow-[0_0_15px_rgba(255,26,26,0.8)] relative group-hover:scale-110 transition-transform">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping absolute"></div>
-                    <Briefcase className="w-3.5 h-3.5 text-red-500" />
-                  </div>
-                </div>
+          {/* Module Header */}
+          <div className="flex justify-between items-start border-b border-white/10 pb-4 mb-5">
+            <div>
+              <span className="font-mono text-[9px] text-red-500 font-bold tracking-widest uppercase block">{experiences[0].blueprintCode}</span>
+              <h3 className="text-xl font-extrabold text-white group-hover:text-red-200 transition-colors mt-1">{experiences[0].role}</h3>
+            </div>
+            <div className="p-2 bg-red-950/20 rounded-xl border border-red-500/20 text-red-500 shrink-0">
+              <Cpu className="w-5 h-5 animate-pulse" />
+            </div>
+          </div>
 
-                {/* Left/Right structural spacer slots */}
-                <div className={`w-full md:w-[45%] pl-12 md:pl-0 ${isEven ? 'md:order-1' : 'md:order-3 md:text-right'}`} />
-                
-                {/* Spacing alignment node */}
-                <div className="md:order-2 w-0" />
+          {/* Deliverables Specs list */}
+          <div className="space-y-3 flex-grow my-2">
+            <span className="text-[9px] font-mono font-bold tracking-widest text-gray-500 block uppercase">ENGINEERED SPECS:</span>
+            <ul className="space-y-2 text-gray-300 text-sm leading-relaxed font-light">
+              {experiences[0].deliverables.map((item, idx) => (
+                <li key={idx} className="flex items-start gap-2.5">
+                  <span className="text-red-500 font-bold shrink-0">▹</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-                {/* Main Card Component */}
-                <motion.div 
-                  initial={{ opacity: 0, x: isEven ? 50 : -50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.7 }}
-                  onClick={() => setSelectedExp(exp)}
-                  className={`w-full md:w-[45%] pl-12 md:pl-0 ${isEven ? 'md:order-3' : 'md:order-1'} group cursor-pointer`}
-                >
-                  <div className="hud-panel p-6 border border-white/5 relative overflow-hidden flex flex-col gap-4 shadow-2xl">
-                    <div className="hud-scanline" />
-                    
-                    {/* Visual Cover Carousel */}
-                    <div className="w-full h-44 rounded-xl overflow-hidden relative border border-white/10 group-hover:border-red-500/30 transition-colors shadow bg-zinc-950">
-                      <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors z-10 pointer-events-none mix-blend-overlay"></div>
-                      <img src={exp.images[0]} alt={exp.company} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                    </div>
-
-                    <div className="space-y-2">
-                      <span className="text-red-500 font-mono text-[9px] font-bold uppercase tracking-widest flex items-center gap-1.5 justify-start md:group-hover:text-red-400 transition-colors">
-                        <Calendar className="w-3 h-3" />
-                        {exp.date}
-                      </span>
-                      <h3 className="text-xl font-extrabold text-white group-hover:text-red-200 transition-colors leading-snug">{exp.role}</h3>
-                      <div className="flex items-center gap-1.5 text-gray-400 text-xs font-mono font-bold tracking-wide">
-                        <MapPin className="w-3.5 h-3.5 text-red-500" />
-                        <span>{exp.company}</span>
-                      </div>
-                      
-                      <p className="text-gray-400 font-light text-xs leading-relaxed pt-2 line-clamp-2 group-hover:text-gray-300 transition-colors">
-                        {exp.desc}
-                      </p>
-                    </div>
-
-                    {/* Tech categories tags */}
-                    <div className="flex flex-wrap gap-1 pt-2 border-t border-white/5">
-                      {exp.tags.slice(0, 3).map((tag, tIdx) => (
-                        <span key={tIdx} className="text-[8px] font-mono text-gray-400 bg-white/5 px-2 py-0.5 rounded border border-white/10">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Read logs button */}
-                    <div className="flex items-center gap-1.5 text-[9px] font-mono font-bold text-red-500/80 group-hover:text-red-400 transition-colors uppercase tracking-widest mt-1">
-                      <span>Access logs</span>
-                      <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                    </div>
-
-                  </div>
-                </motion.div>
-
+          {/* Live system logs ticker inside module */}
+          <div className="mt-6 p-3 bg-black/80 border border-white/5 rounded-xl font-mono text-[9px] text-gray-400 space-y-1">
+            <div className="flex justify-between text-[8px] text-red-500 font-bold pb-1 border-b border-white/5 mb-1.5 uppercase">
+              <span>System Output Logs</span>
+              <span>ONLINE</span>
+            </div>
+            {experiences[0].sysLogs.map((log, lIdx) => (
+              <div key={lIdx} className="flex items-center gap-1.5">
+                <span className="text-red-700/60 font-semibold">{`>`}</span>
+                <span className="line-clamp-1">{log}</span>
               </div>
-            );
-          })}
+            ))}
+          </div>
+
+          {/* Explore Button */}
+          <div className="flex items-center gap-1 text-[10px] font-mono font-bold text-red-500 uppercase tracking-widest pt-4 mt-4 border-t border-white/5 group-hover:text-red-400 transition-colors">
+            <span>Explore Case Details</span>
+            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </div>
+
+        </motion.div>
+
+        {/* Central Data Bus Pathways (Path trace connecting left & right) */}
+        <div className="col-span-1 lg:col-span-2 flex lg:flex-col items-center justify-center gap-4 py-6 lg:py-0 select-none">
+          <div className="h-[1px] lg:h-20 w-12 lg:w-[1px] bg-gradient-to-r lg:bg-gradient-to-b from-red-600/10 via-red-500/40 to-red-600/10"></div>
+          
+          <div className="p-3 border border-red-500/30 bg-red-950/20 text-red-500 rounded-full shadow-[0_0_20px_rgba(255,26,26,0.2)] animate-pulse flex items-center justify-center">
+            <Activity className="w-6 h-6 animate-pulse" />
+          </div>
+
+          <div className="h-[1px] lg:h-20 w-12 lg:w-[1px] bg-gradient-to-r lg:bg-gradient-to-b from-red-600/10 via-red-500/40 to-red-600/10"></div>
         </div>
+
+        {/* Experience Node Module 2 */}
+        <motion.div 
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          onClick={() => setSelectedExp(experiences[1])}
+          className="col-span-1 lg:col-span-5 bg-black/60 border border-white/10 rounded-3xl p-6 hover:border-red-500/40 hover:shadow-[0_0_30px_rgba(255,26,26,0.1)] transition-all cursor-pointer flex flex-col justify-between group relative select-none"
+        >
+          <div className="absolute inset-0 hud-grid opacity-20 pointer-events-none" />
+
+          {/* Module Header */}
+          <div className="flex justify-between items-start border-b border-white/10 pb-4 mb-5">
+            <div>
+              <span className="font-mono text-[9px] text-red-500 font-bold tracking-widest uppercase block">{experiences[1].blueprintCode}</span>
+              <h3 className="text-xl font-extrabold text-white group-hover:text-red-200 transition-colors mt-1">{experiences[1].role}</h3>
+            </div>
+            <div className="p-2 bg-red-950/20 rounded-xl border border-red-500/20 text-red-500 shrink-0">
+              <Database className="w-5 h-5 animate-pulse" />
+            </div>
+          </div>
+
+          {/* Deliverables Specs list */}
+          <div className="space-y-3 flex-grow my-2">
+            <span className="text-[9px] font-mono font-bold tracking-widest text-gray-500 block uppercase">ENGINEERED SPECS:</span>
+            <ul className="space-y-2 text-gray-300 text-sm leading-relaxed font-light">
+              {experiences[1].deliverables.map((item, idx) => (
+                <li key={idx} className="flex items-start gap-2.5">
+                  <span className="text-red-500 font-bold shrink-0">▹</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Live system logs ticker inside module */}
+          <div className="mt-6 p-3 bg-black/80 border border-white/5 rounded-xl font-mono text-[9px] text-gray-400 space-y-1">
+            <div className="flex justify-between text-[8px] text-red-500 font-bold pb-1 border-b border-white/5 mb-1.5 uppercase">
+              <span>System Output Logs</span>
+              <span>ONLINE</span>
+            </div>
+            {experiences[1].sysLogs.map((log, lIdx) => (
+              <div key={lIdx} className="flex items-center gap-1.5">
+                <span className="text-red-700/60 font-semibold">{`>`}</span>
+                <span className="line-clamp-1">{log}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Explore Button */}
+          <div className="flex items-center gap-1 text-[10px] font-mono font-bold text-red-500 uppercase tracking-widest pt-4 mt-4 border-t border-white/5 group-hover:text-red-400 transition-colors">
+            <span>Explore Case Details</span>
+            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </div>
+
+        </motion.div>
 
       </div>
 
-      {/* Experience Diagnostic Modal */}
+      {/* Experience Specs Modal (Scanners Completely Removed) */}
       <AnimatePresence>
         {selectedExp && (
           <motion.div 
@@ -162,9 +230,8 @@ export default function WorkExperience() {
               animate={{ y: 0, scale: 1, opacity: 1 }}
               exit={{ y: 20, scale: 0.95, opacity: 0 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="relative w-full max-w-3xl bg-zinc-950 border border-white/10 rounded-2xl overflow-hidden shadow-[0_0_60px_rgba(255,26,26,0.35)] flex flex-col"
+              className="relative w-full max-w-3xl bg-zinc-950 border border-white/10 rounded-2xl overflow-hidden shadow-[0_0_60px_rgba(255,26,26,0.35)] flex flex-col z-10"
             >
-              <div className="hud-scanline" />
               <button 
                 onClick={() => setSelectedExp(null)}
                 className="absolute top-4 right-4 p-2 bg-black/60 hover:bg-red-600 rounded-full transition-colors z-30 border border-white/10 text-white cursor-pointer flex items-center justify-center"
@@ -186,14 +253,14 @@ export default function WorkExperience() {
                   <span className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5 text-red-500" /> {selectedExp.location}</span>
                 </div>
                 
-                <div className="text-gray-300 font-light text-sm leading-relaxed space-y-4 pt-4 border-t border-white/5">
+                <div className="text-gray-300 font-light text-sm md:text-base leading-relaxed space-y-4 pt-4 border-t border-white/5">
                   <p>{selectedExp.longDesc}</p>
                 </div>
 
                 <div className="flex flex-wrap gap-2 pt-6">
                   {selectedExp.tags.map((tag, i) => (
-                    <span key={i} className="text-[9px] font-mono text-gray-400 bg-white/5 px-3 py-1 rounded border border-white/10 flex items-center gap-1.5">
-                      <Code className="w-3 h-3 text-red-500" />
+                    <span key={i} className="text-[10px] font-mono text-gray-400 bg-white/5 px-3 py-1 rounded border border-white/10 flex items-center gap-1.5">
+                      <Cpu className="w-3 h-3 text-red-500" />
                       {tag}
                     </span>
                   ))}

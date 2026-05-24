@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BookOpen, Trophy, Medal, Award, X, ExternalLink, CalendarDays, ChevronRight, Globe, Layers, Cpu, BrainCircuit } from 'lucide-react';
+import { BookOpen, Trophy, Medal, Award, X, ChevronRight, Globe, Layers, Cpu, BrainCircuit } from 'lucide-react';
 
 const leadershipItems = [
   { 
@@ -37,14 +37,18 @@ const leadershipItems = [
 
 const podiumFinishes = [
   { 
-    title: "24 hr Hackathon – Hack Odyssey 2k25 – Second Prize", 
+    title: "Hack Odyssey 2k25 – Second Prize Winner", 
     image: "/images/Smart Urban Sustainability System (SUSS) price.jpeg", 
-    detail: "Won 2nd prize by building SUSS—an integrated ESP32 + edge AI smart city system managing traffic, waste, and grids." 
+    detail: "Won 2nd prize in the prestigious 24-Hour National Hack Odyssey by engineering SUSS—an integrated ESP32 + edge AI smart city system managing traffic flow, smart waste bins, and sustainable micro-grids.",
+    badge: "National Hackathon Podium",
+    sub: "24-Hour Hack Odyssey // 2nd Place Winner"
   },
   { 
-    title: "Project Expo – Gyan Mitra’25 – Second Prize", 
+    title: "Gyan Mitra’25 Project Expo – Second Prize Winner", 
     image: "/images/Fastest line following robot Gyan mitra price.jpeg", 
-    detail: "Awarded 2nd prize for engineering a PID-controlled high-speed line-following robot resolving complex tracking trajectories." 
+    detail: "Awarded 2nd prize in the national-level Gyan Mitra'25 Project Expo for engineering and calibrating a high-speed, PID-controlled autonomous line-following robot resolving complex tracking trajectories.",
+    badge: "National Project Expo Podium",
+    sub: "Technical Project Expo // 2nd Place Winner"
   }
 ];
 
@@ -123,9 +127,6 @@ export default function Leadership() {
       transition={{ delay: idx * 0.04 }}
       className={`p-5 rounded-xl border ${isHighlight ? 'border-red-500/30 bg-red-950/5' : 'border-white/5 bg-[#070707]'} hover:border-red-500/40 hover:shadow-[0_0_20px_rgba(139,0,0,0.15)] transition-all group flex flex-col h-full shadow-lg relative`}
     >
-      {/* Scanline circuit overlay */}
-      <div className="hud-scanline" />
-      
       <div 
         className="w-full h-40 bg-[#030303] rounded-lg mb-4 overflow-hidden relative border border-white/5 cursor-pointer flex-shrink-0" 
         onClick={() => openModal({ ...item, detail: item.detail || modalDescFallback, status: statusLabel, showLink: true }, <IconComponent className={`w-8 h-8 ${colorClass}`} />)}
@@ -179,8 +180,8 @@ export default function Leadership() {
         </div>
       </div>
 
-      {/* Achievements - Spotlight & Timeline */}
-      <div id="accolades" className="-mt-10 pt-10">
+      {/* Achievements - Standout horizontal Spotlight Cards */}
+      <div id="accolades" className="-mt-10 pt-10 select-none">
         <motion.h2 
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -191,8 +192,9 @@ export default function Leadership() {
           <span>Accolades <span className="text-gradient">& Engagements</span></span>
         </motion.h2>
         
-        {/* GLOBAL SPOTLIGHT: Technoxian World Cup */}
-        <div className="mb-16">
+        <div className="space-y-12">
+          
+          {/* 1. GLOBAL SPOTLIGHT: Technoxian World Cup */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -208,7 +210,6 @@ export default function Leadership() {
           >
             {/* Spotlight Glow overlays */}
             <div className="absolute -right-20 -top-20 w-80 h-80 bg-red-600/10 blur-[100px] rounded-full pointer-events-none mix-blend-screen" />
-            <div className="hud-scanline" />
 
             {/* Image spotlight */}
             <div className="w-full md:w-2/5 aspect-video overflow-hidden rounded-2xl border border-yellow-500/20 group-hover:border-yellow-500/50 shadow-2xl relative shrink-0">
@@ -219,11 +220,11 @@ export default function Leadership() {
             {/* Spotlight text */}
             <div className="flex-grow space-y-4 text-center md:text-left">
               <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
-                <span className="px-3 py-1.5 border border-yellow-500/30 bg-yellow-500/10 text-yellow-500 font-mono text-[9px] font-bold tracking-widest rounded-full uppercase flex items-center gap-1.5 shadow-[0_0_15px_rgba(234,179,8,0.15)]">
+                <span className="px-3 py-1.5 border border-yellow-500/30 bg-yellow-500/10 text-yellow-500 font-mono text-[10px] font-bold tracking-widest rounded-full uppercase flex items-center gap-1.5 shadow-[0_0_15px_rgba(234,179,8,0.15)]">
                   <Globe className="w-3.5 h-3.5 text-yellow-500 animate-spin-slow" />
                   Global Arena Acquired
                 </span>
-                <span className="px-3 py-1.5 border border-red-500/20 bg-red-950/30 text-red-500 font-mono text-[9px] font-bold tracking-widest rounded-full uppercase">
+                <span className="px-3 py-1.5 border border-red-500/20 bg-red-950/30 text-red-500 font-mono text-[10px] font-bold tracking-widest rounded-full uppercase">
                   Robotics Championship
                 </span>
               </div>
@@ -233,43 +234,134 @@ export default function Leadership() {
                 <h4 className="text-yellow-500 font-mono text-sm uppercase tracking-widest font-bold">World Robotics Championship // Semi-Finals</h4>
               </div>
 
-              <p className="text-gray-400 font-light text-sm leading-relaxed max-w-xl">
+              <p className="text-gray-300 font-light text-sm md:text-base leading-relaxed max-w-xl">
                 Scaled through rigorous international regional divisions to represent elite competitive robotics at the highest global tier. The event evaluated autonomous navigation speeds, sensor processing efficiency, and real-time controller feedback.
               </p>
 
               <div className="flex items-center justify-center md:justify-start gap-1.5 text-[10px] font-mono font-bold text-yellow-500 uppercase tracking-widest">
-                <span>Examine official credential</span>
+                <span>View Spec Log</span>
                 <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
-
           </motion.div>
+
+          {/* 2. PODIUM SPOTLIGHT 1: Hack Odyssey 2k25 */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 border border-yellow-500/30 rounded-3xl p-6 sm:p-8 md:p-10 shadow-[0_0_40px_rgba(234,179,8,0.1)] overflow-hidden flex flex-col md:flex-row gap-8 items-center group cursor-pointer"
+            onClick={() => openModal({
+              title: "Hack Odyssey 2k25 – Second Prize Winner",
+              image: "/images/Smart Urban Sustainability System (SUSS) price.jpeg",
+              detail: "Won 2nd prize in the prestigious 24-Hour National Hack Odyssey by engineering SUSS—an integrated ESP32 + edge AI smart city system managing traffic flow, smart waste bins, and sustainable micro-grids.",
+              status: "Podium Winner",
+              showLink: true
+            }, <Trophy className="w-8 h-8 text-yellow-500" />)}
+          >
+            {/* Spotlight Glow overlays */}
+            <div className="absolute -right-20 -top-20 w-80 h-80 bg-yellow-500/10 blur-[100px] rounded-full pointer-events-none mix-blend-screen" />
+
+            {/* Image spotlight */}
+            <div className="w-full md:w-2/5 aspect-video overflow-hidden rounded-2xl border border-yellow-500/20 group-hover:border-yellow-500/50 shadow-2xl relative shrink-0">
+              <div className="absolute inset-0 bg-yellow-500/10 group-hover:bg-transparent transition-colors z-10 pointer-events-none mix-blend-overlay"></div>
+              <img src="/images/Smart Urban Sustainability System (SUSS) price.jpeg" alt="Hack Odyssey Winner" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            </div>
+
+            {/* Spotlight text */}
+            <div className="flex-grow space-y-4 text-center md:text-left">
+              <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
+                <span className="px-3 py-1.5 border border-yellow-500/30 bg-yellow-500/10 text-yellow-500 font-mono text-[10px] font-bold tracking-widest rounded-full uppercase flex items-center gap-1.5">
+                  <Trophy className="w-3.5 h-3.5 text-yellow-500 animate-bounce" />
+                  National Hackathon Podium
+                </span>
+                <span className="px-3 py-1.5 border border-red-500/20 bg-red-950/30 text-red-500 font-mono text-[10px] font-bold tracking-widest rounded-full uppercase">
+                  Second Prize
+                </span>
+              </div>
+
+              <div className="space-y-1">
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">Hack Odyssey 2k25</h3>
+                <h4 className="text-yellow-500 font-mono text-sm uppercase tracking-widest font-bold">24-Hour National Hackathon // 2nd Place</h4>
+              </div>
+
+              <p className="text-gray-300 font-light text-sm md:text-base leading-relaxed max-w-xl">
+                Competed against top engineering teams to build SUSS—an integrated smart city module that connects ESP32 microcontrollers, waste fill sensors, carbon monoxide telemetry, and smart parking arrays, pushing synchronized logs onto remote dashboards.
+              </p>
+
+              <div className="flex items-center justify-center md:justify-start gap-1.5 text-[10px] font-mono font-bold text-yellow-500 uppercase tracking-widest">
+                <span>View Spec Log</span>
+                <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 3. PODIUM SPOTLIGHT 2: Gyan Mitra’25 */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 border border-yellow-500/30 rounded-3xl p-6 sm:p-8 md:p-10 shadow-[0_0_40px_rgba(234,179,8,0.1)] overflow-hidden flex flex-col md:flex-row gap-8 items-center group cursor-pointer"
+            onClick={() => openModal({
+              title: "Gyan Mitra’25 Project Expo – Second Prize Winner",
+              image: "/images/Fastest line following robot Gyan mitra price.jpeg",
+              detail: "Awarded 2nd prize in the national-level Gyan Mitra'25 Project Expo for engineering and calibrating a high-speed, PID-controlled autonomous line-following robot resolving complex tracking trajectories.",
+              status: "Podium Winner",
+              showLink: true
+            }, <Trophy className="w-8 h-8 text-yellow-500" />)}
+          >
+            {/* Spotlight Glow overlays */}
+            <div className="absolute -right-20 -top-20 w-80 h-80 bg-yellow-500/10 blur-[100px] rounded-full pointer-events-none mix-blend-screen" />
+
+            {/* Image spotlight */}
+            <div className="w-full md:w-2/5 aspect-video overflow-hidden rounded-2xl border border-yellow-500/20 group-hover:border-yellow-500/50 shadow-2xl relative shrink-0">
+              <div className="absolute inset-0 bg-yellow-500/10 group-hover:bg-transparent transition-colors z-10 pointer-events-none mix-blend-overlay"></div>
+              <img src="/images/Fastest line following robot Gyan mitra price.jpeg" alt="Gyan Mitra Winner" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            </div>
+
+            {/* Spotlight text */}
+            <div className="flex-grow space-y-4 text-center md:text-left">
+              <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
+                <span className="px-3 py-1.5 border border-yellow-500/30 bg-yellow-500/10 text-yellow-500 font-mono text-[10px] font-bold tracking-widest rounded-full uppercase flex items-center gap-1.5">
+                  <Trophy className="w-3.5 h-3.5 text-yellow-500 animate-bounce" />
+                  National Project Expo Podium
+                </span>
+                <span className="px-3 py-1.5 border border-red-500/20 bg-red-950/30 text-red-500 font-mono text-[10px] font-bold tracking-widest rounded-full uppercase">
+                  Second Prize
+                </span>
+              </div>
+
+              <div className="space-y-1">
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">Gyan Mitra’25 Project Expo</h3>
+                <h4 className="text-yellow-500 font-mono text-sm uppercase tracking-widest font-bold">Autonomous Robotics Category // 2nd Place</h4>
+              </div>
+
+              <p className="text-gray-300 font-light text-sm md:text-base leading-relaxed max-w-xl">
+                Designed a high-speed autonomous robot equipped with infrared sensor arrays and micro-geared motors. Tuned real-time proportional-integral-derivative (PID) feedback algorithms to achieve optimal cornering velocities and trajectory stability.
+              </p>
+
+              <div className="flex items-center justify-center md:justify-start gap-1.5 text-[10px] font-mono font-bold text-yellow-500 uppercase tracking-widest">
+                <span>View Spec Log</span>
+                <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+          </motion.div>
+
         </div>
 
-        {/* Podium Finishes Timeline */}
-        <div className="space-y-6 mb-20">
-          <h3 className="text-xl font-bold text-gray-200 flex items-center gap-2 border-l-4 border-yellow-500 pl-3">
-            <Trophy className="w-5 h-5 text-yellow-500" />
-            Podium Milestones
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {podiumFinishes.map((item, idx) => renderCard(item, idx, Trophy, "text-yellow-500", "Podium Medal", item.detail, "Winner / Podium", true))}
-          </div>
-        </div>
-
-        {/* Hackathons & Engagements */}
-        <div className="space-y-6">
+        {/* Participated Events Timeline */}
+        <div className="space-y-6 mt-16">
           <h3 className="text-xl font-bold text-gray-200 flex items-center gap-2 border-l-4 border-blue-500 pl-3">
-            <CalendarDays className="w-5 h-5 text-blue-400" />
+            <Layers className="w-5 h-5 text-blue-400" />
             National Hackathons & Engagements
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {participatedEvents.map((item, idx) => renderCard(item, idx, CalendarDays, "text-blue-400", "Participation Record", item.detail, "Competitor", false))}
+            {participatedEvents.map((item, idx) => renderCard(item, idx, Trophy, "text-blue-400", "Participation Record", item.detail, "Competitor", false))}
           </div>
         </div>
       </div>
 
-      {/* Certifications (Upgraded to Grouped & Expandable Blocks) */}
+      {/* Certifications (Upgraded to Grouped & Expandable Blocks - Scanners Removed) */}
       <div id="certifications" className="-mt-10 pt-10">
         <motion.h2 
           initial={{ opacity: 0, x: -20 }}
@@ -281,7 +373,7 @@ export default function Leadership() {
           <span>Professional <span className="text-gradient">Credentials</span></span>
         </motion.h2>
 
-        <p className="text-gray-400 font-light text-sm max-w-2xl mb-12">
+        <p className="text-gray-400 font-light text-sm md:text-base max-w-2xl mb-12">
           Verify verified proficiencies spanning bare-metal PCB layout architectures, machine learning foundations, and enterprise systems optimization.
         </p>
 
@@ -306,7 +398,7 @@ export default function Leadership() {
                     </div>
                     <div>
                       <h4 className="font-bold text-sm sm:text-base text-gray-200">{group.category}</h4>
-                      <span className="text-[9px] font-mono text-gray-500 uppercase tracking-widest">{group.items.length} Credentials Available</span>
+                      <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">{group.items.length} Credentials Available</span>
                     </div>
                   </div>
                   <ChevronRight className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${isOpen ? 'rotate-90 text-red-500' : ''}`} />
@@ -330,12 +422,12 @@ export default function Leadership() {
                             className="p-4 rounded-xl border border-white/5 bg-[#070707] hover:border-red-500/30 transition-all cursor-pointer group flex flex-col justify-between h-36"
                           >
                             <div className="space-y-1.5">
-                              <span className="text-[8px] font-mono text-red-500 uppercase font-bold tracking-widest">VERIFIED</span>
-                              <h5 className="font-extrabold text-xs text-white group-hover:text-red-200 transition-colors line-clamp-2 leading-snug">{item.title}</h5>
+                              <span className="text-[9px] font-mono text-red-500 uppercase font-bold tracking-widest">VERIFIED</span>
+                              <h5 className="font-extrabold text-sm text-white group-hover:text-red-200 transition-colors line-clamp-2 leading-snug">{item.title}</h5>
                             </div>
                             
                             <div className="flex items-center justify-between gap-2 pt-2 border-t border-white/5">
-                              <span className="text-[8px] font-mono text-gray-500 uppercase">View Badge</span>
+                              <span className="text-[9px] font-mono text-gray-500 uppercase">View Credentials</span>
                               <ChevronRight className="w-3.5 h-3.5 text-gray-500 group-hover:text-red-500 group-hover:translate-x-0.5 transition-all" />
                             </div>
                           </div>
@@ -351,7 +443,7 @@ export default function Leadership() {
 
       </div>
 
-      {/* Credential Spotlight Modal */}
+      {/* Credential Spotlight Modal (Scanner Removed) */}
       <AnimatePresence>
         {activeModalItem && (
           <motion.div 
@@ -373,9 +465,6 @@ export default function Leadership() {
               transition={{ duration: 0.3, ease: 'easeOut' }}
               className="relative w-full max-w-4xl bg-zinc-950 border border-white/10 rounded-2xl overflow-hidden shadow-[0_0_60px_rgba(255,26,26,0.35)] flex flex-col md:flex-row z-10"
             >
-              {/* HUD scan overlay */}
-              <div className="hud-scanline" />
-              
               <button 
                 onClick={() => setActiveModalItem(null)}
                 className="absolute top-4 right-4 p-2 bg-black/60 hover:bg-red-600 rounded-full transition-colors z-50 backdrop-blur-md border border-white/10 text-white cursor-pointer"
@@ -402,12 +491,12 @@ export default function Leadership() {
                     {activeModalItem.icon}
                   </div>
                   {activeModalItem.status && (
-                    <span className="text-[9px] font-mono font-bold tracking-widest uppercase text-yellow-500 bg-yellow-900/20 px-3 py-1.5 rounded-full border border-yellow-500/20">
+                    <span className="text-[10px] font-mono font-bold tracking-widest uppercase text-yellow-500 bg-yellow-900/20 px-3 py-1.5 rounded-full border border-yellow-500/20">
                       {activeModalItem.status}
                     </span>
                   )}
                   {activeModalItem.title.includes("Prize") || activeModalItem.title.toLowerCase().includes("semi") || activeModalItem.title.toLowerCase().includes("winner") ? (
-                    <span className="text-[9px] font-mono font-bold tracking-widest uppercase text-green-400 bg-green-900/20 px-3 py-1.5 rounded-full border border-green-500/30">
+                    <span className="text-[10px] font-mono font-bold tracking-widest uppercase text-green-400 bg-green-900/20 px-3 py-1.5 rounded-full border border-green-500/30">
                       Award Vetted
                     </span>
                   ) : null}
@@ -417,8 +506,8 @@ export default function Leadership() {
                 
                 <div className="space-y-4 mb-8 flex-grow">
                   <div>
-                    <span className="text-red-500 font-mono text-[9px] font-bold uppercase tracking-widest block mb-2">Diagnostic Summary</span>
-                    <p className="text-gray-300 font-light text-xs sm:text-sm leading-relaxed">{activeModalItem.detail}</p>
+                    <span className="text-red-500 font-mono text-[10px] font-bold uppercase tracking-widest block mb-2">System Intel Summary</span>
+                    <p className="text-gray-300 font-light text-sm md:text-base leading-relaxed">{activeModalItem.detail}</p>
                   </div>
                 </div>
                 

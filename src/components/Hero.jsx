@@ -1,20 +1,20 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Terminal, Download, ShieldCheck, ChevronDown, Activity, Wifi, Thermometer, Database } from 'lucide-react';
+import { Terminal, Download, ShieldCheck, ChevronDown, Activity, Cpu, Layers, HardDrive } from 'lucide-react';
 
 export default function Hero() {
-  const [cpuTemp, setCpuTemp] = useState(38.2);
-  const [latency, setLatency] = useState(0.8);
-  const [signal, setSignal] = useState(98);
-  const [voltage, setVoltage] = useState(3.31);
+  const [coreFreq, setCoreFreq] = useState(240.0);
+  const [i2cVolts, setI2cVolts] = useState(3.31);
+  const [spiSpeed, setSpiSpeed] = useState(10.42);
+  const [mountedSensors, setMountedSensors] = useState(6);
   
-  // Real-time jitter simulation for telemetry values to feel organic
+  // Real-time micro-fluctuations for authentic hardware sensor logs
   useEffect(() => {
     const interval = setInterval(() => {
-      setCpuTemp(prev => +(prev + (Math.random() - 0.5) * 0.4).toFixed(1));
-      setLatency(prev => Math.max(0.2, +(prev + (Math.random() - 0.5) * 0.1).toFixed(2)));
-      setSignal(prev => Math.max(90, Math.min(100, Math.floor(prev + (Math.random() - 0.5) * 2))));
-      setVoltage(prev => +(3.30 + Math.random() * 0.03).toFixed(2));
+      setCoreFreq(prev => +(240.0 + (Math.random() - 0.5) * 0.15).toFixed(2));
+      setI2cVolts(prev => +(3.30 + (Math.random() - 0.5) * 0.02).toFixed(2));
+      setSpiSpeed(prev => +(10.40 + (Math.random() - 0.5) * 0.08).toFixed(2));
+      setMountedSensors(prev => Math.random() > 0.95 ? (prev === 6 ? 7 : 6) : 6);
     }, 1500);
     return () => clearInterval(interval);
   }, []);
@@ -53,10 +53,6 @@ export default function Hero() {
   return (
     <div id="hero" className="relative min-h-screen flex items-center justify-center pt-24 px-6 lg:px-12 xl:px-20 w-full overflow-hidden bg-[#050505] hud-grid-red select-none">
       
-      {/* HUD scan overlay */}
-      <div className="hud-scanline" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050505]/40 to-[#050505] pointer-events-none z-10" />
-
       {/* Red ambient glow layers */}
       <div className="absolute top-[10%] left-[5%] w-[35vw] h-[35vw] bg-red-900/10 blur-[120px] rounded-full pointer-events-none mix-blend-screen" />
       <div className="absolute bottom-[10%] right-[5%] w-[40vw] h-[40vw] bg-red-950/10 blur-[150px] rounded-full pointer-events-none mix-blend-screen" />
@@ -95,8 +91,8 @@ export default function Hero() {
                 {"SRIGANESH".split("").map((char, index) => (
                   <motion.span key={index} variants={letterVariants} className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400 hover:text-white transition-colors cursor-default">{char}</motion.span>
                 ))}
-                {" M N".split("").map((char, index) => (
-                  <motion.span key={index} variants={letterVariants} className="inline-block text-white hover:text-red-500 transition-colors cursor-default">{char}</motion.span>
+                {" M  N".split("").map((char, index) => (
+                  <motion.span key={index} variants={letterVariants} className="inline-block text-white hover:text-red-500 transition-colors cursor-default">{char === ' ' ? '\u00A0' : char}</motion.span>
                 ))}
               </div>
             </motion.h1>
@@ -147,7 +143,7 @@ export default function Hero() {
               className="relative overflow-hidden rounded-xl px-8 py-4 font-semibold text-gray-300 hover:text-white transition-all hover:scale-105 active:scale-95 border border-white/10 hover:border-red-500/40 bg-zinc-950/40 backdrop-blur-md cursor-pointer tracking-wider uppercase font-mono text-sm flex items-center gap-2"
             >
               <Terminal className="w-4 h-4 text-red-500" />
-              <span>Core Diagnostics</span>
+              <span>Core Systems</span>
               {/* Glow underline */}
               <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-red-600 transition-all duration-300 group-hover:w-full"></span>
             </button>
@@ -164,7 +160,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right Column: Premium Active HUD Console */}
+        {/* Right Column: Premium Active HUD Console (Scanner Sweeper Completely Removed) */}
         <div className="col-span-1 lg:col-span-5 w-full flex justify-center items-center relative py-10">
           
           <motion.div 
@@ -173,9 +169,6 @@ export default function Hero() {
             transition={{ duration: 1.2, delay: 0.8 }}
             className="w-full max-w-[420px] aspect-square rounded-3xl border border-white/10 bg-black/60 backdrop-blur-md p-6 relative overflow-hidden shadow-[0_0_50px_rgba(255,26,26,0.05)] hover:border-red-500/30 transition-all duration-500 group"
           >
-            {/* HUD scan overlay */}
-            <div className="hud-scanline" />
-            
             {/* Spinning holographic circle radar */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] pointer-events-none opacity-20">
               <svg viewBox="0 0 200 200" className="w-full h-full text-red-500 animate-spin-slow">
@@ -202,68 +195,68 @@ export default function Hero() {
               <div className="flex justify-between items-center border-b border-white/10 pb-3">
                 <div className="flex items-center gap-2">
                   <Activity className="w-4 h-4 text-red-500 animate-pulse" />
-                  <span className="font-bold text-white tracking-widest">TELEMETRY MONITOR</span>
+                  <span className="font-bold text-white tracking-widest">SYSTEM CORE DIAGNOSTICS</span>
                 </div>
                 <div className="px-2 py-0.5 bg-red-950/30 border border-red-500/20 text-red-500 text-[8px] rounded uppercase font-bold tracking-wider">
-                  LINK: ON
+                  LINK: ACTIVE
                 </div>
               </div>
 
               {/* Grid diagnostic matrix */}
               <div className="grid grid-cols-2 gap-4 my-4 flex-grow justify-center content-center">
                 
-                {/* Dial 1: Temperature */}
+                {/* Dial 1: Core Frequency */}
                 <div className="p-3 border border-white/5 bg-zinc-950/40 rounded-xl relative group-hover:border-red-500/20 transition-all flex flex-col justify-between">
                   <div className="flex justify-between items-start mb-1 text-[8px] tracking-wider uppercase text-gray-500">
-                    <span>CPU TEMP</span>
-                    <Thermometer className="w-3.5 h-3.5 text-red-500" />
+                    <span>CORE CLOCK</span>
+                    <Cpu className="w-3.5 h-3.5 text-red-500" />
                   </div>
                   <div>
-                    <span className="text-xl font-bold text-white tracking-tight">{cpuTemp}°C</span>
+                    <span className="text-xl font-bold text-white tracking-tight">{coreFreq}MHz</span>
                     <div className="w-full h-1 bg-zinc-800 rounded-full mt-2 overflow-hidden">
-                      <div className="h-full bg-red-600 rounded-full transition-all duration-300" style={{ width: `${Math.min(100, (cpuTemp / 80) * 100)}%` }} />
+                      <div className="h-full bg-red-600 rounded-full transition-all duration-300" style={{ width: `${Math.min(100, (coreFreq / 245) * 100)}%` }} />
                     </div>
                   </div>
                 </div>
 
-                {/* Dial 2: Latency */}
+                {/* Dial 2: I2C Bus Voltage */}
                 <div className="p-3 border border-white/5 bg-zinc-950/40 rounded-xl relative group-hover:border-red-500/20 transition-all flex flex-col justify-between">
                   <div className="flex justify-between items-start mb-1 text-[8px] tracking-wider uppercase text-gray-500">
-                    <span>SPI LATENCY</span>
+                    <span>I2C BUS</span>
                     <Activity className="w-3.5 h-3.5 text-red-500" />
                   </div>
                   <div>
-                    <span className="text-xl font-bold text-white tracking-tight">{latency}ms</span>
+                    <span className="text-xl font-bold text-white tracking-tight">{i2cVolts}V</span>
                     <div className="w-full h-1 bg-zinc-800 rounded-full mt-2 overflow-hidden">
-                      <div className="h-full bg-green-500 rounded-full transition-all duration-300" style={{ width: `${Math.max(15, 100 - latency * 50)}%` }} />
+                      <div className="h-full bg-green-500 rounded-full transition-all duration-300" style={{ width: `${(i2cVolts / 3.6) * 100}%` }} />
                     </div>
                   </div>
                 </div>
 
-                {/* Dial 3: Signal Strength */}
+                {/* Dial 3: SPI Bandwidth */}
                 <div className="p-3 border border-white/5 bg-zinc-950/40 rounded-xl relative group-hover:border-red-500/20 transition-all flex flex-col justify-between">
                   <div className="flex justify-between items-start mb-1 text-[8px] tracking-wider uppercase text-gray-500">
-                    <span>WIFI RSSI</span>
-                    <Wifi className="w-3.5 h-3.5 text-red-500" />
+                    <span>SPI BANDWIDTH</span>
+                    <Layers className="w-3.5 h-3.5 text-red-500" />
                   </div>
                   <div>
-                    <span className="text-xl font-bold text-white tracking-tight">-{100 - signal}dBm</span>
+                    <span className="text-xl font-bold text-white tracking-tight">{spiSpeed}Mbps</span>
                     <div className="w-full h-1 bg-zinc-800 rounded-full mt-2 overflow-hidden">
-                      <div className="h-full bg-red-600 rounded-full transition-all duration-300" style={{ width: `${signal}%` }} />
+                      <div className="h-full bg-red-600 rounded-full transition-all duration-300" style={{ width: `${(spiSpeed / 12) * 100}%` }} />
                     </div>
                   </div>
                 </div>
 
-                {/* Dial 4: Voltage Harvester */}
+                {/* Dial 4: Mounted Sensor Devices */}
                 <div className="p-3 border border-white/5 bg-zinc-950/40 rounded-xl relative group-hover:border-red-500/20 transition-all flex flex-col justify-between">
                   <div className="flex justify-between items-start mb-1 text-[8px] tracking-wider uppercase text-gray-500">
-                    <span>BUS VOLTS</span>
-                    <Database className="w-3.5 h-3.5 text-red-500" />
+                    <span>SPI DEVS</span>
+                    <HardDrive className="w-3.5 h-3.5 text-red-500" />
                   </div>
                   <div>
-                    <span className="text-xl font-bold text-white tracking-tight">{voltage}V</span>
+                    <span className="text-xl font-bold text-white tracking-tight">{mountedSensors} Nodes</span>
                     <div className="w-full h-1 bg-zinc-800 rounded-full mt-2 overflow-hidden">
-                      <div className="h-full bg-red-500 rounded-full transition-all duration-300" style={{ width: `${(voltage / 5) * 100}%` }} />
+                      <div className="h-full bg-red-500 rounded-full transition-all duration-300" style={{ width: `${(mountedSensors / 8) * 100}%` }} />
                     </div>
                   </div>
                 </div>
@@ -275,12 +268,12 @@ export default function Hero() {
                 <div className="flex justify-between items-center">
                   <span className="flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping"></span>
-                    <span>ESP32 TRANSCEIVER PROTOCOL CONNECTED</span>
+                    <span>UART CONSOLE COMMUNICATOR ESTABLISHED</span>
                   </span>
-                  <span className="text-white">RSSI: STRONG</span>
+                  <span className="text-white">BAUD: 115200</span>
                 </div>
                 <div className="flex justify-between items-center text-[7px] text-red-400/80 font-mono">
-                  <span>PACKETS TX: 84920 // ERR RATE: 0.00%</span>
+                  <span>REGISTERS BINDING: OK // INTERRUPT STATE: STABLE</span>
                   <span>BUFFER: SECURE</span>
                 </div>
               </div>

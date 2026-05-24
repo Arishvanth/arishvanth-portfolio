@@ -129,7 +129,7 @@ export default function About() {
             <div className="absolute inset-0 bg-red-600 blur-[60px] opacity-20 rounded-full"></div>
             <img 
               src="/images/Profile pic.jpeg" 
-              alt="Arishvanth Sriganesh" 
+              alt="Arishvanth Sriganesh M N" 
               className="relative w-80 h-80 object-cover rounded-2xl border-2 border-red-900/50 shadow-[0_0_30px_rgba(139,0,0,0.4)] hover:scale-105 transition-transform duration-500"
               onError={(e) => { e.target.src = "https://via.placeholder.com/400x400/0a0a0a/ff0000?text=Profile"; }}
             />

@@ -1,209 +1,103 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { Volume2, VolumeX, ShieldAlert, Cpu } from 'lucide-react';
-
-const BOOT_LOGS = [
-  { text: "CORE-BIOS v2.84 // ARCHITECTURE: DUAL-CORE XTENSA LX6", type: "system" },
-  { text: "INITIALIZING HARDWARE LAYER REGISTERS...", type: "system" },
-  { text: "[ OK ] MOUNTING MCU: ESP32-WROOM-32E TRANSCEIVER", type: "success" },
-  { text: "[ OK ] BINDING SECURE RFID AUTHENTICATOR [RC522] VIA SPI_BUS_0", type: "success" },
-  { text: "ESTABLISHING CLOUD DATABASES TELEMETRY BINDINGS...", type: "system" },
-  { text: "[ OK ] AQUA-SENSE TELEMETRY PIPELINE SYNCED WITH CLOUD DB", type: "success" },
-  { text: "CALIBRATING ANALOG ENERGY ACQUISITION HARVESTERS...", type: "system" },
-  { text: "[ OK ] TIDAL HYDRO-INDUCTION TURBINE SENSOR LINK ESTABLISHED", type: "success" },
-  { text: "LOADING MACHINE LEARNING INFRASTRUCTURE...", type: "system" },
-  { text: "[ OK ] ALLOCATING CNN TENSORS FOR BOVINE_V4 CLASSIFIER MODEL", type: "success" },
-  { text: "[ OK ] RESOLVING COGNITIVE WEIGHTS FOR AI RECEIPT INTELLIGENCE", type: "success" },
-  { text: "TUNING HIGH-SPEED PID REGULATORS FOR ACTIVE WHEELCHAIR GYROS...", type: "system" },
-  { text: "[ OK ] DUAL-CORE ROTOR ANGLE FEEDBACK CALIBRATED IN 12ms", type: "success" },
-  { text: "ALL EMBEDDED CHANNELS ONLINE. SECURE SHELL ESTABLISHED.", type: "highlight" }
-];
+import { useState, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Power } from 'lucide-react';
 
 export default function HeroIntro() {
-  const [logs, setLogs] = useState([]);
-  const [logIndex, setLogIndex] = useState(0);
-  const [audioEnabled, setAudioEnabled] = useState(true);
+  const [activated, setActivated] = useState(false);
   const [bootReady, setBootReady] = useState(false);
   const audioContextRef = useRef(null);
-  const oscillatorsRef = useRef([]);
 
-  // Handle typing sequence of logs
-  useEffect(() => {
-    if (logIndex < BOOT_LOGS.length) {
-      const delay = logIndex === 0 ? 300 : Math.random() * 150 + 80;
-      const timer = setTimeout(() => {
-        setLogs(prev => [...prev, BOOT_LOGS[logIndex]]);
-        setLogIndex(prev => prev + 1);
-        
-        // Play small high-tech diagnostic clicks for each log (Web Audio API synth)
-        if (audioEnabled) {
-          playLogBeep(logIndex);
-        }
-      }, delay);
-      return () => clearTimeout(timer);
-    } else {
-      // Boot logs complete
+  // Initialize and play synthesizers upon user activation trigger
+  const handleActivate = () => {
+    setActivated(true);
+    playCinematicSound();
+    
+    // Auto transition to portfolio after 3.5 seconds
+    setTimeout(() => {
       setBootReady(true);
-      if (audioEnabled) {
-        playBootResolveSound();
-      }
-    }
-  }, [logIndex, audioEnabled]);
+    }, 3500);
+  };
 
-  // Synthesize log click/beep
-  const playLogBeep = (index) => {
+  const playCinematicSound = () => {
     try {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       if (!AudioContext) return;
-      
-      if (!audioContextRef.current) {
-        audioContextRef.current = new AudioContext();
-      }
-      
+
+      audioContextRef.current = new AudioContext();
       const ctx = audioContextRef.current;
       if (ctx.state === 'suspended') {
         ctx.resume();
       }
 
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
+      // 1. Deep Sub-Bass Space Hum (55Hz / A1)
+      const oscSub = ctx.createOscillator();
+      const gainSub = ctx.createGain();
+      oscSub.type = 'sine';
+      oscSub.frequency.setValueAtTime(55, ctx.currentTime);
+      gainSub.gain.setValueAtTime(0.04, ctx.currentTime);
       
-      osc.type = 'sine';
-      // Vary frequency slightly to make it sound like a dynamic read
-      osc.frequency.setValueAtTime(index % 2 === 0 ? 800 : 1200, ctx.currentTime);
-      
-      gain.gain.setValueAtTime(0.015, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 0.05);
-      
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start();
-      osc.stop(ctx.currentTime + 0.05);
-    } catch (e) {
-      console.warn("Audio synthesis blocked/failed: ", e);
-    }
-  };
+      // 2. Harmonic Mid-Range Pad (110Hz / A2)
+      const oscMid = ctx.createOscillator();
+      const gainMid = ctx.createGain();
+      oscMid.type = 'triangle';
+      oscMid.frequency.setValueAtTime(110, ctx.currentTime);
+      gainMid.gain.setValueAtTime(0.02, ctx.currentTime);
 
-  // Synthesize the main cinematic boot sound
-  useEffect(() => {
-    // Start ambient hum when page is active (if audioEnabled)
-    if (audioEnabled) {
-      startAmbientHum();
-    }
-    return () => {
-      stopOscillators();
-    };
-  }, [audioEnabled]);
-
-  const startAmbientHum = () => {
-    try {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContext) return;
-
-      if (!audioContextRef.current) {
-        audioContextRef.current = new AudioContext();
-      }
-      const ctx = audioContextRef.current;
-      if (ctx.state === 'suspended') {
-        ctx.resume();
-      }
-
-      stopOscillators();
-
-      // Deep 55Hz sub hum (A1)
-      const osc1 = ctx.createOscillator();
-      const gain1 = ctx.createGain();
-      osc1.type = 'sawtooth';
-      osc1.frequency.setValueAtTime(55, ctx.currentTime);
-      gain1.gain.setValueAtTime(0.02, ctx.currentTime);
-      
-      // Filter out high harsh noise for a smooth warm space hum
-      const filter1 = ctx.createBiquadFilter();
-      filter1.type = 'lowpass';
-      filter1.frequency.setValueAtTime(120, ctx.currentTime);
-
-      // Deep 110Hz octave overlay (A2)
-      const osc2 = ctx.createOscillator();
-      const gain2 = ctx.createGain();
-      osc2.type = 'sine';
-      osc2.frequency.setValueAtTime(110, ctx.currentTime);
-      gain2.gain.setValueAtTime(0.03, ctx.currentTime);
-
-      osc1.connect(filter1);
-      filter1.connect(gain1);
-      gain1.connect(ctx.destination);
-
-      osc2.connect(gain2);
-      gain2.connect(ctx.destination);
-
-      osc1.start();
-      osc2.start();
-
-      oscillatorsRef.current = [
-        { osc: osc1, gain: gain1 },
-        { osc: osc2, gain: gain2 }
-      ];
-    } catch (e) {
-      console.warn("Ambient hum synthesis failed", e);
-    }
-  };
-
-  const stopOscillators = () => {
-    oscillatorsRef.current.forEach(item => {
-      try {
-        item.gain.gain.setValueAtTime(item.gain.gain.value, audioContextRef.current.currentTime);
-        item.gain.gain.exponentialRampToValueAtTime(0.0001, audioContextRef.current.currentTime + 0.1);
-        setTimeout(() => item.osc.stop(), 100);
-      } catch (e) {}
-    });
-    oscillatorsRef.current = [];
-  };
-
-  const playBootResolveSound = () => {
-    try {
-      const ctx = audioContextRef.current;
-      if (!ctx) return;
-      
-      stopOscillators();
-
-      const osc = ctx.createOscillator();
-      const osc2 = ctx.createOscillator();
       const filter = ctx.createBiquadFilter();
-      const gain = ctx.createGain();
-
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(220, ctx.currentTime); // A3
-      osc.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.4); // Sweep to A4
-      
-      osc2.type = 'sine';
-      osc2.frequency.setValueAtTime(659.25, ctx.currentTime); // E5 perfect fifth chime
-
       filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(800, ctx.currentTime);
+      filter.frequency.setValueAtTime(150, ctx.currentTime);
 
-      gain.gain.setValueAtTime(0.08, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 1.2);
+      oscSub.connect(filter);
+      oscMid.connect(filter);
+      filter.connect(gainSub);
+      gainSub.connect(ctx.destination);
 
-      osc.connect(filter);
-      osc2.connect(filter);
-      filter.connect(gain);
-      gain.connect(ctx.destination);
+      oscSub.start();
+      oscMid.start();
 
-      osc.start();
-      osc2.start();
-      osc.stop(ctx.currentTime + 1.5);
-      osc2.stop(ctx.currentTime + 1.5);
-    } catch (e) {}
-  };
+      // Fade out ambient hums slowly before resolve chime
+      gainSub.gain.setValueAtTime(0.04, ctx.currentTime + 2.5);
+      gainSub.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 3.2);
+      
+      setTimeout(() => {
+        try {
+          oscSub.stop();
+          oscMid.stop();
+        } catch (err) {}
+      }, 3300);
 
-  const toggleAudio = () => {
-    if (audioEnabled) {
-      stopOscillators();
-      setAudioEnabled(false);
-    } else {
-      setAudioEnabled(true);
-      // Wait a moment then start hum
-      setTimeout(() => startAmbientHum(), 50);
+      // 3. Cinematic Resolve Chime (A3 Sweep -> perfect fifth E5)
+      const oscResolve1 = ctx.createOscillator();
+      const oscResolve2 = ctx.createOscillator();
+      const gainResolve = ctx.createGain();
+      const filterChime = ctx.createBiquadFilter();
+
+      oscResolve1.type = 'triangle';
+      oscResolve1.frequency.setValueAtTime(220, ctx.currentTime + 2.6); // Sweep from A3
+      oscResolve1.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 3.0); // to A4
+      
+      oscResolve2.type = 'sine';
+      oscResolve2.frequency.setValueAtTime(659.25, ctx.currentTime + 2.8); // High E5 chime
+
+      filterChime.type = 'lowpass';
+      filterChime.frequency.setValueAtTime(900, ctx.currentTime + 2.6);
+
+      gainResolve.gain.setValueAtTime(0.0001, ctx.currentTime + 2.5);
+      gainResolve.gain.linearRampToValueAtTime(0.08, ctx.currentTime + 2.8);
+      gainResolve.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 3.8);
+
+      oscResolve1.connect(filterChime);
+      oscResolve2.connect(filterChime);
+      filterChime.connect(gainResolve);
+      gainResolve.connect(ctx.destination);
+
+      oscResolve1.start(ctx.currentTime + 2.5);
+      oscResolve2.start(ctx.currentTime + 2.6);
+      oscResolve1.stop(ctx.currentTime + 3.9);
+      oscResolve2.stop(ctx.currentTime + 3.9);
+
+    } catch (e) {
+      console.warn("Web Audio API synthesis blocked/failed:", e);
     }
   };
 
@@ -212,85 +106,72 @@ export default function HeroIntro() {
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, filter: "blur(15px)" }}
       transition={{ duration: 1.2, ease: "easeInOut" }}
-      className="fixed inset-0 w-screen h-screen z-[999] flex flex-col justify-between bg-black overflow-hidden hud-grid-red px-6 py-10 font-mono text-xs select-none"
+      className="fixed inset-0 w-screen h-screen z-[999] flex flex-col justify-center items-center bg-black overflow-hidden hud-grid-red px-6 text-white font-mono text-xs select-none"
     >
-      {/* HUD scan line overlays */}
-      <div className="hud-scanline" />
-      <div className="absolute inset-0 bg-gradient-to-b from-red-600/5 via-transparent to-red-600/5 pointer-events-none" />
-
-      {/* Top HUD bar */}
-      <div className="w-full flex justify-between items-center border-b border-red-900/30 pb-4 relative z-10">
-        <div className="flex items-center gap-3">
-          <Cpu className="w-5 h-5 text-red-500 animate-pulse" />
-          <div>
-            <span className="text-white font-bold tracking-widest uppercase">ARISH-SYSTEM-BOOT-v2.0</span>
-            <span className="text-red-500/70 ml-3 text-[10px] hidden sm:inline">STATE: IN_PROGRESS</span>
-          </div>
-        </div>
-
-        {/* Audio Mute HUD Button */}
-        <button 
-          onClick={toggleAudio}
-          className="p-2 border border-red-500/30 hover:border-red-500 rounded bg-red-950/20 text-red-500 hover:text-white transition-all flex items-center gap-2 cursor-pointer shadow-[0_0_10px_rgba(255,26,26,0.1)] active:scale-95"
-        >
-          {audioEnabled ? (
-            <>
-              <Volume2 className="w-4 h-4 text-green-400" />
-              <span className="text-[10px] uppercase font-bold tracking-wider hidden sm:inline">AUDIO ON</span>
-            </>
-          ) : (
-            <>
-              <VolumeX className="w-4 h-4 text-red-500" />
-              <span className="text-[10px] uppercase font-bold tracking-wider hidden sm:inline">AUDIO MUTED</span>
-            </>
-          )}
-        </button>
-      </div>
-
-      {/* Terminal Screen Area */}
-      <div className="flex-1 w-full max-w-4xl mx-auto flex flex-col justify-center gap-2 my-10 max-h-[60vh] overflow-y-auto pr-2 relative z-10 scrollbar-thin">
-        {logs.map((log, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.15 }}
-            className={`flex items-start gap-3 py-1 font-light tracking-wide ${
-              log.type === 'success' 
-                ? 'text-green-400 font-medium' 
-                : log.type === 'highlight' 
-                ? 'text-red-400 font-bold glow-text-red text-sm mt-3 border-t border-red-900/30 pt-3' 
-                : 'text-gray-400'
-            }`}
+      <AnimatePresence mode="wait">
+        {!activated ? (
+          // Initial Engage Button Overlay (Unlocks Browser Audio API)
+          <motion.div 
+            key="activator"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col items-center gap-6 text-center max-w-sm"
           >
-            <span className="text-red-600/60 font-semibold">{`>>`}</span>
-            <span>{log.text}</span>
+            {/* Spinning decorative concentric scopes */}
+            <div className="relative w-32 h-32 flex items-center justify-center">
+              <div className="absolute inset-0 border border-red-500/20 rounded-full animate-spin-slow"></div>
+              <div className="absolute inset-2 border border-dashed border-red-600/30 rounded-full animate-spin-reverse-slow"></div>
+              
+              <button 
+                onClick={handleActivate}
+                className="w-20 h-20 rounded-full border border-red-500/40 bg-red-950/20 hover:bg-red-600/30 text-red-500 hover:text-white transition-all shadow-[0_0_25px_rgba(255,26,26,0.3)] hover:shadow-[0_0_45px_rgba(255,26,26,0.7)] flex items-center justify-center cursor-pointer active:scale-95 group z-10"
+              >
+                <Power className="w-8 h-8 group-hover:scale-115 transition-transform" />
+              </button>
+            </div>
+            
+            <div className="space-y-2">
+              <h2 className="text-sm font-bold tracking-[0.25em] text-white uppercase">LAUNCH SYSTEM CORE</h2>
+              <p className="text-gray-500 text-[10px] leading-relaxed uppercase">
+                TAPS TO UNLOCK HIGH-FIDELITY AUDIO & ACTIVE HUD VISUALS
+              </p>
+            </div>
           </motion.div>
-        ))}
-      </div>
+        ) : (
+          // Immersive Clean Name Reveal (Restored & Upgraded V1 Style)
+          <motion.div 
+            key="reveal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center relative max-w-3xl z-10"
+          >
+            {/* Pulsing visual halo */}
+            <div className="absolute -inset-10 bg-[radial-gradient(circle_at_center,rgba(255,26,26,0.12)_0%,transparent_60%)] animate-pulse-glow pointer-events-none" />
 
-      {/* Footer Boot Progress */}
-      <div className="w-full border-t border-red-900/30 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 relative z-10">
-        <div className="flex items-center gap-3">
-          <div className="w-2.5 h-2.5 rounded-full bg-red-600 animate-ping"></div>
-          <span className="text-gray-500 uppercase tracking-widest text-[10px]">COGNITIVE NETWORK SEARCH ACTIVE</span>
-        </div>
-
-        {/* Loading Telemetry Bar */}
-        <div className="w-full sm:w-64 flex items-center gap-3">
-          <div className="flex-1 h-2 bg-zinc-900 rounded-full border border-red-900/20 overflow-hidden relative shadow-[0_0_10px_rgba(0,0,0,0.8)]">
-            <motion.div
-              initial={{ width: "0%" }}
-              animate={{ width: "100%" }}
-              transition={{ duration: 3.2, ease: "easeInOut" }}
-              className="h-full bg-gradient-to-r from-red-800 to-red-500 shadow-[0_0_15px_#ff1a1a]"
+            <h1 className="text-4xl md:text-7xl font-extrabold tracking-[0.2em] text-white uppercase drop-shadow-[0_0_20px_rgba(255,26,26,0.6)] font-sans">
+              ARISHVANTH <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400">SRIGANESH</span> M N
+            </h1>
+            
+            <motion.div 
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 1.4, delay: 0.4, ease: "circOut" }}
+              className="h-[2px] w-full bg-gradient-to-r from-transparent via-red-600 to-transparent mt-8 origin-center shadow-[0_0_15px_rgba(255,26,26,0.7)]"
             ></motion.div>
-          </div>
-          <span className="text-[10px] text-red-500 font-mono font-bold tracking-wider">
-            {bootReady ? "100%" : `${Math.min(99, Math.floor((logs.length / BOOT_LOGS.length) * 100))}%`}
-          </span>
-        </div>
-      </div>
+            
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0.3, 0.9, 0.3] }}
+              transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+              className="mt-8 text-xs tracking-[0.35em] text-red-500 font-bold uppercase"
+            >
+              SYSTEM CORE INITIALIZING...
+            </motion.p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
